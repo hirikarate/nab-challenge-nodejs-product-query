@@ -1,0 +1,20 @@
+{
+	"name": "micro-product-rest-service",
+	"version": "1.0.0",
+	"description": "Handles RESTful requests for products.",
+	"scripts": {
+		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"start": "node ./dist/app/server.js",
+		"build": "npm run clean && npm run copysrc && tsc --pretty",
+		"watch": "npm run clean && npm run copysrc && tsc --watch --pretty",
+		"copysrc": "node scripts/copySrc.js",
+		"clean": "rimraf dist coverage .nyc_output"
+	},
+	"dependencies": {
+		"@micro-fleet/cache": "2.4.0-rc1",
+		"@micro-fleet/common": "2.4.0-rc4",
+		"@micro-fleet/microservice": "2.4.0-rc1",
+		"@micro-fleet/service-communication": "2.4.0-rc1",
+		"@micro-fleet/web": "2.4.0-rc1"
+	}
+}

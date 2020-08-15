@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "packages\\micro-product-rest"
+		},
+		{
+			"path": "packages\\micro-product-biz"
+		},
+		{
+			"path": "packages\\micro-statistics-biz"
+		},
+		{
+			"path": "packages\\lambda-product"
+		},
+	]
+}

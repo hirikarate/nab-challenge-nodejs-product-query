@@ -1,0 +1,22 @@
+{
+	"name": "micro-product-biz-service",
+	"version": "1.0.0",
+	"description": "Processes business logic for product operations.",
+	"scripts": {
+		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"start": "node ./dist/app/server.js",
+		"build": "npm run clean && tsc --pretty",
+		"watch": "npm run clean && tsc --watch --pretty",
+		"clean": "rimraf dist coverage .nyc_output",
+		"postinstall": "lerna bootstrap"
+	},
+	"dependencies": {
+		"@micro-fleet/cache": "2.4.0-rc1",
+		"@micro-fleet/common": "2.4.0-rc4",
+		"@micro-fleet/id-generator": "2.4.0-rc1",
+		"@micro-fleet/microservice": "2.4.0-rc1",
+		"@micro-fleet/persistence": "2.4.0-rc1",
+		"@micro-fleet/service-communication": "2.4.0-rc1",
+		"moment": "~2.24"
+	}
+}
