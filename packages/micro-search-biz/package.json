@@ -1,0 +1,25 @@
+{
+	"name": "micro-product-search-biz-service",
+	"version": "1.0.0",
+	"description": "Provide advanced serach functionalities.",
+	"scripts": {
+		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"start": "node ./dist/app/server.js",
+		"build": "npm run clean && npm run copysrc && tsc --pretty",
+		"watch": "npm run clean && npm run copysrc && tsc --watch --pretty",
+		"clean": "rimraf dist coverage .nyc_output",
+		"copysrc": "node scripts/copySrc.js",
+		"postinstall": "lerna bootstrap"
+	},
+	"dependencies": {
+		"@elastic/elasticsearch": "~7.8",
+		"@micro-fleet/cache": "2.4.0-rc1",
+		"@micro-fleet/common": "2.4.0-rc4",
+		"@micro-fleet/id-generator": "2.4.0-rc1",
+		"@micro-fleet/microservice": "2.4.0-rc1",
+		"@micro-fleet/persistence": "2.4.0-rc1",
+		"@micro-fleet/service-communication": "2.4.0-rc1",
+		"aws-elasticsearch-connector": "~9.0",
+		"aws-sdk": "~2.734.0"
+	}
+}

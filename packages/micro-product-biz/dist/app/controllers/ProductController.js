@@ -111,42 +111,42 @@ __decorate([
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.CreateProductRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "create", null);
 __decorate([
     service_communication_1.decorators.action(A.EDIT),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.EditProductRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "edit", null);
 __decorate([
     service_communication_1.decorators.action(A.GET_BY_ID),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.GetProductByIdRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getById", null);
 __decorate([
     service_communication_1.decorators.action(A.GET_LIST),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.GetProductListRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getList", null);
 __decorate([
     service_communication_1.decorators.action(A.GET_RECALLED_LIST),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.GetProductListRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getRecalledList", null);
 __decorate([
     service_communication_1.decorators.action(A.HARD_DELETE),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.DeleteProductRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ProductController.prototype, "hardDelete", null);
 ProductController = __decorate([
     service_communication_1.decorators.mediateController(MODULE_NAME),

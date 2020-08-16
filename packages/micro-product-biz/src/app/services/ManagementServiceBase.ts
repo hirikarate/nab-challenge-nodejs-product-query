@@ -72,6 +72,7 @@ export class ManagementServiceBase<TDomain extends object> {
 		const affectedCount: number = await this.$repo.deleteSingle(id, options)
 		if (affectedCount) {
 			const result = ResponseClass.from({
+				ids: params.ids,
 				deletedAt: momentify().format(),
 			})
 			return result
@@ -115,6 +116,7 @@ export class ManagementServiceBase<TDomain extends object> {
 		const affectedCount: number = await task
 		if (affectedCount) {
 			const result = ResponseClass.from({
+				ids: params.ids,
 				deletedAt: momentify().format(),
 			})
 			return result

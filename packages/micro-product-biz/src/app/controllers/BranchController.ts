@@ -41,7 +41,7 @@ export default class BranchController {
 	 * }
 	 */
 	@d.action(A.CREATE)
-	public create(@trustPayload() request: dto.CreateBranchRequest) {
+	public create(@trustPayload() request: dto.CreateBranchRequest): Promise<dto.CreateBranchResponse> {
 		return this._branchSvc.create(request)
 	}
 
@@ -54,7 +54,7 @@ export default class BranchController {
 	 * }
 	 */
 	@d.action(A.EDIT)
-	public edit(@trustPayload() request: dto.EditBranchRequest) {
+	public edit(@trustPayload() request: dto.EditBranchRequest): Promise<dto.EditBranchResponse> {
 		return this._branchSvc.edit(request)
 	}
 
@@ -66,7 +66,7 @@ export default class BranchController {
 	 * }
 	 */
 	@d.action(A.GET_BY_ID)
-	public getById(@trustPayload() request: dto.GetBranchByIdRequest) {
+	public getById(@trustPayload() request: dto.GetBranchByIdRequest): Promise<dto.GetSingleBranchResponse> {
 		return this._branchSvc.getById(request)
 	}
 
@@ -81,7 +81,7 @@ export default class BranchController {
 	 * }
 	 */
 	@d.action(A.GET_LIST)
-	public getList(@trustPayload() request: dto.GetBranchListRequest) {
+	public getList(@trustPayload() request: dto.GetBranchListRequest): Promise<dto.GetBranchListResponse> {
 		return this._branchSvc.getList(request)
 	}
 
@@ -93,7 +93,7 @@ export default class BranchController {
 	 * }
 	 */
 	@d.action(A.HARD_DELETE)
-	public hardDelete(@trustPayload() request: dto.DeleteBranchRequest) {
+	public hardDelete(@trustPayload() request: dto.DeleteBranchRequest): Promise<dto.DeleteBranchResponse> {
 		return this._branchSvc.hardDeleteMany(request)
 	}
 }

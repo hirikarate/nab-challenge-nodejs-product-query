@@ -6,8 +6,8 @@ import { decorators as cd } from '@micro-fleet/common'
 import { decorators as wd, RestControllerBase } from '@micro-fleet/web'
 
 import { Types as T } from '../constants/Types'
-import * as dto from '../contracts/dto/branch'
-import { IBranchService } from '../contracts/interfaces/IBranchService'
+import * as dto from '../contracts-product-management/dto/branch'
+import { IBranchService } from '../contracts-product-management/interfaces/IBranchService'
 
 
 @wd.controller('branches')

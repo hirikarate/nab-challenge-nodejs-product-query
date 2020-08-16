@@ -41,7 +41,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.CREATE)
-	public create(@trustPayload() request: dto.CreateProductRequest) {
+	public create(@trustPayload() request: dto.CreateProductRequest): Promise<dto.CreateProductResponse> {
 		return this._productSvc.create(request)
 	}
 
@@ -54,7 +54,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.EDIT)
-	public edit(@trustPayload() request: dto.EditProductRequest) {
+	public edit(@trustPayload() request: dto.EditProductRequest): Promise<dto.EditProductResponse> {
 		return this._productSvc.edit(request)
 	}
 
@@ -66,7 +66,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.GET_BY_ID)
-	public getById(@trustPayload() request: dto.GetProductByIdRequest) {
+	public getById(@trustPayload() request: dto.GetProductByIdRequest): Promise<dto.GetSingleProductResponse> {
 		return this._productSvc.getById(request)
 	}
 
@@ -81,7 +81,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.GET_LIST)
-	public getList(@trustPayload() request: dto.GetProductListRequest) {
+	public getList(@trustPayload() request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
 		return this._productSvc.getList(request)
 	}
 
@@ -96,7 +96,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.GET_RECALLED_LIST)
-	public getRecalledList(@trustPayload() request: dto.GetProductListRequest) {
+	public getRecalledList(@trustPayload() request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
 		return this._productSvc.getRecalledList(request)
 	}
 
@@ -108,7 +108,7 @@ export default class ProductController {
 	 * }
 	 */
 	@d.action(A.HARD_DELETE)
-	public hardDelete(@trustPayload() request: dto.DeleteProductRequest) {
+	public hardDelete(@trustPayload() request: dto.DeleteProductRequest): Promise<dto.DeleteProductResponse> {
 		return this._productSvc.hardDeleteMany(request)
 	}
 }

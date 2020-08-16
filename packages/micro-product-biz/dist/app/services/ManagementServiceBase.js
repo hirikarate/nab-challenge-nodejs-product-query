@@ -53,6 +53,7 @@ let ManagementServiceBase = class ManagementServiceBase {
         const affectedCount = await this.$repo.deleteSingle(id, options);
         if (affectedCount) {
             const result = ResponseClass.from({
+                ids: params.ids,
                 deletedAt: date_utils_1.momentify().format(),
             });
             return result;
@@ -88,6 +89,7 @@ let ManagementServiceBase = class ManagementServiceBase {
         const affectedCount = await task;
         if (affectedCount) {
             const result = ResponseClass.from({
+                ids: params.ids,
                 deletedAt: date_utils_1.momentify().format(),
             });
             return result;

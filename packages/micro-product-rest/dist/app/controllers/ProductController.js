@@ -18,7 +18,7 @@ const debug = require('debug')('nab:ctrl:product');
 const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
-const dto = require("../contracts/dto/product");
+const dto = require("../contracts-product-management/dto/product");
 let ProductController = class ProductController extends web_1.RestControllerBase {
     constructor(_productSvc) {
         super();

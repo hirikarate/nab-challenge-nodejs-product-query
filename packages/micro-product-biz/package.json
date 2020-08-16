@@ -1,5 +1,5 @@
 {
-	"name": "micro-product-biz-service",
+	"name": "micro-product-management-biz-service",
 	"version": "1.0.0",
 	"description": "Processes business logic for product operations.",
 	"scripts": {

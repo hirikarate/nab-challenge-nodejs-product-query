@@ -41,7 +41,7 @@ export default class CategoryController {
 	 * }
 	 */
 	@d.action(A.CREATE)
-	public create(@trustPayload() request: dto.CreateCategoryRequest) {
+	public create(@trustPayload() request: dto.CreateCategoryRequest): Promise<dto.CreateCategoryResponse> {
 		return this._categorySvc.create(request)
 	}
 
@@ -54,7 +54,7 @@ export default class CategoryController {
 	 * }
 	 */
 	@d.action(A.EDIT)
-	public edit(@trustPayload() request: dto.EditCategoryRequest) {
+	public edit(@trustPayload() request: dto.EditCategoryRequest): Promise<dto.EditCategoryResponse> {
 		return this._categorySvc.edit(request)
 	}
 
@@ -66,7 +66,7 @@ export default class CategoryController {
 	 * }
 	 */
 	@d.action(A.GET_BY_ID)
-	public getById(@trustPayload() request: dto.GetCategoryByIdRequest) {
+	public getById(@trustPayload() request: dto.GetCategoryByIdRequest): Promise<dto.GetSingleCategoryResponse> {
 		return this._categorySvc.getById(request)
 	}
 
@@ -81,7 +81,7 @@ export default class CategoryController {
 	 * }
 	 */
 	@d.action(A.GET_LIST)
-	public getList(@trustPayload() request: dto.GetCategoryListRequest) {
+	public getList(@trustPayload() request: dto.GetCategoryListRequest): Promise<dto.GetCategoryListResponse> {
 		return this._categorySvc.getList(request)
 	}
 
@@ -93,7 +93,7 @@ export default class CategoryController {
 	 * }
 	 */
 	@d.action(A.HARD_DELETE)
-	public hardDelete(@trustPayload() request: dto.DeleteCategoryRequest) {
+	public hardDelete(@trustPayload() request: dto.DeleteCategoryRequest): Promise<dto.DeleteCategoryResponse> {
 		return this._categorySvc.hardDeleteMany(request)
 	}
 }

@@ -98,35 +98,35 @@ __decorate([
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.CreateCategoryRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "create", null);
 __decorate([
     service_communication_1.decorators.action(A.EDIT),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.EditCategoryRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "edit", null);
 __decorate([
     service_communication_1.decorators.action(A.GET_BY_ID),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.GetCategoryByIdRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "getById", null);
 __decorate([
     service_communication_1.decorators.action(A.GET_LIST),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.GetCategoryListRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "getList", null);
 __decorate([
     service_communication_1.decorators.action(A.HARD_DELETE),
     __param(0, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.DeleteCategoryRequest]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "hardDelete", null);
 CategoryController = __decorate([
     service_communication_1.decorators.mediateController(MODULE_NAME),

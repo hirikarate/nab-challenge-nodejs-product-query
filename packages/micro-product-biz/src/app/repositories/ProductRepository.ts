@@ -36,9 +36,7 @@ export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Produc
 		opts: p.RepositoryCreateOptions): p.QueryCallbackReturn {
 
 		const q = query.insertGraph([ormModel], { relate: true })
-		return opts.refetch
-			? q as any
-			: q.returning('*') as any
+		return q.returning('*') as any
 	}
 
 	/**
@@ -48,9 +46,7 @@ export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Produc
 		opts: p.RepositoryPatchOptions): p.QueryCallbackReturn {
 
 		const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false })
-		return opts.refetch
-			? q as any
-			: q.returning('*') as any
+		return q.returning('*') as any
 	}
 
 

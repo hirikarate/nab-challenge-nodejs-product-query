@@ -10,13 +10,13 @@ import {
 import { registerWebAddOn } from '@micro-fleet/web'
 
 import { Types as T } from './constants/Types'
-import { IBranchService } from './contracts/interfaces/IBranchService'
+import { IBranchService } from './contracts-product-management/interfaces/IBranchService'
 import { RemoteBranchService } from './services/RemoteBranchService'
 
-import { ICategoryService } from './contracts/interfaces/ICategoryService'
+import { ICategoryService } from './contracts-product-management/interfaces/ICategoryService'
 import { RemoteCategoryService } from './services/RemoteCategoryService'
 
-import { IProductService } from './contracts/interfaces/IProductService'
+import { IProductService } from './contracts-product-management/interfaces/IProductService'
 import { RemoteProductService } from './services/RemoteProductService'
 
 

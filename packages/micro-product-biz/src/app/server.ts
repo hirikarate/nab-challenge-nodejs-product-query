@@ -58,10 +58,6 @@ class App extends MicroServiceBase {
 		const rpcHandler: any = registerMediateHandlerAddOn()
 		rpcHandler.onError(serviceOnError)
 		this.attachAddOn(rpcHandler)
-
-		// rpcHandler = registerDirectHandlerAddOn()
-		rpcHandler.onError(serviceOnError)
-		this.attachAddOn(rpcHandler)
 	}
 }
 

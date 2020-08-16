@@ -18,7 +18,7 @@ const debug = require('debug')('nab:ctrl:branch');
 const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
-const dto = require("../contracts/dto/branch");
+const dto = require("../contracts-product-management/dto/branch");
 let BranchController = class BranchController extends web_1.RestControllerBase {
     constructor(_branchSvc) {
         super();

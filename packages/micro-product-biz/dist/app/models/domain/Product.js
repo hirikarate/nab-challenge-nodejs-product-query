@@ -13,6 +13,7 @@ class Product extends common_1.Translatable {
         this.name = undefined;
         this.price = undefined;
         this.color = undefined;
+        this.status = undefined;
         this.createdAt = undefined;
         this.updatedAt = undefined;
         this.category = undefined;
