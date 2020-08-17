@@ -19,9 +19,26 @@ export default class SearchQueryController {
 	}
 
 
+	@d.action(dto.Action.FILTER)
+	public filter(@trustPayload() request: dto.FilterRequest): Promise<dto.SearchResponse> {
+		try {
+			return this._searchSvc.filter(request)
+		}
+		catch (err) {
+			console.error(err)
+			throw err
+		}
+	}
+
 	@d.action(dto.Action.SEARCH_ADVANCED)
-	public searchAdvanced(@trustPayload() request: dto.SearchAdvancedRequest): Promise<dto.SearchAdvancedResponse> {
-		return this._searchSvc.searchAdvanced(request)
+	public searchAdvanced(@trustPayload() request: dto.SearchAdvancedRequest): Promise<dto.SearchResponse> {
+		try {
+			return this._searchSvc.searchAdvanced(request)
+		}
+		catch (err) {
+			console.error(err)
+			throw err
+		}
 	}
 
 }

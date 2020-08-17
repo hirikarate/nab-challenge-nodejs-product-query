@@ -102,7 +102,7 @@ module.exports = {
 		'max-len': ['error', 120],
 		'max-classes-per-file': 0,
 		'newline-per-chained-call': 0,
-		'no-console': 'warn',
+		'no-console': ['warn', { allow: ['error', 'warn'] }],
 		'no-debugger': 'warn',
 		'no-multiple-empty-lines': 0,
 		'no-multi-assign': 0,

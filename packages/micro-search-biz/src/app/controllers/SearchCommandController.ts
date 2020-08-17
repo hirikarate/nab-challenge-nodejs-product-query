@@ -34,14 +34,19 @@ export default class SearchCommandController {
 	) {
 		if (!params || !params.hasData) { return }
 
-		const productResponse = await this._fetchProduct(params.id)
-		if (!productResponse.hasData) { return }
+		try {
+			const productResponse = await this._fetchProduct(params.id)
+			if (!productResponse.hasData) { return }
 
-		const indexRequest = dto.CreateIndexRequest.from({
-			...productResponse,
-			branchIds: productResponse.branches?.map(b => b.id),
-		})
-		await this._searchSvc.createIndex(indexRequest)
+			const indexRequest = dto.CreateIndexRequest.from({
+				...productResponse,
+				branchIds: productResponse.branches?.map(b => b.id),
+			})
+			await this._searchSvc.createIndex(indexRequest)
+		}
+		catch (err) {
+			console.error(err)
+		}
 	}
 
 	/**
@@ -54,14 +59,19 @@ export default class SearchCommandController {
 	) {
 		if (!params || !params.hasData) { return }
 
-		const productResponse = await this._fetchProduct(params.id)
-		if (!productResponse.hasData) { return }
+		try {
+			const productResponse = await this._fetchProduct(params.id)
+			if (!productResponse.hasData) { return }
 
-		const indexRequest = dto.EditIndexRequest.from({
-			...productResponse,
-			branchIds: productResponse.branches?.map(b => b.id),
-		})
-		await this._searchSvc.editIndex(indexRequest)
+			const indexRequest = dto.EditIndexRequest.from({
+				...productResponse,
+				branchIds: productResponse.branches?.map(b => b.id),
+			})
+			await this._searchSvc.editIndex(indexRequest)
+		}
+		catch (err) {
+			console.error(err)
+		}
 	}
 
 	/**
@@ -74,8 +84,13 @@ export default class SearchCommandController {
 	) {
 		if (!params || !params.hasData) { return }
 
-		const indexRequest = dto.DeleteIndexRequest.from(params)
-		await this._searchSvc.hardDelete(indexRequest)
+		try {
+			const indexRequest = dto.DeleteIndexRequest.from(params)
+			await this._searchSvc.hardDelete(indexRequest)
+		}
+		catch (err) {
+			console.error(err)
+		}
 	}
 
 

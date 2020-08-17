@@ -10,6 +10,7 @@ import * as dto from '../contracts/dto/search'
 import { ISearchCommandService } from '../contracts/interfaces/ISearchCommandService'
 import { ISearchQueryService } from '../contracts/interfaces/ISearchQueryService'
 import { momentify } from '../utils/date-utils'
+import { pipe } from '../utils/functional-utils'
 
 
 @d.injectable()
@@ -30,10 +31,8 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 			id: params.id,
 			body: params,
 		})
-		const filterIndexPromise = this._esClient.index(buildParams(Indices.PRODUCT_FILTER))
-		const searchIndexPromise = this._esClient.index(buildParams(Indices.PRODUCT_SEARCH))
+		await this._esClient.index(buildParams(Indices.PRODUCTS))
 
-		await Promise.all([filterIndexPromise, searchIndexPromise])
 		return dto.CreateIndexResponse.from({
 			createdAt: momentify().format(),
 		})
@@ -50,10 +49,10 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 				doc: params,
 			},
 		})
-		const filterIndexPromise = this._esClient.update(buildParams(Indices.PRODUCT_FILTER))
-		const searchIndexPromise = this._esClient.update(buildParams(Indices.PRODUCT_SEARCH))
+		await this._esClient
+			.update(buildParams(Indices.PRODUCTS))
+			.catch(this._ignoreNonExisting)
 
-		await Promise.all([filterIndexPromise, searchIndexPromise]).catch(this._ignoreNonExisting)
 		return dto.EditIndexResponse.from({
 			updatedAt: momentify().format(),
 		})
@@ -64,24 +63,53 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 	 */
 	public async hardDelete(params: dto.DeleteIndexRequest): Promise<dto.DeleteIndexResponse> {
 		const buildParams = (index: string, id: string) => ({ index, id })
+		await Promise
+			.all(
+				params.ids.map(id => this._esClient.delete(buildParams(Indices.PRODUCTS, id))),
+			)
+			.catch(this._ignoreNonExisting)
 
-		const filterIndexPromise = Promise.all(
-			params.ids.map(id => this._esClient.delete(buildParams(Indices.PRODUCT_FILTER, id))),
-		)
-		const searchIndexPromise = Promise.all(
-			params.ids.map(id => this._esClient.delete(buildParams(Indices.PRODUCT_SEARCH, id))),
-		)
-		await Promise.all([filterIndexPromise, searchIndexPromise]).catch(this._ignoreNonExisting)
 		return dto.DeleteIndexResponse.from({
 			deletedAt: momentify().format(),
 		})
 	}
 
 	/**
+	 * @see ISearchQueryService.filter
+	 */
+	public async filter(params: dto.FilterRequest): Promise<dto.SearchResponse> {
+		const response: ApiResponse = await this._esClient.search({
+			index: Indices.PRODUCTS,
+			body: {
+				query: buildFilterQuery(params),
+			},
+		})
+		const results: object[] = (response.body.hits.total.value)
+			? response.body.hits.hits.map((hit: any) => hit._source)
+			: []
+		return dto.SearchResponse.from({
+			items: results,
+			total: response.body.hits.total.value,
+		})
+	}
+
+	/**
 	 * @see ISearchQueryService.searchAdvanced
 	 */
-	public searchAdvanced(params: dto.SearchAdvancedRequest): Promise<dto.SearchAdvancedResponse> {
-		return Promise.resolve(null)
+	public async searchAdvanced(params: dto.SearchAdvancedRequest): Promise<dto.SearchResponse> {
+		const response: ApiResponse = await this._esClient.search({
+			index: Indices.PRODUCTS,
+			body: {
+				query: buildSearchQuery(params),
+			},
+		})
+		const results: object[] = (response.body.hits.total.value)
+			? response.body.hits.hits.map((hit: any) => hit._source)
+			: []
+		return dto.SearchResponse.from({
+			items: results,
+			total: response.body.hits.total.value,
+		})
 	}
 
 	private _ignoreNonExisting = (error: ApiResponse) => {
@@ -90,4 +118,135 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 			throw error
 		}
 	}
+}
+
+function buildFilterQuery(params: dto.FilterRequest): any {
+	const query: any = {
+		bool: {
+			must: [],
+			filter: [],
+		},
+	}
+	return pipe(
+		buildNameQuery(params),
+		buildColorQuery(params),
+		buildPriceFilter(params),
+		buildBranchesFilter(params),
+		buildCategoryFilter(params),
+		buildStatusFilter(params),
+	)(query)
+}
+
+function buildSearchQuery(params: dto.SearchAdvancedRequest): any {
+	const query: any = {
+		bool: {
+			must: [],
+			filter: [],
+		},
+	}
+	return pipe(
+		buildMultiFieldMathQuery(params),
+		buildPriceFilter(params),
+		buildBranchesFilter(params),
+		buildCategoryFilter(params),
+		buildStatusFilter(params),
+	)(query)
+}
+
+const buildNameQuery = (params: dto.FilterRequest) => (queryObject: any) => {
+	if (params.name) {
+		queryObject.bool.must.push({
+			match: {
+				name: {
+					query: params.name,
+				},
+			},
+		})
+	}
+	return queryObject
+}
+
+const buildColorQuery = (params: dto.FilterRequest) => (queryObject: any) => {
+	if (params.color) {
+		queryObject.bool.must.push({
+			match: {
+				color: {
+					query: params.color,
+				},
+			},
+		})
+	}
+
+	return queryObject
+}
+
+const buildMultiFieldMathQuery = (params: dto.SearchAdvancedRequest) => (queryObject: any) => {
+	queryObject.bool.must.push({
+		multi_match: {
+			query: params.keywords,
+			type: 'cross_fields',
+			fields: ['name', 'color'],
+			operator: 'or',
+		},
+	})
+
+	return queryObject
+}
+
+const buildPriceFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
+	const priceFilter: any = {
+		range: {
+			price: {
+				gte: '5000',
+			},
+		},
+	}
+
+	if (params.minPrice) {
+		priceFilter.range.price.gte = params.minPrice
+	}
+	if (params.maxPrice) {
+		priceFilter.range.price.lte = params.maxPrice
+	}
+	if (params.maxPrice || params.minPrice) {
+		queryObject.bool.filter.push(priceFilter)
+	}
+
+	return queryObject
+}
+
+const buildBranchesFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
+	if (params.branchIds) {
+		queryObject.bool.filter.push({
+			terms: {
+				branchIds: params.branchIds,
+			},
+		})
+	}
+
+	return queryObject
+}
+
+const buildCategoryFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
+	if (params.categoryId) {
+		queryObject.bool.filter.push({
+			term: {
+				categoryId: params.categoryId,
+			},
+		})
+	}
+
+	return queryObject
+}
+
+const buildStatusFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
+	if (params.status) {
+		queryObject.bool.filter.push({
+			term: {
+				status: params.status,
+			},
+		})
+	}
+
+	return queryObject
 }

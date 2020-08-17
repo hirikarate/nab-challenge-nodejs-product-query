@@ -62,7 +62,7 @@ export class CreateProductRequest extends Translatable {
 
 	@d.defaultAs(ProductStatus.ON_SALE)
 	@d.valid(ProductStatus.NOT_ON_SALE, ProductStatus.ON_SALE, ProductStatus.RECALLED)
-	public readonly status: string = undefined
+	public readonly status: number = undefined
 }
 
 export class CreateProductResponse extends ResultResponse {

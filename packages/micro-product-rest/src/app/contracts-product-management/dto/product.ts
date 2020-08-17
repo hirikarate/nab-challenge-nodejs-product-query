@@ -22,7 +22,8 @@ export enum Action {
 
 // #endregion RPC Constants
 
-export const PRODUCT_FIELDS = ['id', 'name', 'price', 'color', 'status', 'createdAt', 'updatedAt']
+export const PRODUCT_FIELDS = ['id', 'name', 'price', 'color', 'status', 'categoryId',
+	'createdAt', 'updatedAt']
 const FIELDS_RULE = { items: joi.string().valid(...PRODUCT_FIELDS) }
 
 export const PRODUCT_RELATIONS = ['branches', 'category']
@@ -61,7 +62,7 @@ export class CreateProductRequest extends Translatable {
 
 	@d.defaultAs(ProductStatus.ON_SALE)
 	@d.valid(ProductStatus.NOT_ON_SALE, ProductStatus.ON_SALE, ProductStatus.RECALLED)
-	public readonly status: string = undefined
+	public readonly status: number = undefined
 }
 
 export class CreateProductResponse extends ResultResponse {
@@ -157,7 +158,9 @@ export class GetSingleProductResponse extends MaybeResponse {
 	public price?: number = undefined
 	public color?: string = undefined
 	public status?: string = undefined
+	public categoryId?: any = undefined
 	public category?: any = undefined
+	public branchIds?: any[] = undefined
 	public branches?: any[] = undefined
 	public createdAt?: string = undefined
 	public updatedAt?: string = undefined
@@ -186,7 +189,9 @@ export class ProductListItem extends Translatable {
 	public price?: number = undefined
 	public color?: string = undefined
 	public status?: string = undefined
+	public categoryId?: any = undefined
 	public category?: any = undefined
+	public branchIds?: any[] = undefined
 	public branches?: any[] = undefined
 	public createdAt?: string = undefined
 	public updatedAt?: string = undefined

@@ -1,7 +1,7 @@
 import * as joi from '@hapi/joi'
 import { Translatable, decorators as d } from '@micro-fleet/common'
 
-import { ResultResponse, MaybeResponse } from './dto-base'
+import { ResultResponse, DTOListBase } from './dto-base'
 
 
 // #region RPC Constants
@@ -12,6 +12,7 @@ export enum Action {
 	CREATE_INDEX = 'createIndex',
 	EDIT_INDEX = 'editIndex',
 	HARD_DELETE = 'hardDelete',
+	FILTER = 'filter',
 	SEARCH_ADVANCED = 'searchAdvanced',
 }
 
@@ -21,11 +22,18 @@ export enum Action {
 // #region Create
 
 export class CreateIndexRequest extends Translatable {
-	public readonly name: string = undefined // Must be initialized, otherwise TypeScript compiler will remove it
+	@d.string()
+	public readonly id: string = undefined // Must be initialized, otherwise TypeScript compiler will remove it
+
+	@d.string()
+	public readonly name: string = undefined
+
+	@d.number()
 	public readonly price: number = undefined
+
+	@d.string()
 	public readonly color: string = undefined
 
-	@d.required()
 	@d.array({
 		items: joi.string().regex(/\d+/).required(),
 		allowSingle: true,
@@ -38,9 +46,14 @@ export class CreateIndexRequest extends Translatable {
 	})
 	public readonly branches: any[] = undefined
 
+	@d.string()
 	public readonly categoryId: string = undefined
+
+	@d.validateProp(joi.object())
 	public readonly category: any = undefined
-	public readonly status: string = undefined
+
+	@d.number()
+	public readonly status: number = undefined
 }
 
 export class CreateIndexResponse extends ResultResponse {
@@ -72,12 +85,19 @@ export class DeleteIndexResponse extends ResultResponse {
 // #region Edit
 
 export class EditIndexRequest extends Translatable {
-	public readonly id: string = undefined // Must be initialized, otherwise TypeScript compiler will remove it
+	@d.required()
+	@d.string()
+	public readonly id?: string = undefined
+
+	@d.string()
 	public readonly name?: string = undefined
+
+	@d.number()
 	public readonly price?: number = undefined
+
+	@d.string()
 	public readonly color?: string = undefined
 
-	@d.required()
 	@d.array({
 		items: joi.string().regex(/\d+/).required(),
 		allowSingle: true,
@@ -90,9 +110,14 @@ export class EditIndexRequest extends Translatable {
 	})
 	public readonly branches?: any[] = undefined
 
-	public readonly categoryId: string = undefined
+	@d.string()
+	public readonly categoryId?: string = undefined
+
+	@d.validateProp(joi.object())
 	public readonly category?: any = undefined
-	public readonly status?: string = undefined
+
+	@d.number()
+	public readonly status?: number = undefined
 }
 
 export class EditIndexResponse extends ResultResponse {
@@ -102,33 +127,61 @@ export class EditIndexResponse extends ResultResponse {
 // #endregion Edit
 
 
-// #region Search advanced
+// #region Search
 
-export class SearchAdvancedRequest extends Translatable {
+export class FilterRequest extends Translatable {
+
+	@d.string()
 	public readonly name?: string = undefined
-	public readonly price?: number = undefined
+
+	@d.number()
+	public readonly maxPrice?: number = undefined
+
+	@d.number()
+	public readonly minPrice?: number = undefined
+
+	@d.string()
 	public readonly color?: string = undefined
 
-	@d.required()
 	@d.array({
 		items: joi.string().regex(/\d+/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
 
-	@d.array({
-		items: joi.object(),
-		allowSingle: true,
-	})
-	public readonly branches?: any[] = undefined
+	@d.string()
+	public readonly categoryId?: string = undefined
 
-	public readonly categoryId: string = undefined
-	public readonly category?: any = undefined
+	@d.number()
 	public readonly status?: string = undefined
 }
 
-export class SearchAdvancedResponse extends MaybeResponse {
-	public id: string = undefined
+export class SearchAdvancedRequest extends Translatable {
+
+	@d.string()
+	public readonly keywords?: string = undefined
+
+	@d.number()
+	public readonly maxPrice?: number = undefined
+
+	@d.number()
+	public readonly minPrice?: number = undefined
+
+	@d.array({
+		items: joi.string().regex(/\d+/).required(),
+		allowSingle: true,
+	})
+	public readonly branchIds?: string[] = undefined
+
+	@d.string()
+	public readonly categoryId?: string = undefined
+
+	@d.number()
+	public readonly status?: string = undefined
+}
+
+export class SearchResultItem extends Translatable {
+	public id?: string = undefined
 	public name?: string = undefined
 	public price?: number = undefined
 	public color?: string = undefined
@@ -139,4 +192,11 @@ export class SearchAdvancedResponse extends MaybeResponse {
 	public updatedAt?: string = undefined
 }
 
-// #endregion Search advanced
+export class SearchResponse extends DTOListBase<SearchResultItem> {
+	public constructor(items: object[] = [], total: number = 0) {
+		super(SearchResultItem, items, total)
+	}
+}
+
+
+// #endregion Search

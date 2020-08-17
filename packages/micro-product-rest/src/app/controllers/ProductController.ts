@@ -9,6 +9,7 @@ import { Types as T } from '../constants/Types'
 import * as dto from '../contracts-product-management/dto/product'
 import { IProductService } from '../contracts-product-management/interfaces/IProductService'
 
+
 @wd.controller('products')
 export default class ProductController extends RestControllerBase {
 	constructor(@cd.inject(T.PRODUCT_SVC) private _productSvc: IProductService) {

@@ -21,6 +21,6 @@ module.exports = {
     [M.MSG_BROKER_HANDLER_QUEUE]: 'nab-product-search-biz-handler',
     [M.MSG_BROKER_MSG_EXPIRE]: 30e3,
     [RPC.RPC_CALLER_TIMEOUT]: 30e3,
-    [RPC.RPC_HANDLER_PORT]: 8080,
+    [RPC.RPC_HANDLER_PORT]: 8181,
 };
 //# sourceMappingURL=index.js.map

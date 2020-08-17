@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SearchAdvancedResponse = exports.SearchAdvancedRequest = exports.EditIndexResponse = exports.EditIndexRequest = exports.DeleteIndexResponse = exports.DeleteIndexRequest = exports.CreateIndexResponse = exports.CreateIndexRequest = exports.Action = exports.MODULE_NAME = void 0;
+exports.SearchResponse = exports.SearchResultItem = exports.SearchAdvancedRequest = exports.FilterRequest = exports.EditIndexResponse = exports.EditIndexRequest = exports.DeleteIndexResponse = exports.DeleteIndexRequest = exports.CreateIndexResponse = exports.CreateIndexRequest = exports.Action = exports.MODULE_NAME = void 0;
 const joi = require("@hapi/joi");
 const common_1 = require("@micro-fleet/common");
 const dto_base_1 = require("./dto-base");
@@ -20,6 +20,7 @@ var Action;
     Action["CREATE_INDEX"] = "createIndex";
     Action["EDIT_INDEX"] = "editIndex";
     Action["HARD_DELETE"] = "hardDelete";
+    Action["FILTER"] = "filter";
     Action["SEARCH_ADVANCED"] = "searchAdvanced";
 })(Action = exports.Action || (exports.Action = {}));
 // #endregion RPC Constants
@@ -27,7 +28,8 @@ var Action;
 class CreateIndexRequest extends common_1.Translatable {
     constructor() {
         super(...arguments);
-        this.name = undefined; // Must be initialized, otherwise TypeScript compiler will remove it
+        this.id = undefined; // Must be initialized, otherwise TypeScript compiler will remove it
+        this.name = undefined;
         this.price = undefined;
         this.color = undefined;
         this.branchIds = undefined;
@@ -38,7 +40,22 @@ class CreateIndexRequest extends common_1.Translatable {
     }
 }
 __decorate([
-    common_1.decorators.required(),
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], CreateIndexRequest.prototype, "id", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], CreateIndexRequest.prototype, "name", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], CreateIndexRequest.prototype, "price", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], CreateIndexRequest.prototype, "color", void 0);
+__decorate([
     common_1.decorators.array({
         items: joi.string().regex(/\d+/).required(),
         allowSingle: true,
@@ -52,6 +69,18 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], CreateIndexRequest.prototype, "branches", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], CreateIndexRequest.prototype, "categoryId", void 0);
+__decorate([
+    common_1.decorators.validateProp(joi.object()),
+    __metadata("design:type", Object)
+], CreateIndexRequest.prototype, "category", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], CreateIndexRequest.prototype, "status", void 0);
 exports.CreateIndexRequest = CreateIndexRequest;
 class CreateIndexResponse extends dto_base_1.ResultResponse {
     constructor() {
@@ -90,7 +119,7 @@ exports.DeleteIndexResponse = DeleteIndexResponse;
 class EditIndexRequest extends common_1.Translatable {
     constructor() {
         super(...arguments);
-        this.id = undefined; // Must be initialized, otherwise TypeScript compiler will remove it
+        this.id = undefined;
         this.name = undefined;
         this.price = undefined;
         this.color = undefined;
@@ -103,6 +132,22 @@ class EditIndexRequest extends common_1.Translatable {
 }
 __decorate([
     common_1.decorators.required(),
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], EditIndexRequest.prototype, "id", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], EditIndexRequest.prototype, "name", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], EditIndexRequest.prototype, "price", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], EditIndexRequest.prototype, "color", void 0);
+__decorate([
     common_1.decorators.array({
         items: joi.string().regex(/\d+/).required(),
         allowSingle: true,
@@ -116,6 +161,18 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], EditIndexRequest.prototype, "branches", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], EditIndexRequest.prototype, "categoryId", void 0);
+__decorate([
+    common_1.decorators.validateProp(joi.object()),
+    __metadata("design:type", Object)
+], EditIndexRequest.prototype, "category", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], EditIndexRequest.prototype, "status", void 0);
 exports.EditIndexRequest = EditIndexRequest;
 class EditIndexResponse extends dto_base_1.ResultResponse {
     constructor() {
@@ -125,22 +182,75 @@ class EditIndexResponse extends dto_base_1.ResultResponse {
 }
 exports.EditIndexResponse = EditIndexResponse;
 // #endregion Edit
-// #region Search advanced
-class SearchAdvancedRequest extends common_1.Translatable {
+// #region Search
+class FilterRequest extends common_1.Translatable {
     constructor() {
         super(...arguments);
         this.name = undefined;
-        this.price = undefined;
+        this.maxPrice = undefined;
+        this.minPrice = undefined;
         this.color = undefined;
         this.branchIds = undefined;
-        this.branches = undefined;
         this.categoryId = undefined;
-        this.category = undefined;
         this.status = undefined;
     }
 }
 __decorate([
-    common_1.decorators.required(),
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "name", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], FilterRequest.prototype, "maxPrice", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], FilterRequest.prototype, "minPrice", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "color", void 0);
+__decorate([
+    common_1.decorators.array({
+        items: joi.string().regex(/\d+/).required(),
+        allowSingle: true,
+    }),
+    __metadata("design:type", Array)
+], FilterRequest.prototype, "branchIds", void 0);
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "categoryId", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "status", void 0);
+exports.FilterRequest = FilterRequest;
+class SearchAdvancedRequest extends common_1.Translatable {
+    constructor() {
+        super(...arguments);
+        this.keywords = undefined;
+        this.maxPrice = undefined;
+        this.minPrice = undefined;
+        this.branchIds = undefined;
+        this.categoryId = undefined;
+        this.status = undefined;
+    }
+}
+__decorate([
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], SearchAdvancedRequest.prototype, "keywords", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], SearchAdvancedRequest.prototype, "maxPrice", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", Number)
+], SearchAdvancedRequest.prototype, "minPrice", void 0);
+__decorate([
     common_1.decorators.array({
         items: joi.string().regex(/\d+/).required(),
         allowSingle: true,
@@ -148,14 +258,15 @@ __decorate([
     __metadata("design:type", Array)
 ], SearchAdvancedRequest.prototype, "branchIds", void 0);
 __decorate([
-    common_1.decorators.array({
-        items: joi.object(),
-        allowSingle: true,
-    }),
-    __metadata("design:type", Array)
-], SearchAdvancedRequest.prototype, "branches", void 0);
+    common_1.decorators.string(),
+    __metadata("design:type", String)
+], SearchAdvancedRequest.prototype, "categoryId", void 0);
+__decorate([
+    common_1.decorators.number(),
+    __metadata("design:type", String)
+], SearchAdvancedRequest.prototype, "status", void 0);
 exports.SearchAdvancedRequest = SearchAdvancedRequest;
-class SearchAdvancedResponse extends dto_base_1.MaybeResponse {
+class SearchResultItem extends common_1.Translatable {
     constructor() {
         super(...arguments);
         this.id = undefined;
@@ -169,6 +280,12 @@ class SearchAdvancedResponse extends dto_base_1.MaybeResponse {
         this.updatedAt = undefined;
     }
 }
-exports.SearchAdvancedResponse = SearchAdvancedResponse;
-// #endregion Search advanced
+exports.SearchResultItem = SearchResultItem;
+class SearchResponse extends dto_base_1.DTOListBase {
+    constructor(items = [], total = 0) {
+        super(SearchResultItem, items, total);
+    }
+}
+exports.SearchResponse = SearchResponse;
+// #endregion Search
 //# sourceMappingURL=search.js.map

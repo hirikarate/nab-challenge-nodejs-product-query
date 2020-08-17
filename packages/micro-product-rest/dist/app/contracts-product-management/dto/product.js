@@ -26,7 +26,8 @@ var Action;
     Action["GET_RECALLED_LIST"] = "getRecalledList";
 })(Action = exports.Action || (exports.Action = {}));
 // #endregion RPC Constants
-exports.PRODUCT_FIELDS = ['id', 'name', 'price', 'color', 'status', 'createdAt', 'updatedAt'];
+exports.PRODUCT_FIELDS = ['id', 'name', 'price', 'color', 'status', 'categoryId',
+    'createdAt', 'updatedAt'];
 const FIELDS_RULE = { items: joi.string().valid(...exports.PRODUCT_FIELDS) };
 exports.PRODUCT_RELATIONS = ['branches', 'category'];
 const RELATIONS_RULE = {
@@ -78,7 +79,7 @@ __decorate([
 __decorate([
     common_1.decorators.defaultAs(constants_shared_1.ProductStatus.ON_SALE),
     common_1.decorators.valid(constants_shared_1.ProductStatus.NOT_ON_SALE, constants_shared_1.ProductStatus.ON_SALE, constants_shared_1.ProductStatus.RECALLED),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateProductRequest.prototype, "status", void 0);
 exports.CreateProductRequest = CreateProductRequest;
 class CreateProductResponse extends dto_base_1.ResultResponse {
@@ -212,7 +213,9 @@ class GetSingleProductResponse extends dto_base_1.MaybeResponse {
         this.price = undefined;
         this.color = undefined;
         this.status = undefined;
+        this.categoryId = undefined;
         this.category = undefined;
+        this.branchIds = undefined;
         this.branches = undefined;
         this.createdAt = undefined;
         this.updatedAt = undefined;
@@ -251,7 +254,9 @@ class ProductListItem extends common_1.Translatable {
         this.price = undefined;
         this.color = undefined;
         this.status = undefined;
+        this.categoryId = undefined;
         this.category = undefined;
+        this.branchIds = undefined;
         this.branches = undefined;
         this.createdAt = undefined;
         this.updatedAt = undefined;

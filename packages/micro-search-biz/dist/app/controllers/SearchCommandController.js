@@ -37,15 +37,20 @@ let SearchCommandController = class SearchCommandController {
         if (!params || !params.hasData) {
             return;
         }
-        const productResponse = await this._fetchProduct(params.id);
-        if (!productResponse.hasData) {
-            return;
+        try {
+            const productResponse = await this._fetchProduct(params.id);
+            if (!productResponse.hasData) {
+                return;
+            }
+            const indexRequest = dto.CreateIndexRequest.from({
+                ...productResponse,
+                branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
+            });
+            await this._searchSvc.createIndex(indexRequest);
         }
-        const indexRequest = dto.CreateIndexRequest.from({
-            ...productResponse,
-            branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
-        });
-        await this._searchSvc.createIndex(indexRequest);
+        catch (err) {
+            console.error(err);
+        }
     }
     /**
      * Catches the response when a product is modified and updates the corrensponding search index.
@@ -56,15 +61,20 @@ let SearchCommandController = class SearchCommandController {
         if (!params || !params.hasData) {
             return;
         }
-        const productResponse = await this._fetchProduct(params.id);
-        if (!productResponse.hasData) {
-            return;
+        try {
+            const productResponse = await this._fetchProduct(params.id);
+            if (!productResponse.hasData) {
+                return;
+            }
+            const indexRequest = dto.EditIndexRequest.from({
+                ...productResponse,
+                branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
+            });
+            await this._searchSvc.editIndex(indexRequest);
         }
-        const indexRequest = dto.EditIndexRequest.from({
-            ...productResponse,
-            branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
-        });
-        await this._searchSvc.editIndex(indexRequest);
+        catch (err) {
+            console.error(err);
+        }
     }
     /**
      * Catches the response when a product is deleted and removes the corrensponding search index.
@@ -74,12 +84,13 @@ let SearchCommandController = class SearchCommandController {
         if (!params || !params.hasData) {
             return;
         }
-        const indexRequest = dto.DeleteIndexRequest.from(params);
-		try {
-        	await this._searchSvc.hardDelete(indexRequest);
-		} catch (err) {
-			console.error(err)
-		}
+        try {
+            const indexRequest = dto.DeleteIndexRequest.from(params);
+            await this._searchSvc.hardDelete(indexRequest);
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
     _fetchProduct(id) {
         const productRequest = pdto.GetProductByIdRequest.from({

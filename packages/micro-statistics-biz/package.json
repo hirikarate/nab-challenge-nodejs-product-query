@@ -16,7 +16,7 @@
 		"@micro-fleet/id-generator": "2.4.0-rc1",
 		"@micro-fleet/microservice": "2.4.0-rc1",
 		"@micro-fleet/persistence": "2.4.0-rc1",
-		"@micro-fleet/service-communication": "2.4.0-rc1",
+		"@micro-fleet/service-communication": "2.4.0-rc2",
 		"moment": "~2.24"
 	}
 }

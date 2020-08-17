@@ -79,7 +79,7 @@ __decorate([
 __decorate([
     common_1.decorators.defaultAs(constants_shared_1.ProductStatus.ON_SALE),
     common_1.decorators.valid(constants_shared_1.ProductStatus.NOT_ON_SALE, constants_shared_1.ProductStatus.ON_SALE, constants_shared_1.ProductStatus.RECALLED),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], CreateProductRequest.prototype, "status", void 0);
 exports.CreateProductRequest = CreateProductRequest;
 class CreateProductResponse extends dto_base_1.ResultResponse {

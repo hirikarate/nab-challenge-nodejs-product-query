@@ -12,56 +12,54 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RemoteSearchQueryService = void 0;
 /// <reference types="debug" />
-const debug = require('debug')('nab:ctrl:product');
-const cm = require("@micro-fleet/common");
-const { inject } = cm.decorators;
+const debug = require('debug')('nab:svc:search');
+const cache_1 = require("@micro-fleet/cache");
+const common_1 = require("@micro-fleet/common");
 const service_communication_1 = require("@micro-fleet/service-communication");
-const Types_1 = require("../constants/Types");
-const dto = require("../contracts/dto/search");
-const controller_util_1 = require("../utils/controller-util");
-let SearchQueryController = class SearchQueryController {
-    constructor(_searchSvc) {
-        this._searchSvc = _searchSvc;
-        debug('SearchQueryController instantiated');
+const dto = require("../contracts-product-search/dto/search");
+const RemoteServiceBase_1 = require("./RemoteServiceBase");
+const { Action: A } = dto;
+let RemoteSearchQueryService = class RemoteSearchQueryService extends RemoteServiceBase_1.RemoteServiceBase {
+    constructor(rpcCaller) {
+        super(dto.MODULE_NAME, rpcCaller);
+        debug('RemoteSearchQueryService instantiated');
     }
+    /**
+     * @see ISearchQueryService.filter
+     */
     filter(request) {
-        try {
-            return this._searchSvc.filter(request);
-        }
-        catch (err) {
-            console.error(err);
-            throw err;
-        }
+        return this.$call(A.FILTER, request, dto.SearchResponse);
     }
+    /**
+     * @see ISearchQueryService.searchAdvanced
+     */
     searchAdvanced(request) {
-        try {
-            return this._searchSvc.searchAdvanced(request);
-        }
-        catch (err) {
-            console.error(err);
-            throw err;
-        }
+        return this.$call(A.SEARCH_ADVANCED, request, dto.SearchResponse);
     }
 };
 __decorate([
-    service_communication_1.decorators.action(dto.Action.FILTER),
-    __param(0, controller_util_1.trustPayload()),
+    cache_1.cacheable({
+        cacheKey: 'searchSvc:filter',
+        duration: 10,
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.FilterRequest]),
     __metadata("design:returntype", Promise)
-], SearchQueryController.prototype, "filter", null);
+], RemoteSearchQueryService.prototype, "filter", null);
 __decorate([
-    service_communication_1.decorators.action(dto.Action.SEARCH_ADVANCED),
-    __param(0, controller_util_1.trustPayload()),
+    cache_1.cacheable({
+        cacheKey: 'searchSvc:searchAdvanced',
+        duration: 10,
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto.SearchAdvancedRequest]),
     __metadata("design:returntype", Promise)
-], SearchQueryController.prototype, "searchAdvanced", null);
-SearchQueryController = __decorate([
-    service_communication_1.decorators.directController(dto.MODULE_NAME),
-    __param(0, inject(Types_1.Types.SEARCH_QUERY_SVC)),
+], RemoteSearchQueryService.prototype, "searchAdvanced", null);
+RemoteSearchQueryService = __decorate([
+    __param(0, common_1.decorators.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
     __metadata("design:paramtypes", [Object])
-], SearchQueryController);
-exports.default = SearchQueryController;
-//# sourceMappingURL=SearchQueryController.js.map
+], RemoteSearchQueryService);
+exports.RemoteSearchQueryService = RemoteSearchQueryService;
+//# sourceMappingURL=RemoteSearchQueryService.js.map

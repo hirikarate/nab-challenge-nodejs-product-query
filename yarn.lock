@@ -23,7 +23,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@elastic/elasticsearch@^7.8.0":
+"@elastic/elasticsearch@~7.8":
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-7.8.0.tgz#3f9ee54fe8ef79874ebd231db03825fa500a7111"
   integrity sha512-rUOTNN1At0KoN0Fcjd6+J7efghuURnoMTB/od9EMK6Mcdebi6N3z5ulShTsKRn6OanS9Eq3l/OmheQY1Y+WLcg==
@@ -878,10 +878,10 @@
     objection "~1.6"
     reflect-metadata "~0.1"
 
-"@micro-fleet/service-communication@2.4.0-rc1":
-  version "2.4.0-rc1"
-  resolved "https://registry.yarnpkg.com/@micro-fleet/service-communication/-/service-communication-2.4.0-rc1.tgz#b570db2a1bb863a3eecb3d770207dd600d5fb6bd"
-  integrity sha512-NicLsUEuhJ0qo5NumHopj5OZpMHmKO+3wzzOUTDDNJa5xgamelMNcoMyp/5UsVhMDvLByDsAV60f4ejHOhnOCQ==
+"@micro-fleet/service-communication@2.4.0-rc2":
+  version "2.4.0-rc2"
+  resolved "https://registry.yarnpkg.com/@micro-fleet/service-communication/-/service-communication-2.4.0-rc2.tgz#e08285b28c0210579f5b6e5d2a672743a52c670a"
+  integrity sha512-ummDx+dR+mnrxoFDFxrOAYsCJlbWGMHqsYxrQ2Wvw4jTz2XLyWFjP7aI/S8NUqslE9KysmLDKvuQvVgSrkWe3w==
   dependencies:
     "@hapi/joi" "=16.1.8"
     amqplib "~0.5"
@@ -1553,7 +1553,7 @@ automapper-ts@~1.9:
   resolved "https://registry.yarnpkg.com/automapper-ts/-/automapper-ts-1.9.0.tgz#2daabf675327a21cf71339ace2cf2b933faf24e6"
   integrity sha512-GVk0lYG2vZEMnor6kknwdW0nfWv9TW2/PfNWlHsGVXHkCYGTzzG27AuVwPcOzoPfgEU0AHMCB+4K7iKd33i8ZQ==
 
-aws-elasticsearch-connector@^9.0.0:
+aws-elasticsearch-connector@~9.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/aws-elasticsearch-connector/-/aws-elasticsearch-connector-9.0.0.tgz#03656f28f78735c191c3e2108d505543b623b1b8"
   integrity sha512-O+A9HEa14gOiKTAp6U6Ha1RRJvQjc046wIn9CJ69wc+c1c5CfPE4xl4Av6Zyv6dgzs+RVGxdetjm8RpSlTUmhQ==

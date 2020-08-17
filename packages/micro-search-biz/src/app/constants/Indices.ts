@@ -1,6 +1,5 @@
 enum Indices {
-	PRODUCT_FILTER = 'products-filter',
-	PRODUCT_SEARCH = 'products-search',
+	PRODUCTS = 'products',
 }
 
 export default Indices
