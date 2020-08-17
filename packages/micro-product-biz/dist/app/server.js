@@ -41,9 +41,6 @@ class App extends microservice_1.MicroServiceBase {
         const rpcHandler = service_communication_1.registerMediateHandlerAddOn();
         rpcHandler.onError(serviceOnError);
         this.attachAddOn(rpcHandler);
-        // rpcHandler = registerDirectHandlerAddOn()
-        rpcHandler.onError(serviceOnError);
-        this.attachAddOn(rpcHandler);
     }
 }
 new App().start().catch(console.error);

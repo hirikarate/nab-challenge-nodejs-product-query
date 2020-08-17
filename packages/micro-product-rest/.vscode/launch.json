@@ -12,7 +12,7 @@
             "args": [
             ],
             "env": {
-                "DEBUG": "scaffold:*,mcft:persistence:*",
+                "DEBUG": "nab:*,mcft:persistence:*",
                 "DEBUG_HIDE_DATE": "true"
             },
             "cwd": "${workspaceRoot}",
@@ -29,7 +29,7 @@
                 "./dist/test/**/*.js"
             ],
             "env": {
-                "DEBUG": "evck:*",
+                "DEBUG": "nab:*",
                 "DEBUG_HIDE_DATE": "true"
             },
             // Automatically stop program after launch.

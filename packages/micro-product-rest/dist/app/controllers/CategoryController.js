@@ -18,7 +18,7 @@ const debug = require('debug')('nab:ctrl:category');
 const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
-const dto = require("../contracts/dto/category");
+const dto = require("../contracts-product-management/dto/category");
 let CategoryController = class CategoryController extends web_1.RestControllerBase {
     constructor(_categorySvc) {
         super();

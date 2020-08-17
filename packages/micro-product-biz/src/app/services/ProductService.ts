@@ -47,6 +47,8 @@ export class ProductService extends ManagementServiceBase<Product> implements IP
 					},
 				),
 			)
+			.pipe((atomicSession, [responses]: dto.CreateProductResponse[]) =>
+				Promise.resolve(responses))
 			.closePipe()
 	}
 

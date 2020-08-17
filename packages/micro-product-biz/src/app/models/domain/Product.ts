@@ -17,6 +17,7 @@ export class Product extends Translatable {
 	public name: string = undefined
 	public price: number = undefined
 	public color: string = undefined
+	public status: string = undefined
 	public createdAt: string = undefined
 	public updatedAt?: string = undefined
 

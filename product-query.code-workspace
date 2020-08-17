@@ -10,10 +10,16 @@
 			"path": "packages\\micro-product-biz"
 		},
 		{
+			"path": "packages\\micro-search-biz"
+		},
+		{
 			"path": "packages\\micro-statistics-biz"
 		},
 		{
 			"path": "packages\\lambda-product"
 		},
-	]
+	],
+	"settings": {
+		"typescript.tsdk": "nab-challenge-nodejs-product-query\\node_modules\\typescript\\lib"
+	}
 }

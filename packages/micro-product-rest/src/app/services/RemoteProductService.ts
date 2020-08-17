@@ -5,9 +5,9 @@ import { cacheable } from '@micro-fleet/cache'
 import { decorators as d } from '@micro-fleet/common'
 import { Types as sT, IMediateRpcCaller } from '@micro-fleet/service-communication'
 
-import * as dto from '../contracts/dto/product'
+import * as dto from '../contracts-product-management/dto/product'
+import { IProductService } from '../contracts-product-management/interfaces/IProductService'
 import { RemoteServiceBase } from './RemoteServiceBase'
-import { IProductService } from '../contracts/interfaces/IProductService'
 
 
 const { Action: A } = dto

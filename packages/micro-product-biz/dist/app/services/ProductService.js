@@ -44,6 +44,7 @@ let ProductService = class ProductService extends ManagementServiceBase_1.Manage
         }, dto.CreateProductResponse, {
             atomicSession,
         }))
+            .pipe((atomicSession, [responses]) => Promise.resolve(responses))
             .closePipe();
     }
     /**

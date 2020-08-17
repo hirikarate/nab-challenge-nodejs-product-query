@@ -32,18 +32,14 @@ let ProductRepository = class ProductRepository extends p.PgCrudRepositoryBase {
      */
     $buildCreateQuery(query, model, ormModel, opts) {
         const q = query.insertGraph([ormModel], { relate: true });
-        return opts.refetch
-            ? q
-            : q.returning('*');
+        return q.returning('*');
     }
     /**
      * @override
      */
     $buildPatchQuery(query, model, ormModel, opts) {
         const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false });
-        return opts.refetch
-            ? q
-            : q.returning('*');
+        return q.returning('*');
     }
     /**
      * @see IRepository.pageActive

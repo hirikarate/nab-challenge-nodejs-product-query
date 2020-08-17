@@ -6,8 +6,9 @@ import { decorators as cd } from '@micro-fleet/common'
 import { decorators as wd, RestControllerBase } from '@micro-fleet/web'
 
 import { Types as T } from '../constants/Types'
-import * as dto from '../contracts/dto/product'
-import { IProductService } from '../contracts/interfaces/IProductService'
+import * as dto from '../contracts-product-management/dto/product'
+import { IProductService } from '../contracts-product-management/interfaces/IProductService'
+
 
 @wd.controller('products')
 export default class ProductController extends RestControllerBase {
