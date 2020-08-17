@@ -20,6 +20,9 @@ const service_communication_1 = require("@micro-fleet/service-communication");
 const Types_1 = require("../constants/Types");
 const dto = require("../contracts/dto/search");
 const controller_util_1 = require("../utils/controller-util");
+/**
+ * Accepts mediate requests for product searching operations.
+ */
 let SearchQueryController = class SearchQueryController {
     constructor(_searchSvc) {
         this._searchSvc = _searchSvc;
@@ -59,7 +62,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SearchQueryController.prototype, "searchAdvanced", null);
 SearchQueryController = __decorate([
-    service_communication_1.decorators.directController(dto.MODULE_NAME),
+    service_communication_1.decorators.mediateController(dto.MODULE_NAME),
     __param(0, inject(Types_1.Types.SEARCH_QUERY_SVC)),
     __metadata("design:paramtypes", [Object])
 ], SearchQueryController);

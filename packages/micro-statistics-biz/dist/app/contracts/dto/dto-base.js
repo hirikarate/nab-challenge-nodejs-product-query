@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResultResponse = exports.MaybeResponse = exports.DTOListBase = exports.GetListRequestBase = void 0;
 const common_1 = require("@micro-fleet/common");
 const constants_shared_1 = require("../constants-shared");
 class GetListRequestBase extends common_1.Translatable {
@@ -38,7 +39,7 @@ __decorate([
 ], GetListRequestBase.prototype, "sortBy", void 0);
 __decorate([
     common_1.decorators.string(),
-    common_1.decorators.only(constants_shared_1.SortType.ASC, constants_shared_1.SortType.DESC),
+    common_1.decorators.valid(constants_shared_1.SortType.ASC, constants_shared_1.SortType.DESC),
     __metadata("design:type", String)
 ], GetListRequestBase.prototype, "sortType", void 0);
 exports.GetListRequestBase = GetListRequestBase;
@@ -47,7 +48,7 @@ class DTOListBase {
         this.items = undefined;
         this.total = undefined;
         this.items = ItemClass.fromMany(items);
-        this.total = (total != null) ? total : this.items.length;
+        this.total = total != null ? total : this.items.length;
     }
     static from(source) {
         // In this case, "this" refers to the derived class, whose constructor should only accept 2 parameters.
@@ -68,9 +69,7 @@ class MaybeResponse extends common_1.Translatable {
         this.hasData = hasData;
     }
     toMaybe() {
-        return this.hasData
-            ? common_1.Maybe.Just(this)
-            : common_1.Maybe.Nothing();
+        return this.hasData ? common_1.Maybe.Just(this) : common_1.Maybe.Nothing();
     }
 }
 exports.MaybeResponse = MaybeResponse;

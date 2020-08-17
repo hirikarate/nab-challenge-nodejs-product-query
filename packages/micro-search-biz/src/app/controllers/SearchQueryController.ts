@@ -12,7 +12,10 @@ import { ISearchQueryService } from '../contracts/interfaces/ISearchQueryService
 import { trustPayload } from '../utils/controller-util'
 
 
-@d.directController(dto.MODULE_NAME)
+/**
+ * Accepts mediate requests for product searching operations.
+ */
+@d.mediateController(dto.MODULE_NAME)
 export default class SearchQueryController {
 	constructor(@inject(T.SEARCH_QUERY_SVC) private _searchSvc: ISearchQueryService) {
 		debug('SearchQueryController instantiated')

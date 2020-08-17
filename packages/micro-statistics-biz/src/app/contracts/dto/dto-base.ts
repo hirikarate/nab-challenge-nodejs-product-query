@@ -3,6 +3,7 @@ import {
 } from '@micro-fleet/common'
 import { SortType } from '../constants-shared'
 
+
 export abstract class GetListRequestBase extends Translatable {
 	@d.number({ min: 1, max: 100 })
 	@d.defaultAs(1)
@@ -16,7 +17,7 @@ export abstract class GetListRequestBase extends Translatable {
 	public sortBy: string = undefined
 
 	@d.string()
-	@d.only(SortType.ASC, SortType.DESC)
+	@d.valid(SortType.ASC, SortType.DESC)
 	public sortType: string = undefined
 	// Do not use "SortType" in @micro-fleet/persistence because
 	// this file is copy to REST service which doesn't depends on @micro-fleet/persistence.

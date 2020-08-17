@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Types = void 0;
 class Types {
 }
 exports.Types = Types;
-Types.USER_REPO = Symbol('IUserRepository');
-Types.USER_SVC = Symbol('IUserService');
+Types.REQUEST_LOG_REPO = Symbol('IRequestLogRepository');
+Types.STATISTICS_SVC = Symbol('IStatisticsService');
 //# sourceMappingURL=Types.js.map

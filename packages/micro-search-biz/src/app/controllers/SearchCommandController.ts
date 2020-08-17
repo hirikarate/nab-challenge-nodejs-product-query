@@ -15,6 +15,9 @@ import { IProductService } from '../contracts-product-management/interfaces/IPro
 import { trustPayload } from '../utils/controller-util'
 
 
+/**
+ * Listens to message broker and takes actions when product operations occur.
+ */
 @d.mediateController()
 export default class SearchCommandController {
 	constructor(
@@ -24,73 +27,64 @@ export default class SearchCommandController {
 		debug('SearchCommandController instantiated')
 	}
 
+	/*
+	 * Topic for all actions here:
+	 * `request.{MODULE_NAME}.{Action.NAME}`
+	 */
+
+
 	/**
 	 * Catches the response when a product is created and creates a corrensponding search index for it.
 	 */
-	@d.action(`response.${pdto.MODULE_NAME}.create.*`, true)
+	@d.action(`response.${pdto.MODULE_NAME}.${pdto.Action.CREATE}.*`, true)
 	public async createIndex(
 		@d.resolveFn() resolve: Function, // Not calling
 		@trustPayload() params: pdto.CreateProductResponse,
-	) {
+	): Promise<void> {
 		if (!params || !params.hasData) { return }
 
-		try {
-			const productResponse = await this._fetchProduct(params.id)
-			if (!productResponse.hasData) { return }
+		const productResponse = await this._fetchProduct(params.id)
+		if (!productResponse.hasData) { return }
 
-			const indexRequest = dto.CreateIndexRequest.from({
-				...productResponse,
-				branchIds: productResponse.branches?.map(b => b.id),
-			})
-			await this._searchSvc.createIndex(indexRequest)
-		}
-		catch (err) {
-			console.error(err)
-		}
+		const indexRequest = dto.CreateIndexRequest.from({
+			...productResponse,
+			branchIds: productResponse.branches?.map(b => b.id),
+		})
+		this._searchSvc.createIndex(indexRequest).catch(console.error)
 	}
 
 	/**
 	 * Catches the response when a product is modified and updates the corrensponding search index.
 	 */
-	@d.action(`response.${pdto.MODULE_NAME}.edit.*`, true)
+	@d.action(`response.${pdto.MODULE_NAME}.${pdto.Action.EDIT}.*`, true)
 	public async editIndex(
 		@d.resolveFn() resolve: Function, // Not calling
 		@trustPayload() params: pdto.EditProductResponse,
-	) {
+	): Promise<void> {
 		if (!params || !params.hasData) { return }
 
-		try {
-			const productResponse = await this._fetchProduct(params.id)
-			if (!productResponse.hasData) { return }
+		const productResponse = await this._fetchProduct(params.id)
+		if (!productResponse.hasData) { return }
 
-			const indexRequest = dto.EditIndexRequest.from({
-				...productResponse,
-				branchIds: productResponse.branches?.map(b => b.id),
-			})
-			await this._searchSvc.editIndex(indexRequest)
-		}
-		catch (err) {
-			console.error(err)
-		}
+		const indexRequest = dto.EditIndexRequest.from({
+			...productResponse,
+			branchIds: productResponse.branches?.map(b => b.id),
+		})
+		await this._searchSvc.editIndex(indexRequest).catch(console.error)
 	}
 
 	/**
 	 * Catches the response when a product is deleted and removes the corrensponding search index.
 	 */
-	@d.action(`response.${pdto.MODULE_NAME}.hardDelete.*`, true)
-	public async deleteIndex(
+	@d.action(`response.${pdto.MODULE_NAME}.${pdto.Action.HARD_DELETE}.*`, true)
+	public deleteIndex(
 		@d.resolveFn() resolve: Function, // Not calling
 		@trustPayload() params: pdto.DeleteProductResponse,
-	) {
+	): void {
 		if (!params || !params.hasData) { return }
 
-		try {
-			const indexRequest = dto.DeleteIndexRequest.from(params)
-			await this._searchSvc.hardDelete(indexRequest)
-		}
-		catch (err) {
-			console.error(err)
-		}
+		const indexRequest = dto.DeleteIndexRequest.from(params)
+		this._searchSvc.hardDelete(indexRequest).catch(console.error)
 	}
 
 

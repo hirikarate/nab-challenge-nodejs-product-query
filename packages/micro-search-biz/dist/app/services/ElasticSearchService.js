@@ -99,11 +99,13 @@ let ElasticSearchService = class ElasticSearchService {
      * @see ISearchQueryService.searchAdvanced
      */
     async searchAdvanced(params) {
+		const body =  {
+			query: buildSearchQuery(params),
+		}
+		console.dir({ body }, { depth: 10 })
         const response = await this._esClient.search({
             index: Indices_1.default.PRODUCTS,
-            body: {
-                query: buildSearchQuery(params),
-            },
+            body,
         });
         const results = (response.body.hits.total.value)
             ? response.body.hits.hits.map((hit) => hit._source)
@@ -177,7 +179,6 @@ const buildPriceFilter = (params) => (queryObject) => {
     const priceFilter = {
         range: {
             price: {
-                gte: '5000',
             },
         },
     };
@@ -203,10 +204,10 @@ const buildBranchesFilter = (params) => (queryObject) => {
     return queryObject;
 };
 const buildCategoryFilter = (params) => (queryObject) => {
-    if (params.categoryId) {
+    if (params.categoryIds) {
         queryObject.bool.filter.push({
-            term: {
-                categoryId: params.categoryId,
+            terms: {
+                categoryId: params.categoryIds,
             },
         });
     }

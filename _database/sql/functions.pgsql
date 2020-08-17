@@ -13,5 +13,5 @@ CREATE OR REPLACE FUNCTION public.next_id(OUT result bigint, table_name text) AS
 	END;
 		$$ LANGUAGE PLPGSQL;
 
---DROP SEQUENCE IF EXISTS public.mcft_users_id_seq;
---CREATE SEQUENCE public.mcft_users_id_seq;
+DROP SEQUENCE IF EXISTS public.nab_products_id_seq;
+CREATE SEQUENCE public.nab_products_id_seq;

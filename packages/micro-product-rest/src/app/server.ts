@@ -19,7 +19,8 @@ import { ICategoryService } from './contracts-product-management/interfaces/ICat
 import { RemoteCategoryService } from './services/RemoteCategoryService'
 
 import { IProductService } from './contracts-product-management/interfaces/IProductService'
-import { RemoteProductService } from './services/RemoteProductService'
+import { RemoteProductDirectService } from './services/RemoteProductDirectService'
+import { RemoteProductMediateService } from './services/RemoteProductMediateService'
 
 import { ISearchQueryService } from './contracts-product-search/interfaces/ISearchQueryService'
 import { RemoteSearchQueryService } from './services/RemoteSearchQueryService'
@@ -41,7 +42,8 @@ class App extends MicroServiceBase {
 		const dc = this._depContainer
 		dc.bindConstructor<IBranchService>(T.BRANCH_SVC, RemoteBranchService).asSingleton()
 		dc.bindConstructor<ICategoryService>(T.CATEGORY_SVC, RemoteCategoryService).asSingleton()
-		dc.bindConstructor<IProductService>(T.PRODUCT_SVC, RemoteProductService).asSingleton()
+		dc.bindConstructor<IProductService>(T.PRODUCT_DIRECT_SVC, RemoteProductDirectService).asSingleton()
+		dc.bindConstructor<IProductService>(T.PRODUCT_MEDIATE_SVC, RemoteProductMediateService).asSingleton()
 		dc.bindConstructor<ISearchQueryService>(T.SEARCH_SVC, RemoteSearchQueryService).asSingleton()
 	}
 

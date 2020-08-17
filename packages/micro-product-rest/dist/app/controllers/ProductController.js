@@ -20,9 +20,10 @@ const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
 const dto = require("../contracts-product-management/dto/product");
 let ProductController = class ProductController extends web_1.RestControllerBase {
-    constructor(_productSvc) {
+    constructor(_productDirectSvc, _productMediateSvc) {
         super();
-        this._productSvc = _productSvc;
+        this._productDirectSvc = _productDirectSvc;
+        this._productMediateSvc = _productMediateSvc;
         debug('ProductController instantiated');
     }
     /**
@@ -30,14 +31,14 @@ let ProductController = class ProductController extends web_1.RestControllerBase
      * @example /api/v1/products/123654?fields=id&fields=name
      */
     getOne(params) {
-        return this._productSvc.getById(params);
+        return this._productMediateSvc.getById(params);
     }
     /**
      * GET {prefix}/products/
      * @example /api/v1/products?pageIndex=2&pageSize=10&sortBy=name&sortType=desc
      */
     getList(params) {
-        return this._productSvc.getList(params);
+        return this._productDirectSvc.getList(params);
     }
     /**
      * POST {prefix}/products
@@ -56,7 +57,7 @@ let ProductController = class ProductController extends web_1.RestControllerBase
      * }
      */
     async create(params) {
-        return this._productSvc.create(params);
+        return this._productMediateSvc.create(params);
     }
     /**
      * PATCH {prefix}/products
@@ -68,21 +69,21 @@ let ProductController = class ProductController extends web_1.RestControllerBase
      * }
      */
     edit(params) {
-        return this._productSvc.edit(params);
+        return this._productMediateSvc.edit(params);
     }
     /**
      * DELETE {prefix}/products/:ids
      * @example /api/v1/products/123654
      */
     deleteSingle(params) {
-        return this._productSvc.hardDeleteSingle(params);
+        return this._productMediateSvc.hardDeleteSingle(params);
     }
     /**
      * DELETE {prefix}/products
      * @example /api/v1/products?ids=123&ids=456&ids=789
      */
     deleteMany(params) {
-        return this._productSvc.hardDeleteMany(params);
+        return this._productMediateSvc.hardDeleteMany(params);
     }
 };
 __decorate([
@@ -140,8 +141,9 @@ __decorate([
 ], ProductController.prototype, "deleteMany", null);
 ProductController = __decorate([
     web_1.decorators.controller('products'),
-    __param(0, common_1.decorators.inject(Types_1.Types.PRODUCT_SVC)),
-    __metadata("design:paramtypes", [Object])
+    __param(0, common_1.decorators.inject(Types_1.Types.PRODUCT_DIRECT_SVC)),
+    __param(1, common_1.decorators.inject(Types_1.Types.PRODUCT_MEDIATE_SVC)),
+    __metadata("design:paramtypes", [Object, Object])
 ], ProductController);
 exports.default = ProductController;
 //# sourceMappingURL=ProductController.js.map

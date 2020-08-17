@@ -196,9 +196,7 @@ const buildMultiFieldMathQuery = (params: dto.SearchAdvancedRequest) => (queryOb
 const buildPriceFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
 	const priceFilter: any = {
 		range: {
-			price: {
-				gte: '5000',
-			},
+			price: {},
 		},
 	}
 
@@ -228,10 +226,10 @@ const buildBranchesFilter = (params: dto.FilterRequest | dto.SearchAdvancedReque
 }
 
 const buildCategoryFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest) => (queryObject: any) => {
-	if (params.categoryId) {
+	if (params.categoryIds) {
 		queryObject.bool.filter.push({
-			term: {
-				categoryId: params.categoryId,
+			terms: {
+				categoryId: params.categoryIds,
 			},
 		})
 	}

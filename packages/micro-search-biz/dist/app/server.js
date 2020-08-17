@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
 const common_1 = require("@micro-fleet/common");
-const cache_1 = require("@micro-fleet/cache");
 const microservice_1 = require("@micro-fleet/microservice");
 const service_communication_1 = require("@micro-fleet/service-communication");
 const Types_1 = require("./constants/Types");
@@ -26,19 +24,13 @@ class App extends microservice_1.MicroServiceBase {
      */
     $onStarting() {
         super.$onStarting();
-        this.attachAddOn(cache_1.registerCacheAddOn());
         this.attachAddOn(service_communication_1.registerMessageBrokerAddOn());
         // If no error handler is registered to RPC handler
         // Uncaught errors will be thrown as normal exceptions.
         const serviceOnError = this.$onError.bind(this);
-        const rpcHandlerMediate = service_communication_1.registerMediateHandlerAddOn();
-        rpcHandlerMediate.onError(serviceOnError);
-        rpcHandlerMediate.controllerPath = path.resolve(__dirname, 'controllers/mediate-controllers');
-        this.attachAddOn(rpcHandlerMediate);
-        const rpcHandlerDirect = service_communication_1.registerDirectHandlerAddOn();
-        rpcHandlerDirect.onError(serviceOnError);
-        rpcHandlerDirect.controllerPath = path.resolve(__dirname, 'controllers/direct-controllers');
-        this.attachAddOn(rpcHandlerDirect);
+        const rpcHandler = service_communication_1.registerMediateHandlerAddOn();
+        rpcHandler.onError(serviceOnError);
+        this.attachAddOn(rpcHandler);
         const dc = this._depContainer;
         dc.bindConstructor(Types_1.Types.AWS_ELASTIC_SEARCH_ADDON, AwsEsAddon_1.AwsEsAddOn).asSingleton();
         this.attachAddOn(dc.resolve(Types_1.Types.AWS_ELASTIC_SEARCH_ADDON));

@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RemoteSearchQueryService.prototype, "searchAdvanced", null);
 RemoteSearchQueryService = __decorate([
-    __param(0, common_1.decorators.inject(service_communication_1.Types.DIRECT_RPC_CALLER)),
+    __param(0, common_1.decorators.inject(service_communication_1.Types.MEDIATE_RPC_CALLER)),
     __metadata("design:paramtypes", [Object])
 ], RemoteSearchQueryService);
 exports.RemoteSearchQueryService = RemoteSearchQueryService;

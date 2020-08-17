@@ -150,6 +150,26 @@ export class GetProductByIdRequest extends Translatable {
 
 	@d.array(RELATIONS_RULE)
 	public readonly relations?: string[] = undefined
+
+	@d.validateProp(joi.object())
+	public readonly viewer?: ProductViewer = undefined
+}
+
+export type ProductViewer = {
+	/**
+	 * Only has value when the viewer is a logged-in user.
+	 */
+	userId?: string,
+
+	/**
+	 * Viewer's IP address
+	 */
+	ipAddress: string,
+
+	/**
+	 * Device name (if request is made from mobile app) or user agent string (if from browser)
+	 */
+	deviceName: string,
 }
 
 export class GetSingleProductResponse extends MaybeResponse {

@@ -1,17 +1,12 @@
-import * as path from 'path'
-
 import { constants, SettingItemDataType } from '@micro-fleet/common'
-import { registerCacheAddOn } from '@micro-fleet/cache'
 import { MicroServiceBase } from '@micro-fleet/microservice'
 import {
 	Types as sT,
-	registerDirectHandlerAddOn,
 	registerMediateHandlerAddOn,
 	registerMessageBrokerAddOn,
 	registerMediateCaller,
-	DefaultDirectRpcHandlerAddOn,
-	DefaultMediateRpcHandlerAddOn,
 	IMediateRpcCaller,
+	DefaultMediateRpcHandlerAddOn,
 } from '@micro-fleet/service-communication'
 
 import { Types as T } from './constants/Types'
@@ -48,22 +43,14 @@ class App extends MicroServiceBase {
 	protected $onStarting(): void {
 		super.$onStarting()
 
-		this.attachAddOn(registerCacheAddOn())
-
 		this.attachAddOn(registerMessageBrokerAddOn())
 
 		// If no error handler is registered to RPC handler
 		// Uncaught errors will be thrown as normal exceptions.
 		const serviceOnError = this.$onError.bind(this)
-		const rpcHandlerMediate = registerMediateHandlerAddOn() as DefaultMediateRpcHandlerAddOn
-		rpcHandlerMediate.onError(serviceOnError)
-		rpcHandlerMediate.controllerPath = path.resolve(__dirname, 'controllers/mediate-controllers')
-		this.attachAddOn(rpcHandlerMediate)
-
-		const rpcHandlerDirect = registerDirectHandlerAddOn() as DefaultDirectRpcHandlerAddOn
-		rpcHandlerDirect.onError(serviceOnError)
-		rpcHandlerDirect.controllerPath = path.resolve(__dirname, 'controllers/direct-controllers')
-		this.attachAddOn(rpcHandlerDirect)
+		const rpcHandler = registerMediateHandlerAddOn() as DefaultMediateRpcHandlerAddOn
+		rpcHandler.onError(serviceOnError)
+		this.attachAddOn(rpcHandler)
 
 		const dc = this._depContainer
 		dc.bindConstructor(T.AWS_ELASTIC_SEARCH_ADDON, AwsEsAddOn).asSingleton()
