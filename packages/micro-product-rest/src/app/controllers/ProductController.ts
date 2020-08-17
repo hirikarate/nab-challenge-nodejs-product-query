@@ -12,7 +12,10 @@ import { IProductService } from '../contracts-product-management/interfaces/IPro
 
 @wd.controller('products')
 export default class ProductController extends RestControllerBase {
-	constructor(@cd.inject(T.PRODUCT_SVC) private _productSvc: IProductService) {
+	constructor(
+		@cd.inject(T.PRODUCT_DIRECT_SVC) private _productDirectSvc: IProductService,
+		@cd.inject(T.PRODUCT_MEDIATE_SVC) private _productMediateSvc: IProductService,
+	) {
 		super()
 		debug('ProductController instantiated')
 	}
@@ -31,7 +34,7 @@ export default class ProductController extends RestControllerBase {
 		})
 		params: dto.GetProductByIdRequest,
 	) {
-		return this._productSvc.getById(params)
+		return this._productMediateSvc.getById(params)
 	}
 
 	/**
@@ -45,7 +48,7 @@ export default class ProductController extends RestControllerBase {
 		})
 		params: dto.GetProductListRequest,
 	) {
-		return this._productSvc.getList(params)
+		return this._productDirectSvc.getList(params)
 	}
 
 	/**
@@ -66,7 +69,7 @@ export default class ProductController extends RestControllerBase {
 	 */
 	@wd.POST('/')
 	public async create(@wd.model() params: dto.CreateProductRequest) {
-		return this._productSvc.create(params)
+		return this._productMediateSvc.create(params)
 	}
 
 	/**
@@ -80,7 +83,7 @@ export default class ProductController extends RestControllerBase {
 	 */
 	@wd.PATCH('/')
 	public edit(@wd.model({ isPartial: true }) params: dto.EditProductRequest) {
-		return this._productSvc.edit(params)
+		return this._productMediateSvc.edit(params)
 	}
 
 	/**
@@ -94,7 +97,7 @@ export default class ProductController extends RestControllerBase {
 		})
 		params: dto.DeleteProductRequest,
 	) {
-		return this._productSvc.hardDeleteSingle(params)
+		return this._productMediateSvc.hardDeleteSingle(params)
 	}
 
 	/**
@@ -108,6 +111,6 @@ export default class ProductController extends RestControllerBase {
 		})
 		params: dto.DeleteProductRequest,
 	) {
-		return this._productSvc.hardDeleteMany(params)
+		return this._productMediateSvc.hardDeleteMany(params)
 	}
 }

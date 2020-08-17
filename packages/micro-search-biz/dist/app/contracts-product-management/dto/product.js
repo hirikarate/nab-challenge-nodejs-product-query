@@ -189,6 +189,7 @@ class GetProductByIdRequest extends common_1.Translatable {
         this.id = undefined;
         this.fields = undefined;
         this.relations = undefined;
+        this.viewer = undefined;
     }
 }
 __decorate([
@@ -204,6 +205,10 @@ __decorate([
     common_1.decorators.array(RELATIONS_RULE),
     __metadata("design:type", Array)
 ], GetProductByIdRequest.prototype, "relations", void 0);
+__decorate([
+    common_1.decorators.validateProp(joi.object()),
+    __metadata("design:type", Object)
+], GetProductByIdRequest.prototype, "viewer", void 0);
 exports.GetProductByIdRequest = GetProductByIdRequest;
 class GetSingleProductResponse extends dto_base_1.MaybeResponse {
     constructor() {

@@ -18,11 +18,13 @@ const debug = require('debug')('nab:ctrl:product');
 const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
-const dto = require("../contracts-product-search/dto/search");
+const sdto = require("../contracts-product-search/dto/search");
+const pdto = require("../contracts-product-management/dto/product");
 let ProductSearchController = class ProductSearchController extends web_1.RestControllerBase {
-    constructor(_searchSvc) {
+    constructor(_searchSvc, _productSvc) {
         super();
         this._searchSvc = _searchSvc;
+        this._productSvc = _productSvc;
         debug('ProductSearchController instantiated');
     }
     /**
@@ -39,29 +41,64 @@ let ProductSearchController = class ProductSearchController extends web_1.RestCo
     searchAdvanced(params) {
         return this._searchSvc.searchAdvanced(params);
     }
+    /**
+     * GET {prefix}/products/:id?fields=prop
+     * @example /api/v1/products/123654?fields=id&fields=name
+     */
+    getOne(params) {
+        return this._productSvc.getById(params);
+    }
 };
 __decorate([
     web_1.decorators.GET('/filter'),
     __param(0, web_1.decorators.model({
-        extractFn: (r) => r.query,
+        extractFn: (r) => ({
+            ...r.query,
+            viewer: buildViewerObject(r),
+        }),
     })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto.FilterRequest]),
+    __metadata("design:paramtypes", [sdto.FilterRequest]),
     __metadata("design:returntype", void 0)
 ], ProductSearchController.prototype, "filter", null);
 __decorate([
     web_1.decorators.GET('/advanced'),
     __param(0, web_1.decorators.model({
-        extractFn: (r) => r.query,
+        extractFn: (r) => ({
+            ...r.query,
+            viewer: buildViewerObject(r),
+        }),
     })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto.SearchAdvancedRequest]),
+    __metadata("design:paramtypes", [sdto.SearchAdvancedRequest]),
     __metadata("design:returntype", void 0)
 ], ProductSearchController.prototype, "searchAdvanced", null);
+__decorate([
+    web_1.decorators.GET(':id'),
+    __param(0, web_1.decorators.model({
+        extractFn: (r) => ({
+            ...r.query,
+            id: r.params.id,
+            viewer: buildViewerObject(r),
+        }),
+    })),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pdto.GetProductByIdRequest]),
+    __metadata("design:returntype", void 0)
+], ProductSearchController.prototype, "getOne", null);
 ProductSearchController = __decorate([
     web_1.decorators.controller('products/search'),
     __param(0, common_1.decorators.inject(Types_1.Types.SEARCH_SVC)),
-    __metadata("design:paramtypes", [Object])
+    __param(1, common_1.decorators.inject(Types_1.Types.PRODUCT_MEDIATE_SVC)),
+    __metadata("design:paramtypes", [Object, Object])
 ], ProductSearchController);
 exports.default = ProductSearchController;
+const buildViewerObject = (httpRequest) => {
+    var _a;
+    return ({
+        ipAddress: httpRequest.headers['x-forwarded-for'] || httpRequest.connection.remoteAddress,
+        deviceName: httpRequest.headers['user-agent'],
+        userId: (_a = httpRequest.extras['user']) === null || _a === void 0 ? void 0 : _a.id,
+    });
+};
 //# sourceMappingURL=ProductSearchController.js.map

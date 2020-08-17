@@ -1,5 +1,5 @@
-import UserController from './UserController'
+import StatisticsController from './StatisticsController'
 
 module.exports = {
-	UserController,
+	StatisticsController,
 }

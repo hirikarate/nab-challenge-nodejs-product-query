@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const cache_1 = require("@micro-fleet/cache");
+const path = require("path");
 const id_generator_1 = require("@micro-fleet/id-generator");
 const microservice_1 = require("@micro-fleet/microservice");
 const persistence_1 = require("@micro-fleet/persistence");
@@ -31,16 +31,20 @@ class App extends microservice_1.MicroServiceBase {
      */
     $onStarting() {
         super.$onStarting();
-        this.attachAddOn(cache_1.registerCacheAddOn());
         this.attachAddOn(persistence_1.registerDbAddOn());
         this.attachAddOn(id_generator_1.registerIdAddOn());
         this.attachAddOn(service_communication_1.registerMessageBrokerAddOn());
         // If no error handler is registered to RPC handler
         // Uncaught errors will be thrown as normal exceptions.
         const serviceOnError = this.$onError.bind(this);
-        const rpcHandler = service_communication_1.registerMediateHandlerAddOn();
-        rpcHandler.onError(serviceOnError);
-        this.attachAddOn(rpcHandler);
+        const rpcHandlerMediate = service_communication_1.registerMediateHandlerAddOn();
+        rpcHandlerMediate.onError(serviceOnError);
+        rpcHandlerMediate.controllerPath = path.resolve(__dirname, 'controllers/mediate-controllers');
+        this.attachAddOn(rpcHandlerMediate);
+        const rpcHandlerDirect = service_communication_1.registerDirectHandlerAddOn();
+        rpcHandlerDirect.onError(serviceOnError);
+        rpcHandlerDirect.controllerPath = path.resolve(__dirname, 'controllers/direct-controllers');
+        this.attachAddOn(rpcHandlerDirect);
     }
 }
 new App().start().catch(console.error);

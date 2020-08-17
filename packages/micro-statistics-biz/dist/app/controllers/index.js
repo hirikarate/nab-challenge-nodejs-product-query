@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserController_1 = require("./UserController");
+const StatisticsController_1 = require("./StatisticsController");
 module.exports = {
-    UserController: UserController_1.default,
+    StatisticsController: StatisticsController_1.default,
 };
 //# sourceMappingURL=index.js.map

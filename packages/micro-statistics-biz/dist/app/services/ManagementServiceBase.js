@@ -12,6 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ManagementServiceBase = void 0;
 const common_1 = require("@micro-fleet/common");
 const persistence_1 = require("@micro-fleet/persistence");
 const date_utils_1 = require("../utils/date-utils");
@@ -24,7 +25,7 @@ let ManagementServiceBase = class ManagementServiceBase {
         this.$repo = $repo;
         this.$sessionFactory = $sessionFactory;
     }
-    //#region Create
+    // #region Create
     async $create(params, ResponseClass) {
         const violation = await this.$checkCreateViolation(params);
         if (violation.isJust) {
@@ -41,8 +42,8 @@ let ManagementServiceBase = class ManagementServiceBase {
     $checkCreateViolation(params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
-    //#endregion Create
-    //#region Delete
+    // #endregion Create
+    // #region Delete
     async $hardDeleteSingle(params, ResponseClass) {
         const violation = await this.$checkDeleteSingleViolation(params);
         if (violation.isJust) {
@@ -69,10 +70,11 @@ let ManagementServiceBase = class ManagementServiceBase {
         if (violation.isJust) {
             return new ResponseClass(false, violation.value);
         }
-        const ids = params.ids.map(id => new common_1.SingleId(id));
+        const ids = params.ids.map((id) => new common_1.SingleId(id));
         let task;
         if (params.isAtomic) {
-            task = this.$sessionFactory.startSession()
+            task = this.$sessionFactory
+                .startSession()
                 .pipe((atomicSession) => {
                 return this.$repo.deleteMany(ids, { atomicSession });
             })
@@ -96,8 +98,8 @@ let ManagementServiceBase = class ManagementServiceBase {
     $checkDeleteManyViolation(params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
-    //#endregion Delete
-    //#region Edit
+    // #endregion Delete
+    // #region Edit
     async $edit(params, ResponseClass) {
         const violation = await this.$checkEditViolation(params);
         if (violation.isJust) {
@@ -117,8 +119,8 @@ let ManagementServiceBase = class ManagementServiceBase {
     $checkEditViolation(params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
-    //#endregion Edit
-    //#region Get
+    // #endregion Edit
+    // #region Get
     async $getById(params, ResponseClass) {
         // type SpreadParam = {id: string, tenantId?: string} & RepositoryFindOptions
         // const { id, tenantId, ...opts }: SpreadParam = params
@@ -138,7 +140,7 @@ let ManagementServiceBase = class ManagementServiceBase {
         }
         return new ResponseClass();
     }
-    //#endregion Get
+    // #endregion Get
     /**
      * Converts string array to Objection's relation expression
      * @example

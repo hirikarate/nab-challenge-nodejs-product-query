@@ -8,7 +8,8 @@ const web_1 = require("@micro-fleet/web");
 const Types_1 = require("./constants/Types");
 const RemoteBranchService_1 = require("./services/RemoteBranchService");
 const RemoteCategoryService_1 = require("./services/RemoteCategoryService");
-const RemoteProductService_1 = require("./services/RemoteProductService");
+const RemoteProductDirectService_1 = require("./services/RemoteProductDirectService");
+const RemoteProductMediateService_1 = require("./services/RemoteProductMediateService");
 const RemoteSearchQueryService_1 = require("./services/RemoteSearchQueryService");
 const { Service: S, MessageBroker: MB, RPC, } = common_1.constants;
 class App extends microservice_1.MicroServiceBase {
@@ -20,7 +21,8 @@ class App extends microservice_1.MicroServiceBase {
         const dc = this._depContainer;
         dc.bindConstructor(Types_1.Types.BRANCH_SVC, RemoteBranchService_1.RemoteBranchService).asSingleton();
         dc.bindConstructor(Types_1.Types.CATEGORY_SVC, RemoteCategoryService_1.RemoteCategoryService).asSingleton();
-        dc.bindConstructor(Types_1.Types.PRODUCT_SVC, RemoteProductService_1.RemoteProductService).asSingleton();
+        dc.bindConstructor(Types_1.Types.PRODUCT_DIRECT_SVC, RemoteProductDirectService_1.RemoteProductDirectService).asSingleton();
+        dc.bindConstructor(Types_1.Types.PRODUCT_MEDIATE_SVC, RemoteProductMediateService_1.RemoteProductMediateService).asSingleton();
         dc.bindConstructor(Types_1.Types.SEARCH_SVC, RemoteSearchQueryService_1.RemoteSearchQueryService).asSingleton();
     }
     /**

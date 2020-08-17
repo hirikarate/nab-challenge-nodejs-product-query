@@ -21,6 +21,9 @@ const Types_1 = require("../constants/Types");
 const dto = require("../contracts/dto/product");
 const controller_util_1 = require("../utils/controller-util");
 const { Action: A, MODULE_NAME } = dto;
+/**
+ * Listens to message broker and handles requests for product operations.
+ */
 let ProductController = class ProductController {
     constructor(_productSvc) {
         this._productSvc = _productSvc;
@@ -30,78 +33,21 @@ let ProductController = class ProductController {
      * Topic for all actions here:
      * `request.{MODULE_NAME}.{Action.NAME}`
      */
-    /**
-     * @example
-     *
-     * Request body for creating a single user:
-     * {
-     *	name: 'John Nemo'
-     * }
-     *
-     * or
-     *
-     * {
-     *	name: 'John Nemo',
-     *	status: 'active'
-     * }
-     */
     create(request) {
         return this._productSvc.create(request);
     }
-    /**
-     * @example
-     *
-     * {
-     *	id: '123498765',
-     *	name: 'Nemo Doe'
-     * }
-     */
     edit(request) {
         return this._productSvc.edit(request);
     }
-    /**
-     * @example
-     *
-     * {
-     *	id: '123498765'
-     * }
-     */
     getById(request) {
         return this._productSvc.getById(request);
     }
-    /**
-     * @example
-     *
-     * {
-     *	pageIndex: 2,
-     *	pageSize: 10,
-     *	sortBy: 'name',
-     *	sortType: 'desc'
-     * }
-     */
     getList(request) {
         return this._productSvc.getList(request);
     }
-    /**
-     * @example
-     *
-     * {
-     *	pageIndex: 2,
-     *	pageSize: 10,
-     *	sortBy: 'name',
-     *	sortType: 'desc'
-     * }
-     */
     getRecalledList(request) {
         return this._productSvc.getRecalledList(request);
     }
-    /**
-     * @example
-     * {
-     *	ids: ['123', '456', '678'],
-     *	isAtomic: true
-     * }
-     */
     hardDelete(request) {
         return this._productSvc.hardDeleteMany(request);
     }
@@ -150,6 +96,7 @@ __decorate([
 ], ProductController.prototype, "hardDelete", null);
 ProductController = __decorate([
     service_communication_1.decorators.mediateController(MODULE_NAME),
+    service_communication_1.decorators.directController(MODULE_NAME),
     __param(0, inject(Types_1.Types.PRODUCT_SVC)),
     __metadata("design:paramtypes", [Object])
 ], ProductController);

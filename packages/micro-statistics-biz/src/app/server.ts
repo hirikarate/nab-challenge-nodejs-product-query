@@ -1,17 +1,12 @@
-import { registerCacheAddOn } from '@micro-fleet/cache'
 import { registerIdAddOn } from '@micro-fleet/id-generator'
 import { MicroServiceBase } from '@micro-fleet/microservice'
 import { registerDbAddOn } from '@micro-fleet/persistence'
-import {
-	registerDirectHandlerAddOn,
-	registerMediateHandlerAddOn,
-	registerMessageBrokerAddOn,
-} from '@micro-fleet/service-communication'
+import { registerMediateHandlerAddOn, registerMessageBrokerAddOn } from '@micro-fleet/service-communication'
 
 import { Types as T } from './constants/Types'
-import { IUserService } from './contracts/interfaces/IUserService'
-import { UserService } from './services/UserService'
-import { IUserRepository, UserRepository } from './repositories/UserRepository'
+import { IStatisticsService } from './contracts/interfaces/IStatisticsService'
+import { StatisticsService } from './services/StatisticsService'
+import { IRequestLogRepository, RequestLogRepository } from './repositories/RequestLogRepository'
 
 
 class App extends MicroServiceBase {
@@ -22,8 +17,8 @@ class App extends MicroServiceBase {
 		super.$registerDependencies()
 
 		const dc = this._depContainer
-		dc.bindConstructor<IUserRepository>(T.USER_REPO, UserRepository).asSingleton()
-		dc.bindConstructor<IUserService>(T.USER_SVC, UserService).asSingleton()
+		dc.bindConstructor<IRequestLogRepository>(T.REQUEST_LOG_REPO, RequestLogRepository).asSingleton()
+		dc.bindConstructor<IStatisticsService>(T.STATISTICS_SVC, StatisticsService).asSingleton()
 	}
 
 	/**
@@ -32,7 +27,6 @@ class App extends MicroServiceBase {
 	protected $onStarting(): void {
 		super.$onStarting()
 
-		this.attachAddOn(registerCacheAddOn())
 		this.attachAddOn(registerDbAddOn())
 		this.attachAddOn(registerIdAddOn())
 
@@ -41,11 +35,7 @@ class App extends MicroServiceBase {
 		// If no error handler is registered to RPC handler
 		// Uncaught errors will be thrown as normal exceptions.
 		const serviceOnError = this.$onError.bind(this)
-		let rpcHandler: any = registerMediateHandlerAddOn()
-		rpcHandler.onError(serviceOnError)
-		this.attachAddOn(rpcHandler)
-
-		rpcHandler = registerDirectHandlerAddOn()
+		const rpcHandler: any = registerMediateHandlerAddOn()
 		rpcHandler.onError(serviceOnError)
 		this.attachAddOn(rpcHandler)
 	}

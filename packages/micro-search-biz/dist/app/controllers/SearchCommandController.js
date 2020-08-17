@@ -22,12 +22,19 @@ const Types_1 = require("../constants/Types");
 const dto = require("../contracts/dto/search");
 const pdto = require("../contracts-product-management/dto/product");
 const controller_util_1 = require("../utils/controller-util");
+/**
+ * Listens to message broker and takes actions when product operations occur.
+ */
 let SearchCommandController = class SearchCommandController {
     constructor(_searchSvc, _productSvc) {
         this._searchSvc = _searchSvc;
         this._productSvc = _productSvc;
         debug('SearchCommandController instantiated');
     }
+    /*
+     * Topic for all actions here:
+     * `request.{MODULE_NAME}.{Action.NAME}`
+     */
     /**
      * Catches the response when a product is created and creates a corrensponding search index for it.
      */
@@ -37,20 +44,15 @@ let SearchCommandController = class SearchCommandController {
         if (!params || !params.hasData) {
             return;
         }
-        try {
-            const productResponse = await this._fetchProduct(params.id);
-            if (!productResponse.hasData) {
-                return;
-            }
-            const indexRequest = dto.CreateIndexRequest.from({
-                ...productResponse,
-                branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
-            });
-            await this._searchSvc.createIndex(indexRequest);
+        const productResponse = await this._fetchProduct(params.id);
+        if (!productResponse.hasData) {
+            return;
         }
-        catch (err) {
-            console.error(err);
-        }
+        const indexRequest = dto.CreateIndexRequest.from({
+            ...productResponse,
+            branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
+        });
+        this._searchSvc.createIndex(indexRequest).catch(console.error);
     }
     /**
      * Catches the response when a product is modified and updates the corrensponding search index.
@@ -61,36 +63,26 @@ let SearchCommandController = class SearchCommandController {
         if (!params || !params.hasData) {
             return;
         }
-        try {
-            const productResponse = await this._fetchProduct(params.id);
-            if (!productResponse.hasData) {
-                return;
-            }
-            const indexRequest = dto.EditIndexRequest.from({
-                ...productResponse,
-                branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
-            });
-            await this._searchSvc.editIndex(indexRequest);
+        const productResponse = await this._fetchProduct(params.id);
+        if (!productResponse.hasData) {
+            return;
         }
-        catch (err) {
-            console.error(err);
-        }
+        const indexRequest = dto.EditIndexRequest.from({
+            ...productResponse,
+            branchIds: (_a = productResponse.branches) === null || _a === void 0 ? void 0 : _a.map(b => b.id),
+        });
+        await this._searchSvc.editIndex(indexRequest).catch(console.error);
     }
     /**
      * Catches the response when a product is deleted and removes the corrensponding search index.
      */
-    async deleteIndex(resolve, // Not calling
+    deleteIndex(resolve, // Not calling
     params) {
         if (!params || !params.hasData) {
             return;
         }
-        try {
-            const indexRequest = dto.DeleteIndexRequest.from(params);
-            await this._searchSvc.hardDelete(indexRequest);
-        }
-        catch (err) {
-            console.error(err);
-        }
+        const indexRequest = dto.DeleteIndexRequest.from(params);
+        this._searchSvc.hardDelete(indexRequest).catch(console.error);
     }
     _fetchProduct(id) {
         const productRequest = pdto.GetProductByIdRequest.from({
@@ -102,7 +94,7 @@ let SearchCommandController = class SearchCommandController {
     }
 };
 __decorate([
-    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.create.*`, true),
+    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.${pdto.Action.CREATE}.*`, true),
     __param(0, service_communication_1.decorators.resolveFn()),
     __param(1, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
@@ -110,7 +102,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SearchCommandController.prototype, "createIndex", null);
 __decorate([
-    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.edit.*`, true),
+    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.${pdto.Action.EDIT}.*`, true),
     __param(0, service_communication_1.decorators.resolveFn()),
     __param(1, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
@@ -118,12 +110,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SearchCommandController.prototype, "editIndex", null);
 __decorate([
-    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.hardDelete.*`, true),
+    service_communication_1.decorators.action(`response.${pdto.MODULE_NAME}.${pdto.Action.HARD_DELETE}.*`, true),
     __param(0, service_communication_1.decorators.resolveFn()),
     __param(1, controller_util_1.trustPayload()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Function, pdto.DeleteProductResponse]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], SearchCommandController.prototype, "deleteIndex", null);
 SearchCommandController = __decorate([
     service_communication_1.decorators.mediateController(),

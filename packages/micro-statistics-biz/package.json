@@ -5,9 +5,10 @@
 	"scripts": {
 		"dev": "cross-env DEBUG=scaffold:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
 		"start": "node ./dist/app/server.js",
-		"build": "npm run clean && tsc --pretty",
-		"watch": "npm run clean && tsc --watch --pretty",
+		"build": "npm run clean && npm run copysrc && tsc --pretty",
+		"watch": "npm run clean && npm run copysrc && tsc --watch --pretty",
 		"clean": "rimraf dist coverage .nyc_output",
+		"copysrc": "node scripts/copySrc.js",
 		"postinstall": "lerna bootstrap"
 	},
 	"dependencies": {

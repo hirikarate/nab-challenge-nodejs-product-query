@@ -1,11 +1,14 @@
-import { registerCacheAddOn } from '@micro-fleet/cache'
+import * as path from 'path'
+
 import { registerIdAddOn } from '@micro-fleet/id-generator'
 import { MicroServiceBase } from '@micro-fleet/microservice'
 import { registerDbAddOn } from '@micro-fleet/persistence'
 import {
-	// registerDirectHandlerAddOn,
+	registerDirectHandlerAddOn,
 	registerMediateHandlerAddOn,
 	registerMessageBrokerAddOn,
+	DefaultMediateRpcHandlerAddOn,
+	DefaultDirectRpcHandlerAddOn,
 } from '@micro-fleet/service-communication'
 
 import { Types as T } from './constants/Types'
@@ -46,7 +49,6 @@ class App extends MicroServiceBase {
 	protected $onStarting(): void {
 		super.$onStarting()
 
-		this.attachAddOn(registerCacheAddOn())
 		this.attachAddOn(registerDbAddOn())
 		this.attachAddOn(registerIdAddOn())
 
@@ -55,9 +57,15 @@ class App extends MicroServiceBase {
 		// If no error handler is registered to RPC handler
 		// Uncaught errors will be thrown as normal exceptions.
 		const serviceOnError = this.$onError.bind(this)
-		const rpcHandler: any = registerMediateHandlerAddOn()
-		rpcHandler.onError(serviceOnError)
-		this.attachAddOn(rpcHandler)
+		const rpcHandlerMediate = registerMediateHandlerAddOn() as DefaultMediateRpcHandlerAddOn
+		rpcHandlerMediate.onError(serviceOnError)
+		rpcHandlerMediate.controllerPath = path.resolve(__dirname, 'controllers/mediate-controllers')
+		this.attachAddOn(rpcHandlerMediate)
+
+		const rpcHandlerDirect = registerDirectHandlerAddOn() as DefaultDirectRpcHandlerAddOn
+		rpcHandlerDirect.onError(serviceOnError)
+		rpcHandlerDirect.controllerPath = path.resolve(__dirname, 'controllers/direct-controllers')
+		this.attachAddOn(rpcHandlerDirect)
 	}
 }
 

@@ -1,4 +1,4 @@
 export class Types {
-	public static USER_REPO = Symbol('IUserRepository')
-	public static USER_SVC = Symbol('IUserService')
+	public static REQUEST_LOG_REPO = Symbol('IRequestLogRepository')
+	public static STATISTICS_SVC = Symbol('IStatisticsService')
 }

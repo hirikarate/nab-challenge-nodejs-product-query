@@ -149,17 +149,24 @@ export class FilterRequest extends Translatable {
 	})
 	public readonly branchIds?: string[] = undefined
 
-	@d.string()
-	public readonly categoryId?: string = undefined
+	@d.array({
+		items: joi.string().required(),
+		allowSingle: true,
+	})
+	public readonly categoryIds?: string[] = undefined
 
 	@d.number()
 	public readonly status?: string = undefined
+
+	@d.validateProp(joi.object())
+	public readonly viewer?: SearchViewer = undefined
 }
 
 export class SearchAdvancedRequest extends Translatable {
 
+	@d.required()
 	@d.string()
-	public readonly keywords?: string = undefined
+	public readonly keywords: string = undefined
 
 	@d.number()
 	public readonly maxPrice?: number = undefined
@@ -173,11 +180,35 @@ export class SearchAdvancedRequest extends Translatable {
 	})
 	public readonly branchIds?: string[] = undefined
 
-	@d.string()
-	public readonly categoryId?: string = undefined
+	@d.array({
+		items: joi.string().required(),
+		allowSingle: true,
+	})
+	public readonly categoryIds?: string = undefined
 
 	@d.number()
 	public readonly status?: string = undefined
+
+	@d.validateProp(joi.object())
+	public readonly viewer?: SearchViewer = undefined
+}
+
+export type SearchViewer = {
+	/**
+	 * Only has value when the viewer is a logged-in user.
+	 */
+	userId?: string,
+
+	/**
+	 * Viewer's IP address or a comma-separated list of IPs
+	 * (In case this service is behind proxy/-ies)
+	 */
+	ipAddress: string,
+
+	/**
+	 * Device name (if request is made from mobile app) or user agent string (if from browser)
+	 */
+	deviceName: string,
 }
 
 export class SearchResultItem extends Translatable {

@@ -7,7 +7,7 @@ module.exports = {
 			host: 'localhost',
 			user: 'postgres',
 			password: 'postgres',
-			database: 'mcft_rpc'
+			database: 'nab_challenge'
 		},
 		...knexSnakeCaseMappers()
 	}

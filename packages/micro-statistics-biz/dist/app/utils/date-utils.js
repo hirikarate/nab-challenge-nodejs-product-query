@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.momentify = exports.toUtcTimeString = void 0;
 const moment = require("moment");
 /**
  * Converts a UTC time string to W3C Date and Time Formats.
@@ -11,7 +12,7 @@ function toUtcTimeString(source) {
         return source;
     }
     const wrapped = moment.utc(source);
-    return (wrapped.isValid() ? wrapped.format() : source);
+    return wrapped.isValid() ? wrapped.format() : source;
 }
 exports.toUtcTimeString = toUtcTimeString;
 /**

@@ -191,8 +191,9 @@ class FilterRequest extends common_1.Translatable {
         this.minPrice = undefined;
         this.color = undefined;
         this.branchIds = undefined;
-        this.categoryId = undefined;
+        this.categoryIds = undefined;
         this.status = undefined;
+        this.viewer = undefined;
     }
 }
 __decorate([
@@ -219,13 +220,20 @@ __decorate([
     __metadata("design:type", Array)
 ], FilterRequest.prototype, "branchIds", void 0);
 __decorate([
-    common_1.decorators.string(),
-    __metadata("design:type", String)
-], FilterRequest.prototype, "categoryId", void 0);
+    common_1.decorators.array({
+        items: joi.string().required(),
+        allowSingle: true,
+    }),
+    __metadata("design:type", Array)
+], FilterRequest.prototype, "categoryIds", void 0);
 __decorate([
     common_1.decorators.number(),
     __metadata("design:type", String)
 ], FilterRequest.prototype, "status", void 0);
+__decorate([
+    common_1.decorators.validateProp(joi.object()),
+    __metadata("design:type", Object)
+], FilterRequest.prototype, "viewer", void 0);
 exports.FilterRequest = FilterRequest;
 class SearchAdvancedRequest extends common_1.Translatable {
     constructor() {
@@ -234,11 +242,13 @@ class SearchAdvancedRequest extends common_1.Translatable {
         this.maxPrice = undefined;
         this.minPrice = undefined;
         this.branchIds = undefined;
-        this.categoryId = undefined;
+        this.categoryIds = undefined;
         this.status = undefined;
+        this.viewer = undefined;
     }
 }
 __decorate([
+    common_1.decorators.required(),
     common_1.decorators.string(),
     __metadata("design:type", String)
 ], SearchAdvancedRequest.prototype, "keywords", void 0);
@@ -258,13 +268,20 @@ __decorate([
     __metadata("design:type", Array)
 ], SearchAdvancedRequest.prototype, "branchIds", void 0);
 __decorate([
-    common_1.decorators.string(),
+    common_1.decorators.array({
+        items: joi.string().required(),
+        allowSingle: true,
+    }),
     __metadata("design:type", String)
-], SearchAdvancedRequest.prototype, "categoryId", void 0);
+], SearchAdvancedRequest.prototype, "categoryIds", void 0);
 __decorate([
     common_1.decorators.number(),
     __metadata("design:type", String)
 ], SearchAdvancedRequest.prototype, "status", void 0);
+__decorate([
+    common_1.decorators.validateProp(joi.object()),
+    __metadata("design:type", Object)
+], SearchAdvancedRequest.prototype, "viewer", void 0);
 exports.SearchAdvancedRequest = SearchAdvancedRequest;
 class SearchResultItem extends common_1.Translatable {
     constructor() {
