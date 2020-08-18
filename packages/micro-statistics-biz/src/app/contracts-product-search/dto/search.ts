@@ -35,7 +35,7 @@ export class CreateIndexRequest extends Translatable {
 	public readonly color: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -68,7 +68,7 @@ export class CreateIndexResponse extends ResultResponse {
 export class DeleteIndexRequest extends Translatable {
 	@d.required()
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 		maxLength: 10,
 	})
@@ -99,7 +99,7 @@ export class EditIndexRequest extends Translatable {
 	public readonly color?: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -144,7 +144,7 @@ export class FilterRequest extends Translatable {
 	public readonly color?: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -171,7 +171,7 @@ export class SearchAdvancedRequest extends Translatable {
 	public readonly minPrice?: number = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined

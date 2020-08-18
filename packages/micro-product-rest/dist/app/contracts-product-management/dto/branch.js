@@ -64,7 +64,7 @@ class DeleteBranchRequest extends common_1.Translatable {
 __decorate([
     common_1.decorators.required(),
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
         maxLength: 10,
     }),

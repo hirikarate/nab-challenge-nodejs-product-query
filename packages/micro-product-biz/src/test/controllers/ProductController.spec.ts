@@ -35,7 +35,7 @@ describe(ProductController.name, () => {
 
 			// Assert
 			expect(productService.create.calledOnce).to.be.true
-			expect(productService.create.calledOnce).to.be.true
+			expect(productService.create.firstCall.args[0]).to.deep.equal(request)
 		})
 
 		it('Should return expected result from service method', async () => {

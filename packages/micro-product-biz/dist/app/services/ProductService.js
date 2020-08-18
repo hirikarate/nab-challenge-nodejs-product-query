@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
 /// <reference types="debug" />
 const debug = require('debug')('nab:svc:product');
-// import { cacheable } from '@micro-fleet/cache'
 const common_1 = require("@micro-fleet/common");
 const id_generator_1 = require("@micro-fleet/id-generator");
 const persistence_1 = require("@micro-fleet/persistence");

@@ -66,7 +66,7 @@ __decorate([
 __decorate([
     common_1.decorators.required(),
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -77,6 +77,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductRequest.prototype, "categoryId", void 0);
 __decorate([
+    common_1.decorators.number(),
     common_1.decorators.defaultAs(constants_shared_1.ProductStatus.ON_SALE),
     common_1.decorators.valid(constants_shared_1.ProductStatus.NOT_ON_SALE, constants_shared_1.ProductStatus.ON_SALE, constants_shared_1.ProductStatus.RECALLED),
     __metadata("design:type", Number)
@@ -106,7 +107,7 @@ class DeleteProductRequest extends common_1.Translatable {
 __decorate([
     common_1.decorators.required(),
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
         maxLength: 10,
     }),
@@ -159,7 +160,7 @@ __decorate([
 ], EditProductRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -169,6 +170,7 @@ __decorate([
     __metadata("design:type", String)
 ], EditProductRequest.prototype, "categoryId", void 0);
 __decorate([
+    common_1.decorators.number(),
     common_1.decorators.valid(constants_shared_1.ProductStatus.NOT_ON_SALE, constants_shared_1.ProductStatus.ON_SALE, constants_shared_1.ProductStatus.RECALLED),
     __metadata("design:type", String)
 ], EditProductRequest.prototype, "status", void 0);

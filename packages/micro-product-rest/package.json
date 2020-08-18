@@ -3,12 +3,13 @@
 	"version": "1.0.0",
 	"description": "Handles RESTful requests for products.",
 	"scripts": {
-		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
-		"start": "node ./dist/app/server.js",
+		"clean": "rimraf dist coverage .nyc_output",
 		"build": "npm run clean && npm run copysrc && tsc --pretty",
 		"watch": "npm run clean && npm run copysrc && tsc --watch --pretty",
-		"copysrc": "node scripts/copySrc.js",
-		"clean": "rimraf dist coverage .nyc_output"
+		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"test": "nyc --extension=.ts --reporter=json --reporter=html --include dist/app/**/*.js --include src/app/**/*.ts mocha --recursive dist/test",
+		"start": "node ./dist/app/server.js",
+		"copysrc": "node scripts/copySrc.js"
 	},
 	"dependencies": {
 		"@micro-fleet/cache": "2.4.0-rc1",

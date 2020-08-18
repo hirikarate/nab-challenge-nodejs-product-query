@@ -57,7 +57,7 @@ __decorate([
 ], CreateIndexRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -100,7 +100,7 @@ class DeleteIndexRequest extends common_1.Translatable {
 __decorate([
     common_1.decorators.required(),
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
         maxLength: 10,
     }),
@@ -149,7 +149,7 @@ __decorate([
 ], EditIndexRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -214,7 +214,7 @@ __decorate([
 ], FilterRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -262,7 +262,7 @@ __decorate([
 ], SearchAdvancedRequest.prototype, "minPrice", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)

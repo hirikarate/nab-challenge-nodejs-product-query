@@ -55,17 +55,6 @@ export default class ProductController extends RestControllerBase {
 	 * POST {prefix}/products
 	 * @example /api/v1/products
 	 *
-	 * Request body for creating a single user:
-	 * {
-	 *	name: 'John Nemo',
-	 * }
-	 *
-	 * or
-	 *
-	 * {
-	 *	name: 'John Nemo',
-	 *	status: 'active',
-	 * }
 	 */
 	@wd.POST('/')
 	public async create(@wd.model() params: dto.CreateProductRequest) {
@@ -75,11 +64,6 @@ export default class ProductController extends RestControllerBase {
 	/**
 	 * PATCH {prefix}/products
 	 * @example /api/v1/products
-	 *
-	 * {
-	 *	id: '123498765',
-	 *	name: 'Nemo Doe',
-	 * }
 	 */
 	@wd.PATCH('/')
 	public edit(@wd.model({ isPartial: true }) params: dto.EditProductRequest) {

@@ -44,17 +44,6 @@ let ProductController = class ProductController extends web_1.RestControllerBase
      * POST {prefix}/products
      * @example /api/v1/products
      *
-     * Request body for creating a single user:
-     * {
-     *	name: 'John Nemo',
-     * }
-     *
-     * or
-     *
-     * {
-     *	name: 'John Nemo',
-     *	status: 'active',
-     * }
      */
     async create(params) {
         return this._productMediateSvc.create(params);
@@ -62,11 +51,6 @@ let ProductController = class ProductController extends web_1.RestControllerBase
     /**
      * PATCH {prefix}/products
      * @example /api/v1/products
-     *
-     * {
-     *	id: '123498765',
-     *	name: 'Nemo Doe',
-     * }
      */
     edit(params) {
         return this._productMediateSvc.edit(params);

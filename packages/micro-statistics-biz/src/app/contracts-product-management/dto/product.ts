@@ -51,7 +51,7 @@ export class CreateProductRequest extends Translatable {
 
 	@d.required()
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds: string[] = undefined
@@ -78,7 +78,7 @@ export class CreateProductResponse extends ResultResponse {
 export class DeleteProductRequest extends Translatable {
 	@d.required()
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 		maxLength: 10,
 	})
@@ -118,7 +118,7 @@ export class EditProductRequest extends Translatable {
 	public readonly color?: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined

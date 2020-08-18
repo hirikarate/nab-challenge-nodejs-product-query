@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductRepository = void 0;
+/* eslint-disable @typescript-eslint/indent */
 /// <reference types="debug" />
 const debug = require('debug')('nab:repo:product');
 const common_1 = require("@micro-fleet/common");
@@ -21,9 +22,7 @@ const constants_shared_1 = require("../contracts/constants-shared");
 const Product_1 = require("../models/domain/Product");
 const ProductORM_1 = require("../models/orm/ProductORM");
 let ProductRepository = class ProductRepository extends p.PgCrudRepositoryBase {
-    constructor(
-    /* eslint-disable-next-line @typescript-eslint/indent */
-    connector) {
+    constructor(connector) {
         super(ProductORM_1.ProductORM, Product_1.Product, connector);
         debug('ProductRepository instantiated');
     }
@@ -31,10 +30,8 @@ let ProductRepository = class ProductRepository extends p.PgCrudRepositoryBase {
      * @see IRepository.create
      */
     create(domainModel, opts = {}) {
-        const promise = super.create(domainModel, opts)
-		return promise.then((responses) => {
-				return responses[0]
-			}); // `query.insertGraph` always returns an array
+        return super.create(domainModel, opts)
+            .then((responses) => responses[0]); // `query.insertGraph` always returns an array
     }
     /**
      * @override

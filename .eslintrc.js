@@ -118,6 +118,7 @@ module.exports = {
 		'no-void': 0,
 		'padded-blocks': 0,
 		'prefer-template': 0,
+		'prefer-destructuring': 0,
 		'import/prefer-default-export': 0,
 		'import/no-extraneous-dependencies': 0,
 		'import/first': 0,
