@@ -26,45 +26,46 @@ let RemoteProductService = class RemoteProductService extends RemoteServiceBase_
         debug('RemoteProductService instantiated');
     }
     /**
-     * @see IProductService.create
-     */
-    create(request) {
-        return Promise.resolve(null);
-    }
-    /**
-     * @see IProductService.edit
-     */
-    edit(request) {
-        return Promise.resolve(null);
-    }
-    /**
-     * @see IProductService.hardDeleteSingle
-     */
-    hardDeleteSingle(request) {
-        return Promise.resolve(null);
-    }
-    /**
-     * @see IProductService.hardDeleteMany
-     */
-    hardDeleteMany(request) {
-        return Promise.resolve(null);
-    }
-    /**
      * @see IProductService.getById
      */
     getById(request) {
         return this.$call(A.GET_BY_ID, request, dto.GetSingleProductResponse);
     }
+    // #region Not implemented
+    /**
+     * @see IProductService.create
+     */
+    create(_request) {
+        return Promise.resolve(null);
+    }
+    /**
+     * @see IProductService.edit
+     */
+    edit(_request) {
+        return Promise.resolve(null);
+    }
+    /**
+     * @see IProductService.hardDeleteSingle
+     */
+    hardDeleteSingle(_request) {
+        return Promise.resolve(null);
+    }
+    /**
+     * @see IProductService.hardDeleteMany
+     */
+    hardDeleteMany(_request) {
+        return Promise.resolve(null);
+    }
     /**
      * @see IProductService.getList
      */
-    getList(request) {
+    getList(_request) {
         return Promise.resolve(null);
     }
     /**
      * @see IProductService.getRecalledList
      */
-    getRecalledList(request) {
+    getRecalledList(_request) {
         return Promise.resolve(null);
     }
 };

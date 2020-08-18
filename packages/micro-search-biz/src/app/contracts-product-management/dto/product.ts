@@ -60,6 +60,7 @@ export class CreateProductRequest extends Translatable {
 	@d.bigint()
 	public readonly categoryId: string = undefined
 
+	@d.number()
 	@d.defaultAs(ProductStatus.ON_SALE)
 	@d.valid(ProductStatus.NOT_ON_SALE, ProductStatus.ON_SALE, ProductStatus.RECALLED)
 	public readonly status: number = undefined
@@ -126,6 +127,7 @@ export class EditProductRequest extends Translatable {
 	@d.bigint()
 	public readonly categoryId?: string = undefined
 
+	@d.number()
 	@d.valid(ProductStatus.NOT_ON_SALE, ProductStatus.ON_SALE, ProductStatus.RECALLED)
 	public readonly status?: string = undefined
 }

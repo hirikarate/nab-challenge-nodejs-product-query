@@ -6,6 +6,8 @@ const microservice_1 = require("@micro-fleet/microservice");
 const service_communication_1 = require("@micro-fleet/service-communication");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("./constants/Types");
+const AuthService_1 = require("./services/AuthService");
+const RsaJwtHelper_1 = require("./services/RsaJwtHelper");
 const RemoteBranchService_1 = require("./services/RemoteBranchService");
 const RemoteCategoryService_1 = require("./services/RemoteCategoryService");
 const RemoteProductDirectService_1 = require("./services/RemoteProductDirectService");
@@ -19,6 +21,8 @@ class App extends microservice_1.MicroServiceBase {
     $registerDependencies() {
         super.$registerDependencies();
         const dc = this._depContainer;
+        dc.bindConstructor(Types_1.Types.AUTH_SVC, AuthService_1.AuthService).asSingleton();
+        dc.bindConstructor(Types_1.Types.JWT_HELPER, RsaJwtHelper_1.RsaJwtHelper).asSingleton();
         dc.bindConstructor(Types_1.Types.BRANCH_SVC, RemoteBranchService_1.RemoteBranchService).asSingleton();
         dc.bindConstructor(Types_1.Types.CATEGORY_SVC, RemoteCategoryService_1.RemoteCategoryService).asSingleton();
         dc.bindConstructor(Types_1.Types.PRODUCT_DIRECT_SVC, RemoteProductDirectService_1.RemoteProductDirectService).asSingleton();

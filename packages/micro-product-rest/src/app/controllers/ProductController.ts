@@ -8,8 +8,10 @@ import { decorators as wd, RestControllerBase } from '@micro-fleet/web'
 import { Types as T } from '../constants/Types'
 import * as dto from '../contracts-product-management/dto/product'
 import { IProductService } from '../contracts-product-management/interfaces/IProductService'
+import { authorized } from '../filters/authorized'
 
 
+@authorized()
 @wd.controller('products')
 export default class ProductController extends RestControllerBase {
 	constructor(

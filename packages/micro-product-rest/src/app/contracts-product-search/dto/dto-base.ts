@@ -4,7 +4,7 @@ import {
 import { SortType } from '../constants-shared'
 
 export abstract class GetListRequestBase extends Translatable {
-	@d.number({ min: 1, max: 100 })
+	@d.number({ min: 1, max: Number.MAX_SAFE_INTEGER })
 	@d.defaultAs(1)
 	public pageIndex: number = undefined
 

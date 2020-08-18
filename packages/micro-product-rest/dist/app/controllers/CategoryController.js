@@ -19,6 +19,7 @@ const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
 const dto = require("../contracts-product-management/dto/category");
+const authorized_1 = require("../filters/authorized");
 let CategoryController = class CategoryController extends web_1.RestControllerBase {
     constructor(_categorySvc) {
         super();
@@ -139,6 +140,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "deleteMany", null);
 CategoryController = __decorate([
+    authorized_1.authorized(),
     web_1.decorators.controller('categories'),
     __param(0, common_1.decorators.inject(Types_1.Types.CATEGORY_SVC)),
     __metadata("design:paramtypes", [Object])

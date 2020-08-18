@@ -48,6 +48,7 @@ module.exports = {
 		],
 		'@typescript-eslint/no-floating-promises': 'error',
 		'@typescript-eslint/no-misused-new': 'error',
+		'@typescript-eslint/no-throw-literal': 0,
 		'@typescript-eslint/no-use-before-define': 0,
 		'@typescript-eslint/no-unused-expressions': 0,
 		'@typescript-eslint/no-unused-vars': [

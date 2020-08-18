@@ -183,7 +183,7 @@ class EditIndexResponse extends dto_base_1.ResultResponse {
 exports.EditIndexResponse = EditIndexResponse;
 // #endregion Edit
 // #region Search
-class FilterRequest extends common_1.Translatable {
+class FilterRequest extends dto_base_1.GetListRequestBase {
     constructor() {
         super(...arguments);
         this.name = undefined;
@@ -194,6 +194,7 @@ class FilterRequest extends common_1.Translatable {
         this.categoryIds = undefined;
         this.status = undefined;
         this.viewer = undefined;
+        this.sortBy = undefined;
     }
 }
 __decorate([
@@ -234,8 +235,13 @@ __decorate([
     common_1.decorators.validateProp(joi.object()),
     __metadata("design:type", Object)
 ], FilterRequest.prototype, "viewer", void 0);
+__decorate([
+    common_1.decorators.string(),
+    common_1.decorators.valid('name', 'price', 'createdAt'),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "sortBy", void 0);
 exports.FilterRequest = FilterRequest;
-class SearchAdvancedRequest extends common_1.Translatable {
+class SearchAdvancedRequest extends dto_base_1.GetListRequestBase {
     constructor() {
         super(...arguments);
         this.keywords = undefined;
@@ -245,6 +251,7 @@ class SearchAdvancedRequest extends common_1.Translatable {
         this.categoryIds = undefined;
         this.status = undefined;
         this.viewer = undefined;
+        this.sortBy = undefined;
     }
 }
 __decorate([
@@ -282,6 +289,11 @@ __decorate([
     common_1.decorators.validateProp(joi.object()),
     __metadata("design:type", Object)
 ], SearchAdvancedRequest.prototype, "viewer", void 0);
+__decorate([
+    common_1.decorators.string(),
+    common_1.decorators.valid('name', 'price', 'createdAt'),
+    __metadata("design:type", String)
+], SearchAdvancedRequest.prototype, "sortBy", void 0);
 exports.SearchAdvancedRequest = SearchAdvancedRequest;
 class SearchResultItem extends common_1.Translatable {
     constructor() {

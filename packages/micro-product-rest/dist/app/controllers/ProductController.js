@@ -19,6 +19,7 @@ const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
 const dto = require("../contracts-product-management/dto/product");
+const authorized_1 = require("../filters/authorized");
 let ProductController = class ProductController extends web_1.RestControllerBase {
     constructor(_productDirectSvc, _productMediateSvc) {
         super();
@@ -124,6 +125,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "deleteMany", null);
 ProductController = __decorate([
+    authorized_1.authorized(),
     web_1.decorators.controller('products'),
     __param(0, common_1.decorators.inject(Types_1.Types.PRODUCT_DIRECT_SVC)),
     __param(1, common_1.decorators.inject(Types_1.Types.PRODUCT_MEDIATE_SVC)),

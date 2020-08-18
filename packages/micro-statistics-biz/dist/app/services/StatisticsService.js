@@ -16,7 +16,6 @@ exports.StatisticsService = void 0;
 /* eslint-disable @typescript-eslint/indent */
 /// <reference types="debug" />
 const debug = require('debug')('nab:svc:statistics');
-// import { cacheable } from '@micro-fleet/cache'
 const common_1 = require("@micro-fleet/common");
 const id_generator_1 = require("@micro-fleet/id-generator");
 const persistence_1 = require("@micro-fleet/persistence");
