@@ -9,18 +9,23 @@
 		"build": "lerna run build",
 		"dedup": "lerna run dedup",
 		"test": "lerna run test",
-		"lint": "eslint **/*.ts --quiet --fix",
+		"lint": "eslint **/*.ts --fix",
 		"linkPackages": "node ./scripts/linkPackages.js"
 	},
 	"devDependencies": {
 		"@micro-fleet/id-generator": "2.4.0-rc1",
+		"@types/chai": "~4.2",
 		"@types/debug": "~4.1",
 		"@types/express": "~4.17",
 		"@types/hapi__joi": "~15.0",
+		"@types/mocha": "~8.0",
 		"@types/node": "^12",
+		"@types/randomstring": "1.1.6",
+		"@types/sinon": "~9.0",
 		"@typescript-eslint/eslint-plugin": "~3.9",
 		"@typescript-eslint/parser": "~3.9",
 		"axios": "0.19.2",
+		"chai": "~4.2",
 		"chalk": "~2.4",
 		"cross-env": "~7.0",
 		"debug": "~4.2",
@@ -34,22 +39,34 @@
 		"knex": "~0.19",
 		"lerna": "~3.22",
 		"lint-staged": "~10.2",
+		"mocha": "~8.1",
 		"moment": "~2.27",
 		"nodemon": "~2.0",
+		"nyc": "~15.1",
 		"objection": "~1.6",
 		"pg": "~7.12",
+		"randomstring": "~1.1",
 		"rimraf": "~3.0",
-		"ts-declarator": "~1.0",
+		"sinon": "~9.0",
+		"ts-sinon": "~1.2",
 		"typescript": "~3.9"
+	},
+	"workspaces": [
+		"packages/*"
+	],
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.ts": ["npx eslint --fix"]
 	},
 	"author": {
 		"name": "hirikarate",
 		"url": "https://github.com/hirikarate"
 	},
 	"repository": "git@github.com:hirikarate/nab-challenge-nodejs-product-query.git",
-	"workspaces": [
-		"packages/*"
-	],
 	"private": true,
 	"engines": {
 		"node": ">=12"

@@ -28,16 +28,25 @@ let ProductRepository = class ProductRepository extends p.PgCrudRepositoryBase {
         debug('ProductRepository instantiated');
     }
     /**
+     * @see IRepository.create
+     */
+    create(domainModel, opts = {}) {
+        const promise = super.create(domainModel, opts)
+		return promise.then((responses) => {
+				return responses[0]
+			}); // `query.insertGraph` always returns an array
+    }
+    /**
      * @override
      */
-    $buildCreateQuery(query, model, ormModel, opts) {
+    $buildCreateQuery(query, model, ormModel) {
         const q = query.insertGraph([ormModel], { relate: true });
         return q.returning('*');
     }
     /**
      * @override
      */
-    $buildPatchQuery(query, model, ormModel, opts) {
+    $buildPatchQuery(query, model, ormModel) {
         const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false });
         return q.returning('*');
     }

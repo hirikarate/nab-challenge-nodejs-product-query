@@ -33,7 +33,7 @@ export class BranchService extends ManagementServiceBase<Branch> implements IBra
 		return this.$create(
 			{
 				...params,
-				id: this._idGen.nextBigInt(),
+				id: this._idGen.nextBigInt().toString(),
 			},
 			dto.CreateBranchResponse,
 		)

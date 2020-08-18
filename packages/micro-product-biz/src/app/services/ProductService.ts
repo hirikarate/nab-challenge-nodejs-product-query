@@ -1,10 +1,9 @@
 /// <reference types="debug" />
 const debug: debug.IDebugger = require('debug')('nab:svc:product')
 
-// import { cacheable } from '@micro-fleet/cache'
 import { Maybe, decorators as d, PagedData } from '@micro-fleet/common'
 import { Types as iT, IIdProvider } from '@micro-fleet/id-generator'
-import { Types as pT, AtomicSessionFactory, AtomicSession } from '@micro-fleet/persistence'
+import { Types as pT, AtomicSessionFactory } from '@micro-fleet/persistence'
 
 import { Types as T } from '../constants/Types'
 import * as dto from '../contracts/dto/product'
@@ -34,29 +33,20 @@ export class ProductService extends ManagementServiceBase<Product> implements IP
 	 * @see IProductRepository.create
 	 */
 	public create(params: dto.CreateProductRequest): Promise<dto.CreateProductResponse> {
-		return this.$sessionFactory.startSession()
-			.pipe((atomicSession: AtomicSession) =>
-				this.$create(
-					{
-						...params,
-						id: this._idGen.nextBigInt(),
-					},
-					dto.CreateProductResponse,
-					{
-						atomicSession,
-					},
-				),
-			)
-			.pipe((atomicSession, [responses]: dto.CreateProductResponse[]) =>
-				Promise.resolve(responses))
-			.closePipe()
+		return this.$create(
+			{
+				...params,
+				id: this._idGen.nextBigInt().toString(),
+			},
+			dto.CreateProductResponse,
+		)
 	}
 
 	/**
 	 * @override
 	 */
 	protected $checkCreateViolation(params: dto.CreateProductRequest): Promise<Maybe<string>> {
-		if (params.name.toLocaleLowerCase().includes('shit')) {
+		if (params.name.toLocaleLowerCase().split(' ').includes('shit')) {
 			return Promise.resolve(Maybe.Just('PRODUCT_NAME_WITH_BANNED_WORDS'))
 		}
 		return Promise.resolve(Maybe.Nothing())
@@ -69,13 +59,7 @@ export class ProductService extends ManagementServiceBase<Product> implements IP
 	 * @see IProductRepository.edit
 	 */
 	public edit(params: dto.EditProductRequest): Promise<dto.EditProductResponse> {
-		return this.$sessionFactory.startSession()
-			.pipe((atomicSession: AtomicSession) =>
-				this.$edit(params, dto.EditProductResponse, {
-					atomicSession,
-				}),
-			)
-			.closePipe()
+		return this.$edit(params, dto.EditProductResponse)
 	}
 
 	/**

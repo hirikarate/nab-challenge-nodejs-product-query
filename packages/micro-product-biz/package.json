@@ -3,11 +3,12 @@
 	"version": "1.0.0",
 	"description": "Processes business logic for product operations.",
 	"scripts": {
-		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
-		"start": "node ./dist/app/server.js",
+		"clean": "rimraf dist coverage .nyc_output",
 		"build": "npm run clean && tsc --pretty",
 		"watch": "npm run clean && tsc --watch --pretty",
-		"clean": "rimraf dist coverage .nyc_output",
+		"dev": "cross-env DEBUG=nab:*,mcft:persistence:* nodemon --watch dist/app dist/app/server.js",
+		"test": "nyc --extension=.ts --reporter=json --reporter=html --include dist/app/**/*.js --include src/app/**/*.ts mocha --recursive dist/test",
+		"start": "node ./dist/app/server.js",
 		"postinstall": "lerna bootstrap"
 	},
 	"dependencies": {

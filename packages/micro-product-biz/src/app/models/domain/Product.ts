@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 import { Moment } from 'moment'
 import { Translatable, ModelAutoMapper } from '@micro-fleet/common'
@@ -44,7 +43,8 @@ class ProductTranslator extends ModelAutoMapper<Product> {
 	protected $createMap() {
 		return super
 			.$createMap()
-			.forMember('branches', function ({ sourceObject, sourcePropertyName }: any) {
+			.forMember('branches', function (options: any) {
+				const { sourceObject, sourcePropertyName } = options
 				const { branchIds } = sourceObject
 				// If converting from request object
 				if (Array.isArray(branchIds)) {
@@ -53,7 +53,8 @@ class ProductTranslator extends ModelAutoMapper<Product> {
 				// If converting from ORM object
 				return Branch.from(sourceObject[sourcePropertyName])
 			})
-			.forMember('category', function ({ sourceObject, sourcePropertyName }: any) {
+			.forMember('category', function (options: any) {
+				const { sourceObject, sourcePropertyName } = options
 				return Category.from(sourceObject[sourcePropertyName])
 			})
 	}

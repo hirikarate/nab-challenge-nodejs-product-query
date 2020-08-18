@@ -42,7 +42,7 @@ export class ManagementServiceBase<TDomain extends object> {
 	/**
 	 * Can be overriden by derived class to check business rule for creating.
 	 */
-	protected $checkCreateViolation(params: any): Promise<Maybe> {
+	protected $checkCreateViolation(_params: any): Promise<Maybe> {
 		return Promise.resolve(Maybe.Nothing())
 	}
 
@@ -73,7 +73,7 @@ export class ManagementServiceBase<TDomain extends object> {
 	/**
 	 * Can be overriden by derived class to check business rule for deleting.
 	 */
-	protected $checkDeleteSingleViolation(params: any): Promise<Maybe> {
+	protected $checkDeleteSingleViolation(_params: any): Promise<Maybe> {
 		return Promise.resolve(Maybe.Nothing())
 	}
 
@@ -91,9 +91,7 @@ export class ManagementServiceBase<TDomain extends object> {
 		if (params.isAtomic) {
 			task = this.$sessionFactory
 				.startSession()
-				.pipe((atomicSession: AtomicSession) => {
-					return this.$repo.deleteMany(ids, { atomicSession })
-				})
+				.pipe((atomicSession: AtomicSession) => this.$repo.deleteMany(ids, { atomicSession }))
 				.closePipe()
 		}
 		else {
@@ -112,7 +110,7 @@ export class ManagementServiceBase<TDomain extends object> {
 	/**
 	 * Can be overriden by derived class to check business rule for deleting.
 	 */
-	protected $checkDeleteManyViolation(params: any): Promise<Maybe> {
+	protected $checkDeleteManyViolation(_params: any): Promise<Maybe> {
 		return Promise.resolve(Maybe.Nothing())
 	}
 
@@ -141,7 +139,7 @@ export class ManagementServiceBase<TDomain extends object> {
 	/**
 	 * Can be overriden by derived class to check business rule for editing.
 	 */
-	protected $checkEditViolation(params: any): Promise<Maybe> {
+	protected $checkEditViolation(_params: any): Promise<Maybe> {
 		return Promise.resolve(Maybe.Nothing())
 	}
 

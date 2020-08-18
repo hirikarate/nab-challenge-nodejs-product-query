@@ -12,7 +12,9 @@ import { IBranchService } from '../contracts-product-management/interfaces/IBran
 
 @wd.controller('branches')
 export default class BranchController extends RestControllerBase {
-	constructor(@cd.inject(T.BRANCH_SVC) private _branchSvc: IBranchService) {
+	constructor(
+		@cd.inject(T.BRANCH_SVC) private _branchSvc: IBranchService,
+	) {
 		super()
 		debug('BranchController instantiated')
 	}

@@ -33,7 +33,7 @@ export class CategoryService extends ManagementServiceBase<Category> implements 
 		return this.$create(
 			{
 				...params,
-				id: this._idGen.nextBigInt(),
+				id: this._idGen.nextBigInt().toString(),
 			},
 			dto.CreateCategoryResponse,
 		)

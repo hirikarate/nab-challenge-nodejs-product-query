@@ -35,7 +35,7 @@ let BranchService = class BranchService extends ManagementServiceBase_1.Manageme
     create(params) {
         return this.$create({
             ...params,
-            id: this._idGen.nextBigInt(),
+            id: this._idGen.nextBigInt().toString(),
         }, dto.CreateBranchResponse);
     }
     /**

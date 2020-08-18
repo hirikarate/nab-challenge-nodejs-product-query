@@ -12,7 +12,9 @@ import { ICategoryService } from '../contracts-product-management/interfaces/ICa
 
 @wd.controller('categories')
 export default class CategoryController extends RestControllerBase {
-	constructor(@cd.inject(T.CATEGORY_SVC) private _categorySvc: ICategoryService) {
+	constructor(
+		@cd.inject(T.CATEGORY_SVC) private _categorySvc: ICategoryService,
+	) {
 		super()
 		debug('CategoryController instantiated')
 	}
