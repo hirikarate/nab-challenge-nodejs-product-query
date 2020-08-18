@@ -24,7 +24,7 @@ class GetListRequestBase extends common_1.Translatable {
     }
 }
 __decorate([
-    common_1.decorators.number({ min: 1, max: 100 }),
+    common_1.decorators.number({ min: 1, max: Number.MAX_SAFE_INTEGER }),
     common_1.decorators.defaultAs(1),
     __metadata("design:type", Number)
 ], GetListRequestBase.prototype, "pageIndex", void 0);

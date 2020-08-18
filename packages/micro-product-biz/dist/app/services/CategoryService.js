@@ -35,7 +35,7 @@ let CategoryService = class CategoryService extends ManagementServiceBase_1.Mana
     create(params) {
         return this.$create({
             ...params,
-            id: this._idGen.nextBigInt(),
+            id: this._idGen.nextBigInt().toString(),
         }, dto.CreateCategoryResponse);
     }
     /**

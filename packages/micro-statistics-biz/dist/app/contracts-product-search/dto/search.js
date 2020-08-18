@@ -57,7 +57,7 @@ __decorate([
 ], CreateIndexRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -100,7 +100,7 @@ class DeleteIndexRequest extends common_1.Translatable {
 __decorate([
     common_1.decorators.required(),
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
         maxLength: 10,
     }),
@@ -149,7 +149,7 @@ __decorate([
 ], EditIndexRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
@@ -183,7 +183,7 @@ class EditIndexResponse extends dto_base_1.ResultResponse {
 exports.EditIndexResponse = EditIndexResponse;
 // #endregion Edit
 // #region Search
-class FilterRequest extends common_1.Translatable {
+class FilterRequest extends dto_base_1.GetListRequestBase {
     constructor() {
         super(...arguments);
         this.name = undefined;
@@ -191,9 +191,10 @@ class FilterRequest extends common_1.Translatable {
         this.minPrice = undefined;
         this.color = undefined;
         this.branchIds = undefined;
-        this.categoryId = undefined;
+        this.categoryIds = undefined;
         this.status = undefined;
         this.viewer = undefined;
+        this.sortBy = undefined;
     }
 }
 __decorate([
@@ -214,15 +215,18 @@ __decorate([
 ], FilterRequest.prototype, "color", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
 ], FilterRequest.prototype, "branchIds", void 0);
 __decorate([
-    common_1.decorators.string(),
-    __metadata("design:type", String)
-], FilterRequest.prototype, "categoryId", void 0);
+    common_1.decorators.array({
+        items: joi.string().required(),
+        allowSingle: true,
+    }),
+    __metadata("design:type", Array)
+], FilterRequest.prototype, "categoryIds", void 0);
 __decorate([
     common_1.decorators.number(),
     __metadata("design:type", String)
@@ -231,20 +235,27 @@ __decorate([
     common_1.decorators.validateProp(joi.object()),
     __metadata("design:type", Object)
 ], FilterRequest.prototype, "viewer", void 0);
+__decorate([
+    common_1.decorators.string(),
+    common_1.decorators.valid('name', 'price', 'createdAt'),
+    __metadata("design:type", String)
+], FilterRequest.prototype, "sortBy", void 0);
 exports.FilterRequest = FilterRequest;
-class SearchAdvancedRequest extends common_1.Translatable {
+class SearchAdvancedRequest extends dto_base_1.GetListRequestBase {
     constructor() {
         super(...arguments);
         this.keywords = undefined;
         this.maxPrice = undefined;
         this.minPrice = undefined;
         this.branchIds = undefined;
-        this.categoryId = undefined;
+        this.categoryIds = undefined;
         this.status = undefined;
         this.viewer = undefined;
+        this.sortBy = undefined;
     }
 }
 __decorate([
+    common_1.decorators.required(),
     common_1.decorators.string(),
     __metadata("design:type", String)
 ], SearchAdvancedRequest.prototype, "keywords", void 0);
@@ -258,15 +269,18 @@ __decorate([
 ], SearchAdvancedRequest.prototype, "minPrice", void 0);
 __decorate([
     common_1.decorators.array({
-        items: joi.string().regex(/\d+/).required(),
+        items: joi.string().regex(/^\d+$/).required(),
         allowSingle: true,
     }),
     __metadata("design:type", Array)
 ], SearchAdvancedRequest.prototype, "branchIds", void 0);
 __decorate([
-    common_1.decorators.string(),
+    common_1.decorators.array({
+        items: joi.string().required(),
+        allowSingle: true,
+    }),
     __metadata("design:type", String)
-], SearchAdvancedRequest.prototype, "categoryId", void 0);
+], SearchAdvancedRequest.prototype, "categoryIds", void 0);
 __decorate([
     common_1.decorators.number(),
     __metadata("design:type", String)
@@ -275,6 +289,11 @@ __decorate([
     common_1.decorators.validateProp(joi.object()),
     __metadata("design:type", Object)
 ], SearchAdvancedRequest.prototype, "viewer", void 0);
+__decorate([
+    common_1.decorators.string(),
+    common_1.decorators.valid('name', 'price', 'createdAt'),
+    __metadata("design:type", String)
+], SearchAdvancedRequest.prototype, "sortBy", void 0);
 exports.SearchAdvancedRequest = SearchAdvancedRequest;
 class SearchResultItem extends common_1.Translatable {
     constructor() {

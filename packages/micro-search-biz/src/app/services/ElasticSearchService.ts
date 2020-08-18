@@ -81,16 +81,17 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 		const response: ApiResponse = await this._esClient.search({
 			index: Indices.PRODUCTS,
 			body: {
+				from: (params.pageIndex - 1) * params.pageSize,
+				size: params.pageSize,
 				query: buildFilterQuery(params),
+				...buildSortQuery(params),
 			},
 		})
-		const results: object[] = (response.body.hits.total.value)
+		const total = response.body.hits.total.value
+		const items: object[] = total
 			? response.body.hits.hits.map((hit: any) => hit._source)
 			: []
-		return dto.SearchResponse.from({
-			items: results,
-			total: response.body.hits.total.value,
-		})
+		return dto.SearchResponse.from({ items, total })
 	}
 
 	/**
@@ -100,16 +101,17 @@ export class ElasticSearchService implements ISearchCommandService, ISearchQuery
 		const response: ApiResponse = await this._esClient.search({
 			index: Indices.PRODUCTS,
 			body: {
+				from: (params.pageIndex - 1) * params.pageSize,
+				size: params.pageSize,
 				query: buildSearchQuery(params),
+				...buildSortQuery(params),
 			},
 		})
-		const results: object[] = (response.body.hits.total.value)
+		const total = response.body.hits.total.value
+		const items: object[] = total
 			? response.body.hits.hits.map((hit: any) => hit._source)
 			: []
-		return dto.SearchResponse.from({
-			items: results,
-			total: response.body.hits.total.value,
-		})
+		return dto.SearchResponse.from({ items, total })
 	}
 
 	private _ignoreNonExisting = (error: ApiResponse) => {
@@ -247,4 +249,18 @@ const buildStatusFilter = (params: dto.FilterRequest | dto.SearchAdvancedRequest
 	}
 
 	return queryObject
+}
+
+function buildSortQuery(params: dto.SearchAdvancedRequest | dto.FilterRequest): any {
+	if (!params.sortBy) {
+		return {}
+	}
+
+	return {
+		sort: [{
+			[params.sortBy]: {
+				order: params.sortType,
+			},
+		}],
+	}
 }

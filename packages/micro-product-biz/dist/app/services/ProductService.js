@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
 /// <reference types="debug" />
 const debug = require('debug')('nab:svc:product');
-// import { cacheable } from '@micro-fleet/cache'
 const common_1 = require("@micro-fleet/common");
 const id_generator_1 = require("@micro-fleet/id-generator");
 const persistence_1 = require("@micro-fleet/persistence");
@@ -37,21 +36,16 @@ let ProductService = class ProductService extends ManagementServiceBase_1.Manage
      * @see IProductRepository.create
      */
     create(params) {
-        return this.$sessionFactory.startSession()
-            .pipe((atomicSession) => this.$create({
+        return this.$create({
             ...params,
-            id: this._idGen.nextBigInt(),
-        }, dto.CreateProductResponse, {
-            atomicSession,
-        }))
-            .pipe((atomicSession, [responses]) => Promise.resolve(responses))
-            .closePipe();
+            id: this._idGen.nextBigInt().toString(),
+        }, dto.CreateProductResponse);
     }
     /**
      * @override
      */
     $checkCreateViolation(params) {
-        if (params.name.toLocaleLowerCase().includes('shit')) {
+        if (params.name.toLocaleLowerCase().split(' ').includes('shit')) {
             return Promise.resolve(common_1.Maybe.Just('PRODUCT_NAME_WITH_BANNED_WORDS'));
         }
         return Promise.resolve(common_1.Maybe.Nothing());
@@ -61,11 +55,7 @@ let ProductService = class ProductService extends ManagementServiceBase_1.Manage
      * @see IProductRepository.edit
      */
     edit(params) {
-        return this.$sessionFactory.startSession()
-            .pipe((atomicSession) => this.$edit(params, dto.EditProductResponse, {
-            atomicSession,
-        }))
-            .closePipe();
+        return this.$edit(params, dto.EditProductResponse);
     }
     /**
      * @see IProductRepository.hardDeleteSingle

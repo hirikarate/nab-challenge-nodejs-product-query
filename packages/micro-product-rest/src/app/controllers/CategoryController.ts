@@ -8,11 +8,15 @@ import { decorators as wd, RestControllerBase } from '@micro-fleet/web'
 import { Types as T } from '../constants/Types'
 import * as dto from '../contracts-product-management/dto/category'
 import { ICategoryService } from '../contracts-product-management/interfaces/ICategoryService'
+import { authorized } from '../filters/authorized'
 
 
+@authorized()
 @wd.controller('categories')
 export default class CategoryController extends RestControllerBase {
-	constructor(@cd.inject(T.CATEGORY_SVC) private _categorySvc: ICategoryService) {
+	constructor(
+		@cd.inject(T.CATEGORY_SVC) private _categorySvc: ICategoryService,
+	) {
 		super()
 		debug('CategoryController instantiated')
 	}

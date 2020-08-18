@@ -1,7 +1,7 @@
 import * as joi from '@hapi/joi'
 import { Translatable, decorators as d } from '@micro-fleet/common'
 
-import { ResultResponse, DTOListBase } from './dto-base'
+import { ResultResponse, DTOListBase, GetListRequestBase } from './dto-base'
 
 
 // #region RPC Constants
@@ -35,7 +35,7 @@ export class CreateIndexRequest extends Translatable {
 	public readonly color: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -68,7 +68,7 @@ export class CreateIndexResponse extends ResultResponse {
 export class DeleteIndexRequest extends Translatable {
 	@d.required()
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 		maxLength: 10,
 	})
@@ -99,7 +99,7 @@ export class EditIndexRequest extends Translatable {
 	public readonly color?: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -129,7 +129,7 @@ export class EditIndexResponse extends ResultResponse {
 
 // #region Search
 
-export class FilterRequest extends Translatable {
+export class FilterRequest extends GetListRequestBase {
 
 	@d.string()
 	public readonly name?: string = undefined
@@ -144,7 +144,7 @@ export class FilterRequest extends Translatable {
 	public readonly color?: string = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -160,9 +160,13 @@ export class FilterRequest extends Translatable {
 
 	@d.validateProp(joi.object())
 	public readonly viewer?: SearchViewer = undefined
+
+	@d.string()
+	@d.valid('name', 'price', 'createdAt')
+	public sortBy: string = undefined
 }
 
-export class SearchAdvancedRequest extends Translatable {
+export class SearchAdvancedRequest extends GetListRequestBase {
 
 	@d.required()
 	@d.string()
@@ -175,7 +179,7 @@ export class SearchAdvancedRequest extends Translatable {
 	public readonly minPrice?: number = undefined
 
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 	})
 	public readonly branchIds?: string[] = undefined
@@ -191,6 +195,10 @@ export class SearchAdvancedRequest extends Translatable {
 
 	@d.validateProp(joi.object())
 	public readonly viewer?: SearchViewer = undefined
+
+	@d.string()
+	@d.valid('name', 'price', 'createdAt')
+	public sortBy: string = undefined
 }
 
 export type SearchViewer = {

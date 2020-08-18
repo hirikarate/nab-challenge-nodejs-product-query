@@ -1,4 +1,9 @@
+import * as path from 'path'
+
 import { constants } from '@micro-fleet/common'
+
+import { Auth as A } from './constants/AuthSettingKeys'
+
 
 const {
 	Cache: C,
@@ -7,10 +12,15 @@ const {
 	RPC,
 	Web: W,
 } = constants
-
+const cwd = process.cwd()
 
 export = {
 	[S.SERVICE_SLUG]: 'nab-product-rest-service',
+	[A.AUTH_EXPIRE_ACCESS]: '30m', // 30 minutes
+	[A.AUTH_EXPIRE_REFRESH]: '30d', // 30 days
+	[A.AUTH_ISSUER]: 'www.nab.com.au',
+	[A.AUTH_KEY_SIGN_FILE]: path.resolve(cwd, './_encrypt-key/privatekey.pem'),
+	[A.AUTH_KEY_VERIFY_FILE]: path.resolve(cwd, './_encrypt-key/publickey.crt'),
 	[C.CACHE_NUM_CONN]: 1,
 	[C.CACHE_HOST]: 'localhost',
 	[M.MSG_BROKER_HOST]: 'localhost',

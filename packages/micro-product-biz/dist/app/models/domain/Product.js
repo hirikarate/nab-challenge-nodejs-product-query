@@ -40,7 +40,8 @@ class ProductTranslator extends common_1.ModelAutoMapper {
     $createMap() {
         return super
             .$createMap()
-            .forMember('branches', function ({ sourceObject, sourcePropertyName }) {
+            .forMember('branches', function (options) {
+            const { sourceObject, sourcePropertyName } = options;
             const { branchIds } = sourceObject;
             // If converting from request object
             if (Array.isArray(branchIds)) {
@@ -49,7 +50,8 @@ class ProductTranslator extends common_1.ModelAutoMapper {
             // If converting from ORM object
             return Branch_1.Branch.from(sourceObject[sourcePropertyName]);
         })
-            .forMember('category', function ({ sourceObject, sourcePropertyName }) {
+            .forMember('category', function (options) {
+            const { sourceObject, sourcePropertyName } = options;
             return Category_1.Category.from(sourceObject[sourcePropertyName]);
         });
     }

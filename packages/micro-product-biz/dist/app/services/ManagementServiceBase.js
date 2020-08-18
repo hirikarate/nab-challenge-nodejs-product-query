@@ -39,7 +39,7 @@ let ManagementServiceBase = class ManagementServiceBase {
     /**
      * Can be overriden by derived class to check business rule for creating.
      */
-    $checkCreateViolation(params) {
+    $checkCreateViolation(_params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
     // #endregion Create
@@ -63,7 +63,7 @@ let ManagementServiceBase = class ManagementServiceBase {
     /**
      * Can be overriden by derived class to check business rule for deleting.
      */
-    $checkDeleteSingleViolation(params) {
+    $checkDeleteSingleViolation(_params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
     async $hardDeleteMany(params, ResponseClass, options) {
@@ -78,9 +78,7 @@ let ManagementServiceBase = class ManagementServiceBase {
         }
         else if (params.isAtomic) {
             task = this.$sessionFactory.startSession()
-                .pipe((atomicSession) => {
-                return this.$repo.deleteMany(ids, { ...options, atomicSession });
-            })
+                .pipe((atomicSession) => this.$repo.deleteMany(ids, { ...options, atomicSession }))
                 .closePipe();
         }
         else {
@@ -99,7 +97,7 @@ let ManagementServiceBase = class ManagementServiceBase {
     /**
      * Can be overriden by derived class to check business rule for deleting.
      */
-    $checkDeleteManyViolation(params) {
+    $checkDeleteManyViolation(_params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
     // #endregion Delete
@@ -120,7 +118,7 @@ let ManagementServiceBase = class ManagementServiceBase {
     /**
      * Can be overriden by derived class to check business rule for editing.
      */
-    $checkEditViolation(params) {
+    $checkEditViolation(_params) {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
     // #endregion Edit

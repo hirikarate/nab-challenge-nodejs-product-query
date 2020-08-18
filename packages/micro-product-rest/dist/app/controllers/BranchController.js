@@ -19,6 +19,7 @@ const common_1 = require("@micro-fleet/common");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("../constants/Types");
 const dto = require("../contracts-product-management/dto/branch");
+const authorized_1 = require("../filters/authorized");
 let BranchController = class BranchController extends web_1.RestControllerBase {
     constructor(_branchSvc) {
         super();
@@ -139,6 +140,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BranchController.prototype, "deleteMany", null);
 BranchController = __decorate([
+    authorized_1.authorized(),
     web_1.decorators.controller('branches'),
     __param(0, common_1.decorators.inject(Types_1.Types.BRANCH_SVC)),
     __metadata("design:paramtypes", [Object])

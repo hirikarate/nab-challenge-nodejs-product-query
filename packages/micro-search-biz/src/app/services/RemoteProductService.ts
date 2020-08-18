@@ -18,51 +18,57 @@ export class RemoteProductService extends RemoteServiceBase implements IProductS
 	}
 
 	/**
-	 * @see IProductService.create
-	 */
-	public create(request: dto.CreateProductRequest): Promise<dto.CreateProductResponse> {
-		return Promise.resolve(null)
-	}
-
-	/**
-	 * @see IProductService.edit
-	 */
-	public edit(request: dto.EditProductRequest): Promise<dto.EditProductResponse> {
-		return Promise.resolve(null)
-	}
-
-	/**
-	 * @see IProductService.hardDeleteSingle
-	 */
-	public hardDeleteSingle(request: dto.DeleteProductRequest): Promise<dto.DeleteProductResponse> {
-		return Promise.resolve(null)
-	}
-
-	/**
-	 * @see IProductService.hardDeleteMany
-	 */
-	public hardDeleteMany(request: dto.DeleteProductRequest): Promise<dto.DeleteProductResponse> {
-		return Promise.resolve(null)
-	}
-
-	/**
 	 * @see IProductService.getById
 	 */
 	public getById(request: dto.GetProductByIdRequest): Promise<dto.GetSingleProductResponse> {
 		return this.$call(A.GET_BY_ID, request, dto.GetSingleProductResponse)
 	}
 
+
+	// #region Not implemented
+
+	/**
+	 * @see IProductService.create
+	 */
+	public create(_request: dto.CreateProductRequest): Promise<dto.CreateProductResponse> {
+		return Promise.resolve(null)
+	}
+
+	/**
+	 * @see IProductService.edit
+	 */
+	public edit(_request: dto.EditProductRequest): Promise<dto.EditProductResponse> {
+		return Promise.resolve(null)
+	}
+
+	/**
+	 * @see IProductService.hardDeleteSingle
+	 */
+	public hardDeleteSingle(_request: dto.DeleteProductRequest): Promise<dto.DeleteProductResponse> {
+		return Promise.resolve(null)
+	}
+
+	/**
+	 * @see IProductService.hardDeleteMany
+	 */
+	public hardDeleteMany(_request: dto.DeleteProductRequest): Promise<dto.DeleteProductResponse> {
+		return Promise.resolve(null)
+	}
+
 	/**
 	 * @see IProductService.getList
 	 */
-	public getList(request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
+	public getList(_request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
 		return Promise.resolve(null)
 	}
 
 	/**
 	 * @see IProductService.getRecalledList
 	 */
-	public getRecalledList(request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
+	public getRecalledList(_request: dto.GetProductListRequest): Promise<dto.GetProductListResponse> {
 		return Promise.resolve(null)
 	}
+
+	// #endregion Not implemented
+
 }

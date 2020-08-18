@@ -8,11 +8,15 @@ import { decorators as wd, RestControllerBase } from '@micro-fleet/web'
 import { Types as T } from '../constants/Types'
 import * as dto from '../contracts-product-management/dto/branch'
 import { IBranchService } from '../contracts-product-management/interfaces/IBranchService'
+import { authorized } from '../filters/authorized'
 
 
+@authorized()
 @wd.controller('branches')
 export default class BranchController extends RestControllerBase {
-	constructor(@cd.inject(T.BRANCH_SVC) private _branchSvc: IBranchService) {
+	constructor(
+		@cd.inject(T.BRANCH_SVC) private _branchSvc: IBranchService,
+	) {
 		super()
 		debug('BranchController instantiated')
 	}

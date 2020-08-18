@@ -6,6 +6,7 @@ import { momentify, toUtcTimeString } from '../../utils/date-utils'
 import { BranchORM } from './BranchORM'
 import { CategoryORM } from './CategoryORM'
 
+
 @d.translatable()
 export class ProductORM extends ORMModelBase {
 	public id: string = undefined // Must be initialized, otherwise TypeScript compiler will remove it

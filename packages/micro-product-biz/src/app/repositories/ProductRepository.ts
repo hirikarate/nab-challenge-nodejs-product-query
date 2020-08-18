@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/indent */
 /// <reference types="debug" />
 const debug: debug.IDebugger = require('debug')('nab:repo:product')
 
 import { QueryBuilder } from 'objection'
-import { decorators as cd, PagedData, Maybe } from '@micro-fleet/common'
+import { decorators as cd, PagedData } from '@micro-fleet/common'
 import * as p from '@micro-fleet/persistence'
 
 import { ProductStatus } from '../contracts/constants-shared'
@@ -22,7 +23,6 @@ export interface IProductRepository extends p.IRepository<Product> {
 
 export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Product> implements IProductRepository {
 	constructor(
-	/* eslint-disable-next-line @typescript-eslint/indent */
 		@cd.inject(p.Types.DB_CONNECTOR) connector: p.IDatabaseConnector,
 	) {
 		super(ProductORM, Product, connector)
@@ -30,10 +30,18 @@ export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Produc
 	}
 
 	/**
+	 * @see IRepository.create
+	 */
+	public create(domainModel: Product, opts: p.RepositoryCreateOptions = {}): Promise<Product> {
+		return super.create(domainModel, opts)
+			.then((responses: any) => responses[0]) // `query.insertGraph` always returns an array
+	}
+
+	/**
 	 * @override
 	 */
-	protected $buildCreateQuery(query: QueryBuilder<ProductORM>, model: Product, ormModel: ProductORM,
-		opts: p.RepositoryCreateOptions): p.QueryCallbackReturn {
+	protected $buildCreateQuery(query: QueryBuilder<ProductORM>, model: Product,
+		ormModel: ProductORM): p.QueryCallbackReturn {
 
 		const q = query.insertGraph([ormModel], { relate: true })
 		return q.returning('*') as any
@@ -42,8 +50,8 @@ export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Produc
 	/**
 	 * @override
 	 */
-	protected $buildPatchQuery(query: QueryBuilder<ProductORM>, model: Partial<Product>, ormModel: ProductORM,
-		opts: p.RepositoryPatchOptions): p.QueryCallbackReturn {
+	protected $buildPatchQuery(query: QueryBuilder<ProductORM>, model: Partial<Product>,
+		ormModel: ProductORM): p.QueryCallbackReturn {
 
 		const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false })
 		return q.returning('*') as any

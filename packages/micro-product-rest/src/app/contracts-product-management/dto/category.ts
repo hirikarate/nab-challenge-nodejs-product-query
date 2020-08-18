@@ -47,7 +47,7 @@ export class CreateCategoryResponse extends ResultResponse {
 export class DeleteCategoryRequest extends Translatable {
 	@d.required()
 	@d.array({
-		items: joi.string().regex(/\d+/).required(),
+		items: joi.string().regex(/^\d+$/).required(),
 		allowSingle: true,
 		maxLength: 10,
 	})

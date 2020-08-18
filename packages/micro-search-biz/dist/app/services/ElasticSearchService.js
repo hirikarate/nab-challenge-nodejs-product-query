@@ -84,36 +84,36 @@ let ElasticSearchService = class ElasticSearchService {
         const response = await this._esClient.search({
             index: Indices_1.default.PRODUCTS,
             body: {
+                from: (params.pageIndex - 1) * params.pageSize,
+                size: params.pageSize,
                 query: buildFilterQuery(params),
+                ...buildSortQuery(params),
             },
         });
-        const results = (response.body.hits.total.value)
+        const total = response.body.hits.total.value;
+        const items = total
             ? response.body.hits.hits.map((hit) => hit._source)
             : [];
-        return dto.SearchResponse.from({
-            items: results,
-            total: response.body.hits.total.value,
-        });
+        return dto.SearchResponse.from({ items, total });
     }
     /**
      * @see ISearchQueryService.searchAdvanced
      */
     async searchAdvanced(params) {
-		const body =  {
-			query: buildSearchQuery(params),
-		}
-		console.dir({ body }, { depth: 10 })
         const response = await this._esClient.search({
             index: Indices_1.default.PRODUCTS,
-            body,
+            body: {
+                from: (params.pageIndex - 1) * params.pageSize,
+                size: params.pageSize,
+                query: buildSearchQuery(params),
+                ...buildSortQuery(params),
+            },
         });
-        const results = (response.body.hits.total.value)
+        const total = response.body.hits.total.value;
+        const items = total
             ? response.body.hits.hits.map((hit) => hit._source)
             : [];
-        return dto.SearchResponse.from({
-            items: results,
-            total: response.body.hits.total.value,
-        });
+        return dto.SearchResponse.from({ items, total });
     }
 };
 ElasticSearchService = __decorate([
@@ -178,8 +178,7 @@ const buildMultiFieldMathQuery = (params) => (queryObject) => {
 const buildPriceFilter = (params) => (queryObject) => {
     const priceFilter = {
         range: {
-            price: {
-            },
+            price: {},
         },
     };
     if (params.minPrice) {
@@ -223,4 +222,16 @@ const buildStatusFilter = (params) => (queryObject) => {
     }
     return queryObject;
 };
+function buildSortQuery(params) {
+    if (!params.sortBy) {
+        return {};
+    }
+    return {
+        sort: [{
+                [params.sortBy]: {
+                    order: params.sortType,
+                },
+            }],
+    };
+}
 //# sourceMappingURL=ElasticSearchService.js.map

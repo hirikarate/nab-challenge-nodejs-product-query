@@ -12,6 +12,11 @@ import {
 import { registerWebAddOn } from '@micro-fleet/web'
 
 import { Types as T } from './constants/Types'
+import { IAuthService } from './contracts/interfaces/IAuthService'
+import { AuthService } from './services/AuthService'
+import { IJwtHelper } from './contracts/interfaces/IJwtHelper'
+import { RsaJwtHelper } from './services/RsaJwtHelper'
+
 import { IBranchService } from './contracts-product-management/interfaces/IBranchService'
 import { RemoteBranchService } from './services/RemoteBranchService'
 
@@ -40,6 +45,9 @@ class App extends MicroServiceBase {
 		super.$registerDependencies()
 
 		const dc = this._depContainer
+		dc.bindConstructor<IAuthService>(T.AUTH_SVC, AuthService).asSingleton()
+		dc.bindConstructor<IJwtHelper>(T.JWT_HELPER, RsaJwtHelper).asSingleton()
+
 		dc.bindConstructor<IBranchService>(T.BRANCH_SVC, RemoteBranchService).asSingleton()
 		dc.bindConstructor<ICategoryService>(T.CATEGORY_SVC, RemoteCategoryService).asSingleton()
 		dc.bindConstructor<IProductService>(T.PRODUCT_DIRECT_SVC, RemoteProductDirectService).asSingleton()
