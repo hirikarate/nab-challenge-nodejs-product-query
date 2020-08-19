@@ -6,6 +6,7 @@ const microservice_1 = require("@micro-fleet/microservice");
 const service_communication_1 = require("@micro-fleet/service-communication");
 const web_1 = require("@micro-fleet/web");
 const Types_1 = require("./constants/Types");
+const RPCCallerSettingKeys_1 = require("./constants/RPCCallerSettingKeys");
 const AuthService_1 = require("./services/AuthService");
 const RsaJwtHelper_1 = require("./services/RsaJwtHelper");
 const RemoteBranchService_1 = require("./services/RemoteBranchService");
@@ -49,7 +50,7 @@ class App extends microservice_1.MicroServiceBase {
         const caller = this._depContainer.resolve(service_communication_1.Types.DIRECT_RPC_CALLER);
         void caller.init({
             callerName: config.get(S.SERVICE_SLUG).value,
-            baseAddress: 'localhost:8181',
+            baseAddress: config.get(RPCCallerSettingKeys_1.RPCCaller.HANDLER_ADDRESS).value,
         });
     }
     _initMediateRpcCaller() {

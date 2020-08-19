@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import * as sinon from 'sinon'
 import { stubInterface } from 'ts-sinon'

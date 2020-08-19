@@ -17,9 +17,12 @@
 		"@micro-fleet/microservice": "2.4.0-rc1",
 		"@micro-fleet/service-communication": "2.4.0-rc2",
 		"@micro-fleet/web": "2.4.0-rc1",
-		"jsonwebtoken": "^8.5.1"
+		"@hapi/joi": "=16.1.8",
+		"debug": "~4.2",
+		"jsonwebtoken": "~8.5",
+		"moment": "~2.24"
 	},
 	"devDependencies": {
-		"@types/jsonwebtoken": "^8.5.0"
+		"@types/jsonwebtoken": "~8.5"
 	}
 }
