@@ -1,0 +1,1015 @@
+{
+	"info": {
+		"_postman_id": "3c81d854-142a-457a-880a-7ffc445e2708",
+		"name": "NAB iCommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Branch",
+			"item": [
+				{
+					"name": "Create branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Vietnam\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/branches",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit branch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"6701222859043241984\",\r\n    \"name\": \"Việt Nam\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/branches",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get branch by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/branches/6701222859043241984",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								"6701222859043241984"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get branch list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/branches/?sortBy=name&sortType=desc",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"branches",
+								""
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Motorbikes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"41438515560448\",\r\n    \"name\": \"Motorcycles\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get category detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/41438515560448",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"41438515560448"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get category list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/categories?sortBy=name&sortType=desc",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete single category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/categories/41438515560448",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"41438515560448"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Honda - Dirt bike\",\r\n    \"color\": \"Dark red, gray\",\r\n    \"price\": 3950,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": [\"6701222859064213504\", \"6701222859043241984\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"59685377933312\",\r\n    \"name\": \"Suzuki - Dirt bike\",\r\n    \"color\": \"Light green\",\r\n    \"price\": 4500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product list (Basic)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "price"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product list (Complex)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc&fields=id&fields=name&fields=color&relations=category",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "pageIndex",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "price"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								},
+								{
+									"key": "fields",
+									"value": "id"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								},
+								{
+									"key": "fields",
+									"value": "color"
+								},
+								{
+									"key": "relations",
+									"value": "category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product details (for Admin)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/6701624969262006279?fields=name&relations=category&relations=branches",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"6701624969262006279"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								},
+								{
+									"key": "fields",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "relations",
+									"value": "category"
+								},
+								{
+									"key": "relations",
+									"value": "branches"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product details (for anonymous)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/search/6701624969262006279?fields=name&relations=category&relations=branches",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"search",
+								"6701624969262006279"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "id",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								},
+								{
+									"key": "fields",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "relations",
+									"value": "category"
+								},
+								{
+									"key": "relations",
+									"value": "branches"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/search/filter?name=scooter&color=dark&branchIds=6701222859043241984&branchIds=6701222859064213504&categoryIds=6701222859118739456&categoryIds=6701222859118739457&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"search",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "scooter"
+								},
+								{
+									"key": "color",
+									"value": "dark"
+								},
+								{
+									"key": "branchIds",
+									"value": "6701222859043241984"
+								},
+								{
+									"key": "branchIds",
+									"value": "6701222859064213504"
+								},
+								{
+									"key": "categoryIds",
+									"value": "6701222859118739456"
+								},
+								{
+									"key": "categoryIds",
+									"value": "6701222859118739457"
+								},
+								{
+									"key": "sortBy",
+									"value": "price"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								},
+								{
+									"key": "pageIndex",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Advanced search products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/search/advanced?keywords=honda&branchIds=6701222859064213504&categoryIds=6701222859118739456&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"search",
+								"advanced"
+							],
+							"query": [
+								{
+									"key": "keywords",
+									"value": "honda"
+								},
+								{
+									"key": "branchIds",
+									"value": "6701222859064213504"
+								},
+								{
+									"key": "branchIds",
+									"value": "6701222859043241984",
+									"disabled": true
+								},
+								{
+									"key": "categoryIds",
+									"value": "6701222859118739456"
+								},
+								{
+									"key": "categoryIds",
+									"value": "6701222859118739457",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "10000",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "2000",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "price"
+								},
+								{
+									"key": "sortType",
+									"value": "desc"
+								},
+								{
+									"key": "pageIndex",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete single product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products/6701222859160682497",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"6701222859160682497"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete multiple products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/v1/products?ids=6701222859156488195&ids=6701222859156488196&ids=6701222859160682496",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "6701222859156488195"
+								},
+								{
+									"key": "ids",
+									"value": "6701222859156488196"
+								},
+								{
+									"key": "ids",
+									"value": "6701222859160682496"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

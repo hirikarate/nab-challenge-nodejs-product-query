@@ -18,6 +18,9 @@
 		{
 			"path": "packages\\lambda-product"
 		},
+		{
+			"path": "packages\\docs"
+		},
 	],
 	"settings": {
 		"typescript.tsdk": "nab-challenge-nodejs-product-query\\node_modules\\typescript\\lib"

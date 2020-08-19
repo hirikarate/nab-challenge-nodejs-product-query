@@ -1,14 +1,66 @@
-# Scafolding for RPC micro services with [MicroFleet](https://github.com/gennovative/micro-fleet) framework
+# iCommerce product query demo
 
 ---
-## COMPILING SOURCE CODE
+## OVERVIEW
 
-- First of all, run `npm install`: To install dependencies.
-- Service settings can be customized each service package in `packages/apps/{SERVICE NAME}/src/app/configs.ts`
-- Run `npm run build` to transpile ALL packages.
+* _Architecture_: Microservice
+* _Tech stacks_:
+   - TypeScript opensource microservice framework [Micro Fleet](https://github.com/gennovative/micro-fleet) (**Disclaimer**: I develop it)
+   - AWS ElasticSearch
+   - Redis cache / AWS ElasticCache
+   - Postgresql database / AWS RDS
+   - Docker Swarm / AWS EC2
+   - RabbitMQ
+* _Diagrams_: In folder `/packages/docs/images`
+   - [ERD Diagram](./packages/docs/images/icommerce-entity-relationship-diagram.png)
+   - [Component Diagram](./packages/docs/images/icommerce-component-diagram.png)
 
-## SETUP DATABASE
-This scafolding uses PostgreSQL as default, you can change database engine in `_database/knexfile.js`. If you don't already have PostgreSQL installed, the quickest way is run a Docker image:
+## HOW TO USE
+
+### Running
+
+The quickest way is to spin up a group of Docker Swarm services that I already configured:
+
+- Download [this file `constants.sh`](https://drive.google.com/file/d/1tI6t6mOhdQaXAyf2bDQHjTANux5EIcXT/view?usp=sharing) and replace the one in folder `_/docker/`. It includes my **public** AWS ElasticSearch and AWS RDS Postgresql **credentials** for your convenience. I will disable it soon.
+- `cd _docker`
+- `docker swarm init`
+- `bash ./deploy.sh` to spin up Swarm services
+- Later, `bash ./undeploy.sh` to destroy it
+
+### Calling APIs
+
+- Import [Postman collection](./packages/docs/source/NAB-iCommerce.postman_collection.json) in folder `packages/docs/source`
+- Import [Postman environment](./packages/docs/source/NAB-Challenge-Container.postman_environment.json) in folder `packages/docs/source`
+- Only the two APIs "Filter products" and "Advanced search product" in Postman folder "Product" are public.
+- The others require access token in Authentication header (I already configured it for your convenience).
+
+## Available APIs
+- Branch CRUD (POST, PATCH, GET, DELETE)
+- Category CRUD
+- Product CRUD
+   - Creating, editing and deleting operations will update ElasticSearch indices also.
+   - Getting by ID, filtering and searching will write audit logs to database table `nab_request_logs`.
+- Product filter and advanced search
+
+---
+
+## HOW TO DEVELOP
+
+If you prefer doing everything manually, please follow these instructions:
+
+### Compiling source code
+
+- Standing at monorepo root
+- `yarn`: To install dependencies.
+- Service settings can be customized each service package in `packages/{SERVICE NAME}/src/app/configs.ts`
+- Run `yarn build` to transpile ALL services.
+- Run `yarn dev` to run ALL services and watch for changes.
+- Run `yarn start` to run ALL services.
+- Run `yarn test` to run unit tests.
+
+
+### Database migration
+This demo uses PostgreSQL, you can change database credentials in `_database/knexfile.js`. If you don't already have PostgreSQL installed, the quickest way is run a Docker image:
 
   ```bash
   docker run -d -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:11-alpine
@@ -17,12 +69,12 @@ This scafolding uses PostgreSQL as default, you can change database engine in `_
 We use database migration file for more fine-grained control of table creation:
 
 - `cd _database`
-- `npx knex migrate:latest` to create tables for development.
+- `npx knex migrate:latest` to create tables.
 - `npx knex seed:run` to insert seed data.
 
-- To re-run migration, go to database then delete all rows in table `knex_migrations.`
+- To re-run migration, go to database then truncate table `knex_migrations.`
 
-## SETUP RabbitMQ
+### Setup RabbitMQ
 
 - If you don't already have RabbitMQ installed, the quickest way is run a Docker image, including the management board:
 
@@ -31,15 +83,3 @@ We use database migration file for more fine-grained control of table creation:
   ```
 
 - Open webpage at URL `http://localhost:15672` and login with username/password `guest/guest`.
-
-## RUN AND TEST SERVICES
-- Please refer to each service's `README.md` in `packages/apps` for more details.
-
-## FAQ
-
-### How was this project initialized?
-
-In case you want to start a new monorepo like this one. This project structure is inspired from [lerna-yarn-workspaces-example](https://github.com/Quramy/lerna-yarn-workspaces-example) but added some customizations:
-
-* The major task runner is `npm run` or `yarn run`, with `scripts` section in `package.json`, as inspired from [how-to-use-npm-as-a-build-tool](https://www.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/)
-
