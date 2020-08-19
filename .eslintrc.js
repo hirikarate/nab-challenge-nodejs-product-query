@@ -121,7 +121,6 @@ module.exports = {
 		'prefer-template': 0,
 		'prefer-destructuring': 0,
 		'import/prefer-default-export': 0,
-		'import/no-extraneous-dependencies': 0,
 		'import/first': 0,
 		'import/order': 0,
 	},

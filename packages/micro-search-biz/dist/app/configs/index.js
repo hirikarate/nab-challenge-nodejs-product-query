@@ -6,9 +6,9 @@ const { MessageBroker: M, Service: S, RPC, } = common_1.constants;
 module.exports = {
     [S.SERVICE_SLUG]: 'nab-product-search-biz-service',
     [SettingKeys_1.AWS.REGION]: 'ap-southeast-1',
-    [SettingKeys_1.AWS.ACCESS_KEY]: 'AKIAWCNSVEYMSWGV3NM6',
-    [SettingKeys_1.AWS.SECRET_KEY]: '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',
-    [SettingKeys_1.ElasticSearch.HOST]: 'https://search-icommerce-7htb7n5ittiwrpm5iwcdomp6l4.ap-southeast-1.es.amazonaws.com/',
+    [SettingKeys_1.AWS.ACCESS_KEY]: 'ACCESS_KEY',
+    [SettingKeys_1.AWS.SECRET_KEY]: 'SECRET_KEY',
+    [SettingKeys_1.ElasticSearch.HOST]: 'https://ap-southeast-1.es.amazonaws.com/',
     [SettingKeys_1.ElasticSearch.MAPPINGS]: [
         ...mapping_product_1.default,
     ],

@@ -12,6 +12,7 @@ import {
 import { registerWebAddOn } from '@micro-fleet/web'
 
 import { Types as T } from './constants/Types'
+import { RPCCaller } from './constants/RPCCallerSettingKeys'
 import { IAuthService } from './contracts/interfaces/IAuthService'
 import { AuthService } from './services/AuthService'
 import { IJwtHelper } from './contracts/interfaces/IJwtHelper'
@@ -79,7 +80,7 @@ class App extends MicroServiceBase {
 		const caller = this._depContainer.resolve<IDirectRpcCaller>(sT.DIRECT_RPC_CALLER)
 		void caller.init({
 			callerName: config.get(S.SERVICE_SLUG).value,
-			baseAddress: 'localhost:8181',
+			baseAddress: config.get(RPCCaller.HANDLER_ADDRESS).value,
 		})
 	}
 

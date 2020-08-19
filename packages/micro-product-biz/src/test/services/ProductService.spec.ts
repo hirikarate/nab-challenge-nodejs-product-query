@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai'
 import { stubInterface } from 'ts-sinon'
 import { IIdProvider } from '@micro-fleet/id-generator'

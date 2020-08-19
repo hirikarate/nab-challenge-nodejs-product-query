@@ -8,8 +8,7 @@
 		"build": "npm run clean && npm run copysrc && tsc --pretty",
 		"watch": "npm run clean && npm run copysrc && tsc --watch --pretty",
 		"clean": "rimraf dist coverage .nyc_output",
-		"copysrc": "node scripts/copySrc.js",
-		"postinstall": "lerna bootstrap"
+		"copysrc": "node scripts/copySrc.js"
 	},
 	"dependencies": {
 		"@elastic/elasticsearch": "~7.8",
@@ -19,7 +18,10 @@
 		"@micro-fleet/microservice": "2.4.0-rc1",
 		"@micro-fleet/persistence": "2.4.0-rc1",
 		"@micro-fleet/service-communication": "2.4.0-rc2",
+		"@hapi/joi": "=16.1.8",
 		"aws-elasticsearch-connector": "~9.0",
-		"aws-sdk": "~2.734.0"
+		"aws-sdk": "~2.734.0",
+		"debug": "~4.2",
+		"moment": "~2.24"
 	}
 }

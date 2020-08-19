@@ -1,2 +1,0 @@
-stackname="eventcheckin"
-

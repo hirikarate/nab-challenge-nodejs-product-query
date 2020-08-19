@@ -1,0 +1,103 @@
+version: '3.7'
+
+networks:
+  nab-net:
+    external: true
+
+x-env-common: &env-common
+  DEBUG: ${DEBUG:-tapnplay:*}
+
+x-env-cache: &env-cache
+  cache_host: ${CACHE_HOST}
+
+x-env-db: &env-db
+  db_host: ${DB_HOST}
+  db_user: ${DB_USER}
+  db_pass: ${DB_PASS}
+  db_name: ${DB_NAME}
+
+x-env-mb: &env-mb
+  msgBroker_host: ${MB_HOST}
+  msgBroker_username: ${MB_USER}
+  msgBroker_password: ${MB_PASS}
+  msgBroker_exchange: ${MB_EXCH}
+
+x-env-aws: &env-aws
+  aws_region_code: ${AWS_REGION_CODE}
+  aws_access_key: ${AWS_ACCESS_KEY}
+  aws_secret_key: ${AWS_SECRET_KEY}
+  elastic_search_host: ${AWS_ES_HOST}
+
+services:
+  redis:
+    image: "redis:5.0-alpine"
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+
+  rabbitmq:
+    image: "rabbitmq:3.7-management-alpine"
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  product-rest:
+    image: "hirikarate/icommerce-product-rest:${VERSION:-latest}"
+    environment:
+      <<: *env-common
+      <<: *env-cache
+      <<: *env-mb
+      rpc_handler_address: ${RPC_HANDLER_ADDRESS}
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+      - redis
+
+  product-biz:
+    image: "hirikarate/icommerce-product-biz:${VERSION:-latest}"
+    environment:
+      <<: *env-common
+      <<: *env-db
+      <<: *env-mb
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+    depends_on:
+      - rabbitmq
+
+  search-biz:
+    image: "hirikarate/icommerce-search-biz:${VERSION:-latest}"
+    environment:
+      <<: *env-common
+      <<: *env-mb
+      <<: *env-aws
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+    depends_on:
+      - rabbitmq
+
+  statistics-biz:
+    image: "hirikarate/icommerce-statistics-biz:${VERSION:-latest}"
+    environment:
+      <<: *env-common
+      <<: *env-db
+      <<: *env-mb
+    networks:
+      - nab-net
+    deploy:
+      replicas: 1
+    depends_on:
+      - rabbitmq

@@ -7,10 +7,8 @@
 		"dev": "lerna run dev",
 		"start": "lerna run start",
 		"build": "lerna run build",
-		"dedup": "lerna run dedup",
 		"test": "lerna run test",
-		"lint": "eslint **/*.ts --fix",
-		"linkPackages": "node ./scripts/linkPackages.js"
+		"lint": "eslint **/*.ts --fix"
 	},
 	"devDependencies": {
 		"@micro-fleet/id-generator": "2.4.0-rc1",

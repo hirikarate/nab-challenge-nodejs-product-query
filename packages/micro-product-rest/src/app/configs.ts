@@ -3,6 +3,7 @@ import * as path from 'path'
 import { constants } from '@micro-fleet/common'
 
 import { Auth as A } from './constants/AuthSettingKeys'
+import { RPCCaller } from './constants/RPCCallerSettingKeys'
 
 
 const {
@@ -29,6 +30,7 @@ export = {
 	[M.MSG_BROKER_EXCHANGE]: 'amq.topic',
 	[M.MSG_BROKER_MSG_EXPIRE]: 30e3,
 	[RPC.RPC_CALLER_TIMEOUT]: 30e3,
+	[RPCCaller.HANDLER_ADDRESS]: 'localhost:8181',
 	[W.WEB_PORT]: 3000,
 	[W.WEB_URL_PREFIX]: '/api/v1',
 	[W.WEB_CORS]: '*',

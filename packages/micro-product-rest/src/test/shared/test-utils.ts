@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import * as randomstring from 'randomstring'
 import * as moment from 'moment'
 

@@ -6,10 +6,9 @@ RUN apk add --update --virtual .dev-dep git openssh build-base ca-certificates p
 
 # This layer is only re-built when package.json is updated
 RUN mkdir -m 777 -p /usr/src
-COPY package.json /usr/src
+COPY yarn.lock ./packages/micro-search-biz/package.json /usr/src/
 WORKDIR /usr/src
-RUN npm install --production --no-cache
-RUN npm install @event-checkin/contracts@=2.3.0
+RUN yarn install --production --ignore-engines && yarn cache clean
 
 # Uninstall development dependencies and clear caches to keep the image tiny.
 RUN rm -rf /var/lib/apk/lists/* && \
@@ -18,7 +17,7 @@ RUN rm -rf /var/lib/apk/lists/* && \
 
 # Copy the entire project
 # This layer is rebuilt when a file changes in the project directory
-COPY . .
+COPY ./packages/micro-search-biz .
 
 # This results in a single layer image
 FROM node:12-alpine

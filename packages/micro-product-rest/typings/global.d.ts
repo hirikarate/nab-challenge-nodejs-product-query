@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 declare module 'ts-sinon' {
 	import * as sinon from 'sinon'
 
