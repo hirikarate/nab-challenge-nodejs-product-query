@@ -1,0 +1,36 @@
+service: shared-gateway
+
+plugins:
+  - serverless-import-config-plugin
+
+custom:
+  import: ../_shared/resources/common-custom.yml
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 512
+  timeout: 30
+  region: ${file(../../config.js):appConfig.awsRegion}
+  logRetentionInDays: ${self:custom.logRetentionInDays}
+  versionFunctions: false
+
+resources:
+  Resources:
+    SharedGW:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: SharedGW
+  Outputs:
+    apiGatewayRestApiId:
+      Value:
+        Ref: SharedGW
+      Export:
+        Name: SharedGW-restApiId
+    apiGatewayRestApiRootResourceId:
+      Value:
+        Fn::GetAtt:
+          - SharedGW
+          - RootResourceId
+      Export:
+        Name: SharedGW-rootResourceId

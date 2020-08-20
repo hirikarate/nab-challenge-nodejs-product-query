@@ -1,0 +1,15 @@
+
+custom:
+  logRetentionInDays: 7
+  bundle:
+    sourcemaps: true
+    caching: true
+    stats: false
+    linting: false
+    ignorePackages:
+      - pg-native
+    fixPackages:
+      - "formidable@1.x"
+  prune:
+    automatic: true
+    number: 3

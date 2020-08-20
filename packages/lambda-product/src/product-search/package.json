@@ -1,0 +1,12 @@
+{
+    "name": "nab-product-search-api",
+    "description": "Lambda API for NAB product search",
+    "private": true,
+    "scripts": {
+      "build": "serverless package --stage dev",
+      "build:prod": "serverless package --stage prod",
+      "deploy": "serverless deploy --stage dev",
+      "deploy:prod": "serverless deploy --stage prod",
+      "test": "npm run --prefix ../../ test:base \"test/product-search/**/*.spec.js\""
+    }
+}

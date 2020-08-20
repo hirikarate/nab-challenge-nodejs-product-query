@@ -1,0 +1,19 @@
+lambdaPolicyXRay:
+  Effect: Allow
+  Action:
+    - xray:PutTraceSegments
+    - xray:PutTelemetryRecords
+  Resource: "*"
+
+lambdaPolicySecretManager:
+  Effect: Allow
+  Action:
+    - secretsmanager:GetSecretValue
+  Resource: "arn:aws:secretsmanager:*:*:*"
+
+lambdaPolicyParameterStore:
+  Effect: Allow
+  Action:
+    - ssm:GetParameter
+    - ssm:GetParameters
+  Resource: "arn:aws:ssm:*:*:*"

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": "./",
+    "skipLibCheck": false,
+    "paths": {
+      "~src/*": ["./src/*"],
+      "~shared/*": ["./src/_shared/*"],
+      "~shared-test/*": ["./test/_shared/*"]
+    }
+  }
+}

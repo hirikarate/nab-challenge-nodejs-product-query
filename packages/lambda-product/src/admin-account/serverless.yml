@@ -1,0 +1,109 @@
+service: NabICommerce
+
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-plugin-warmup
+  - serverless-prune-plugin
+  - serverless-import-config-plugin
+
+custom:
+  import: ../_shared/resources/common-customs.yml
+  warmup:
+    memorySize: 128
+    events:
+      - schedule: 'rate(6 minutes)'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: ${self:custom.stageRegion.${opt:stage, 'dev'}}
+  timeout: 20
+  logRetentionInDays: ${self:custom.logRetentionInDays.${self:custom.stage}}
+  versionFunctions: ${self:custom.stageVersions.${self:custom.stage}}
+  environment:
+    SLS_ENV: ${self:custom.stage, 'dev'}
+    SLS_SENTRY: ${self:custom.sentrySecret}
+  tracing:
+    apiGateway: true
+    lambda: true
+
+  apiGateway:
+    restApiId:
+      "Fn::ImportValue": SharedGW-NabICommerce
+    restApiRootResourceId:
+      "Fn::ImportValue": SharedGW-NabICommerceRoot
+    minimumCompressionSize: 1024
+
+  apiKeys:
+    - NabICommerce-${opt:stage, 'dev'}
+
+  usagePlan:
+    quota:
+      limit: 1000
+      offset: 0
+      period: DAY
+    throttle:
+      burstLimit: 2000
+      rateLimit: 1000
+
+  iamRoleStatements:
+    - ${file(../_shared/resources/common-policies.yml):lambdaPolicyXRay}
+    - ${file(../_shared/resources/common-policies.yml):lambdaPolicySecretManager}
+    - ${file(../_shared/resources/common-policies.yml):lambdaPolicyParameterStore}
+    - ${file(../_shared/resources/common-policies.yml):lambdaPolicyWarmUp}
+
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource: "arn:aws:sqs:*:*:*"
+
+    - Effect: Allow
+      Action:
+        - ses:*
+      Resource: "arn:aws:ses:*:*:*"
+
+functions:
+  getAdminAccount:
+    handler: getAdminAccount.handler
+    events:
+      - http:
+          path: /admin-account/{locationId}
+          method: get
+          private: true
+    warmup:
+      enabled: true
+
+  updateAdminAccount:
+    handler: updateAdminAccount.handler
+    events:
+      - http:
+          path: /admin-account/{locationId}/update
+          method: put
+          private: true
+
+  forgotPinNumberByEmail:
+    handler: forgot-pin-number/forgotPinNumberByEmail.handler
+    events:
+      - http:
+          path: /forgot-pin-number/{locationId}/send-by-email
+          method: get
+          private: true
+    environment:
+      fromEmail: ${file(../../config.${opt:stage, 'dev'}.js):appConfig.fromEmail}
+      stage: ${opt:stage, 'dev'}
+
+  forgotPinNumberBySMS:
+    handler: forgot-pin-number/forgotPinNumberBySMS.handler
+    events:
+      - http:
+          path: /forgot-pin-number/{locationId}/send-by-sms
+          method: get
+          private: true
+    environment:
+      stage: ${opt:stage, 'dev'}
+      customerSendSMSQueueUrl: ${file(../../config.${opt:stage, 'dev'}.js):sqs.customerSendSMSQueueUrl}
