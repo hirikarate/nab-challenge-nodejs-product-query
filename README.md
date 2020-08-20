@@ -44,7 +44,7 @@
 - Import Postman environment for [microservice](./packages/docs/source/NAB-Challenge-Container.postman_environment.json) and [Lambda](./packages/docs/source/NAB-Challenge-Lambda.postman_environment.json) in folder `packages/docs/source`
 - Import [Postman collection](./packages/docs/source/NAB-iCommerce.postman_collection.json) in folder `packages/docs/source`
 - Select environment **"NAB Challenge - Lambda"**
-- Only two APIs `Product > Filter products` and `Product > Advanced search product` are working now. Other APIs require spinning up the microservice implementation.
+- Two Lambda APIs `Product > Filter products` and `Product > Advanced search product` were deployed and are live now. Other APIs require spinning up the microservice implementation, please refer to [/packages/docs/microservice.md](/packages/docs/microservice.md).
 
 
 Notes:
