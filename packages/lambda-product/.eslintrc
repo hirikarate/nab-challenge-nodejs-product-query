@@ -1,0 +1,35 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es6": true,
+    "mocha": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    /* Variables */
+    "no-unused-vars": "off",
+    "no-alert": "error",
+    "no-undef": "warn",
+    "no-shadow": [
+      "warn", // Just warning for now to be compatible with existing codebase.
+      { "builtinGlobals": true, "hoist": "all" }
+    ],
+    /* NodeJS and CommonJS */
+    "callback-return": "warn",
+    "handle-callback-err": "error",
+    "no-mixed-requires": "error",
+    /* Style codes */
+    "no-console": "off",
+    "array-callback-return": "warn",
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  }
+}
