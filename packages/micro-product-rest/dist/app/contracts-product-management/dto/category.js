@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetCategoryListResponse = exports.CategoryListItem = exports.GetCategoryListRequest = exports.GetSingleCategoryResponse = exports.GetCategoryByIdRequest = exports.EditCategoryResponse = exports.EditCategoryRequest = exports.DeleteCategoryResponse = exports.DeleteCategoryRequest = exports.CreateCategoryResponse = exports.CreateCategoryRequest = exports.Action = exports.MODULE_NAME = void 0;
+exports.GetCategoryListResponse = exports.CategoryListItem = exports.GetCategoryListRequest = exports.GetSingleCategoryResponse = exports.GetCategoryByIdRequest = exports.CheckCategoryExistingResponse = exports.CheckCategoryExistingRequest = exports.EditCategoryResponse = exports.EditCategoryRequest = exports.DeleteCategoryResponse = exports.DeleteCategoryRequest = exports.CreateCategoryResponse = exports.CreateCategoryRequest = exports.Action = exports.MODULE_NAME = void 0;
 const joi = require("@hapi/joi");
 const common_1 = require("@micro-fleet/common");
 const dto_base_1 = require("./dto-base");
@@ -19,6 +19,7 @@ var Action;
 (function (Action) {
     Action["CREATE"] = "create";
     Action["EDIT"] = "edit";
+    Action["EXISTS"] = "exists";
     Action["HARD_DELETE"] = "hardDelete";
     Action["GET_BY_ID"] = "getById";
     Action["GET_LIST"] = "getList";
@@ -110,6 +111,31 @@ class EditCategoryResponse extends dto_base_1.ResultResponse {
 }
 exports.EditCategoryResponse = EditCategoryResponse;
 // #endregion Edit
+// #region Check existing
+class CheckCategoryExistingRequest extends common_1.Translatable {
+    constructor() {
+        super(...arguments);
+        this.id = undefined;
+        this.name = undefined;
+    }
+}
+__decorate([
+    common_1.decorators.bigint(),
+    __metadata("design:type", String)
+], CheckCategoryExistingRequest.prototype, "id", void 0);
+__decorate([
+    common_1.decorators.string({ minLength: 3, maxLength: 100 }),
+    __metadata("design:type", String)
+], CheckCategoryExistingRequest.prototype, "name", void 0);
+exports.CheckCategoryExistingRequest = CheckCategoryExistingRequest;
+class CheckCategoryExistingResponse extends dto_base_1.ResultResponse {
+    constructor() {
+        super(...arguments);
+        this.isExisting = undefined;
+    }
+}
+exports.CheckCategoryExistingResponse = CheckCategoryExistingResponse;
+// #endregion Check existing
 // #region Get by ID
 class GetCategoryByIdRequest extends common_1.Translatable {
     constructor() {

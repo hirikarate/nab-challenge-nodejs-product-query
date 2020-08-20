@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetBranchListResponse = exports.BranchListItem = exports.GetBranchListRequest = exports.GetSingleBranchResponse = exports.GetBranchByIdRequest = exports.EditBranchResponse = exports.EditBranchRequest = exports.DeleteBranchResponse = exports.DeleteBranchRequest = exports.CreateBranchResponse = exports.CreateBranchRequest = exports.Action = exports.MODULE_NAME = void 0;
+exports.GetBranchListResponse = exports.BranchListItem = exports.GetBranchListRequest = exports.GetSingleBranchResponse = exports.GetBranchByIdRequest = exports.CheckBranchExistingResponse = exports.CheckBranchExistingRequest = exports.EditBranchResponse = exports.EditBranchRequest = exports.DeleteBranchResponse = exports.DeleteBranchRequest = exports.CreateBranchResponse = exports.CreateBranchRequest = exports.Action = exports.MODULE_NAME = void 0;
 const joi = require("@hapi/joi");
 const common_1 = require("@micro-fleet/common");
 const dto_base_1 = require("./dto-base");
@@ -19,6 +19,7 @@ var Action;
 (function (Action) {
     Action["CREATE"] = "create";
     Action["EDIT"] = "edit";
+    Action["EXISTS"] = "exists";
     Action["HARD_DELETE"] = "hardDelete";
     Action["GET_BY_ID"] = "getById";
     Action["GET_LIST"] = "getList";
@@ -110,6 +111,31 @@ class EditBranchResponse extends dto_base_1.ResultResponse {
 }
 exports.EditBranchResponse = EditBranchResponse;
 // #endregion Edit
+// #region Check existing
+class CheckBranchExistingRequest extends common_1.Translatable {
+    constructor() {
+        super(...arguments);
+        this.id = undefined;
+        this.name = undefined;
+    }
+}
+__decorate([
+    common_1.decorators.bigint(),
+    __metadata("design:type", String)
+], CheckBranchExistingRequest.prototype, "id", void 0);
+__decorate([
+    common_1.decorators.string({ minLength: 3, maxLength: 100 }),
+    __metadata("design:type", String)
+], CheckBranchExistingRequest.prototype, "name", void 0);
+exports.CheckBranchExistingRequest = CheckBranchExistingRequest;
+class CheckBranchExistingResponse extends dto_base_1.ResultResponse {
+    constructor() {
+        super(...arguments);
+        this.isExisting = undefined;
+    }
+}
+exports.CheckBranchExistingResponse = CheckBranchExistingResponse;
+// #endregion Check existing
 // #region Get by ID
 class GetBranchByIdRequest extends common_1.Translatable {
     constructor() {

@@ -3,7 +3,7 @@
 const debug: debug.IDebugger = require('debug')('nab:repo:product')
 
 import { QueryBuilder } from 'objection'
-import { decorators as cd, PagedData } from '@micro-fleet/common'
+import { decorators as cd, PagedData, Maybe } from '@micro-fleet/common'
 import * as p from '@micro-fleet/persistence'
 
 import { ProductStatus } from '../contracts/constants-shared'
@@ -50,11 +50,28 @@ export class ProductRepository extends p.PgCrudRepositoryBase<ProductORM, Produc
 	/**
 	 * @override
 	 */
+	public async patch(domainModel: Partial<Product>,
+		opts: p.RepositoryPatchOptions = {}): Promise<Maybe<Partial<Product>>> {
+
+		return super
+			.patch(domainModel, opts)
+			.catch(err => {
+				if (err.message?.includes('does not exist')) {
+					return Maybe.Nothing()
+				}
+				return Promise.reject(err)
+			})
+	}
+
+	/**
+	 * @override
+	 */
 	protected $buildPatchQuery(query: QueryBuilder<ProductORM>, model: Partial<Product>,
 		ormModel: ProductORM): p.QueryCallbackReturn {
 
-		const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false })
-		return q.returning('*') as any
+		return query
+			.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false })
+			.returning('*') as any
 	}
 
 

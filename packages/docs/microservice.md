@@ -25,8 +25,20 @@ The quickest way is to spin up a group of Docker Swarm services that I already c
 - Import Postman environment for [microservice](./source/NAB-Challenge-Container.postman_environment.json) and [Lambda](./source/NAB-Challenge-Lambda.postman_environment.json) in folder `packages/docs/source`
 - Import [Postman collection](./packages/docs/source/NAB-iCommerce.postman_collection.json) in folder `packages/docs/source`
 - Select environment **"NAB Challenge - Container"**
+- Pick a request sample to execute
+- Response format:
+  * **Operation completes with successful result:** Status: `200`. Body: `{ hasData: true, otherFields: ... }`
+  * **Operation completes with business rule violations:** Status: `200`. Body: `{ hasData: false, error: ... }`
+  * **Operation completes with input validation error:** Status: `422`. Body: Error details.
+  * **Operation fails due to server fault:** Status: `500`.
+
+### Security
+
 - Only the two APIs "Filter products" and "Advanced search product" in Postman folder "Product" are public.
-- The others require access token in Authentication header (I already configured it for your convenience).
+- The others require access token in Authentication header (I already configured it for your convenience). Besides, there are other tokens for testing:
+  * Expired: `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2NjMsImV4cCI6MTU5Nzc4NTY5MywianRpIjoiMTU5Nzc4NTY2MzE3NyJ9.hRPjOeQtMBRZGjjEnbeeIPpeRSRu7X7yxPLxcbG5k-J0MzliyySlU0RwkdiaJq863kITHAIvHzDVDr_n6kD6ow`
+  * Not expired but blacklisted (e.g: User logged out): `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU1MTQsImV4cCI6MTYwMDM3NzUxNCwianRpIjoiMTU5Nzc4NTUxNDQ2NyJ9.fI-eW_1BmOylNbvx2rlbFrkvkKHOYaqY-w02P9RkdgfhaE299kuqfndEK2_3o452IBJdKYpDWIo41SlsaTLq8Q`
+  * Working: `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBDaGFsbGVuZ2UiLCJpYXQiOjE1OTc3ODU2MTIsImV4cCI6MTYwMDM3NzYxMiwianRpIjoiMTU5Nzc4NTYxMjY4NSJ9.DKVTLrhoQBz3H-BkJNM7Q3YMPxIY-CwRyusA2HzHmAcpmQi5l9RRR-rpymsUQniz-NH161G8TGGkempEvGBRHw`
 
 ## Available APIs
 - Branch CRUD (POST, PATCH, GET, DELETE)
@@ -34,7 +46,13 @@ The quickest way is to spin up a group of Docker Swarm services that I already c
 - Product CRUD
    - Creating, editing and deleting operations will update ElasticSearch indices also.
    - Getting by ID, filtering and searching will write audit logs to database table `nab_request_logs`.
-- Product filter and advanced search
+- Product filter and advanced search, including pagination and sorting.
+  * **Filter:** Can filter with name, color, price range, category, branch(es)
+  * **Searching:** Can search with keywords (name + color, e.g: "Rosy honda"), including filtering with price range, category, branch(es)
+
+## Unit tests
+
+The product creating flow is covered with unit test, please refer to folders: `packages/micro-product-rest/src/test` and `packages/micro-product-biz/src/test`
 
 ---
 

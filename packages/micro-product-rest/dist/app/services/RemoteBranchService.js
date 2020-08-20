@@ -39,6 +39,12 @@ let RemoteBranchService = class RemoteBranchService extends RemoteServiceBase_1.
         return this.$call(A.EDIT, request, dto.EditBranchResponse);
     }
     /**
+     * @see IBranchService.exists
+     */
+    exists(request) {
+        return this.$call(A.EXISTS, request, dto.CheckBranchExistingResponse);
+    }
+    /**
      * @see IBranchService.hardDeleteSingle
      */
     hardDeleteSingle(request) {

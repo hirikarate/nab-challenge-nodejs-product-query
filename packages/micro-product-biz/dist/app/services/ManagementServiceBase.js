@@ -122,6 +122,10 @@ let ManagementServiceBase = class ManagementServiceBase {
         return Promise.resolve(common_1.Maybe.Nothing());
     }
     // #endregion Edit
+    async $exists(params, ResponseClass, options) {
+        const isExisting = await this.$repo.exists(params, options);
+        return ResponseClass.from({ isExisting });
+    }
     // #region Get
     async $getById(params, ResponseClass, options) {
         const id = new common_1.SingleId(params.id);

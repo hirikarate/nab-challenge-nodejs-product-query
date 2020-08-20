@@ -60,6 +60,13 @@ export class CategoryService extends ManagementServiceBase<Category> implements 
 	}
 
 	/**
+	 * @see ICategoryService.exists
+	 */
+	public exists(params: dto.CheckCategoryExistingRequest): Promise<dto.CheckCategoryExistingResponse> {
+		return this.$exists(params, dto.CheckCategoryExistingResponse)
+	}
+
+	/**
 	 * @see ICategoryService.hardDeleteSingle
 	 */
 	public hardDeleteSingle(params: dto.DeleteCategoryRequest): Promise<dto.DeleteCategoryResponse> {

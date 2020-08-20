@@ -15,6 +15,11 @@ export interface ICategoryService {
 	edit: (params: dto.EditCategoryRequest) => Promise<dto.EditCategoryResponse>
 
 	/**
+	 * Checks whether a category exists or not.
+	 */
+	exists: (params: dto.CheckCategoryExistingRequest) => Promise<dto.CheckCategoryExistingResponse>
+
+	/**
 	 * Gets a category's details
 	 */
 	getById: (params: dto.GetCategoryByIdRequest) => Promise<dto.GetSingleCategoryResponse>

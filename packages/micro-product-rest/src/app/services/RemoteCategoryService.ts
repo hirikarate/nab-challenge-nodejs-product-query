@@ -33,6 +33,13 @@ export class RemoteCategoryService extends RemoteServiceBase implements ICategor
 	}
 
 	/**
+	 * @see ICategoryService.exists
+	 */
+	public exists(request: dto.CheckCategoryExistingRequest): Promise<dto.CheckCategoryExistingResponse> {
+		return this.$call(A.EXISTS, request, dto.CheckCategoryExistingResponse)
+	}
+
+	/**
 	 * @see ICategoryService.hardDeleteSingle
 	 */
 	public hardDeleteSingle(request: dto.DeleteCategoryRequest): Promise<dto.DeleteCategoryResponse> {

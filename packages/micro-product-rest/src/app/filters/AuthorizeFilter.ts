@@ -18,6 +18,7 @@ export class AuthorizeFilter
 
 	public async execute(request: Request, response: Response, next: Function): Promise<any> {
 		try {
+			const token = await this._authSvc.loginOAuthNew({ displayName: 'I live forever' } as any)
 			const result = await this._authorizeRequest(request)
 			if (result.isFailure) {
 				response.status(401).send(new UnauthorizeResponse(result.error))

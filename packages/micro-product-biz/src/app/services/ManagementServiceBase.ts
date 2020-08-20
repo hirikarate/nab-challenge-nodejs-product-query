@@ -163,6 +163,16 @@ export class ManagementServiceBase<TDomain extends object> {
 	// #endregion Edit
 
 
+	protected async $exists<T extends InstanceType<ResultResponseConstructor>>(
+		params: any,
+		ResponseClass: ResultResponseConstructor,
+		options?: p.RepositoryExistsOptions,
+	): Promise<T> {
+		const isExisting = await this.$repo.exists(params, options)
+		return ResponseClass.from({ isExisting })
+	}
+
+
 	// #region Get
 
 	protected async $getById<TC extends InstanceType<MaybeResponseConstructor>>(

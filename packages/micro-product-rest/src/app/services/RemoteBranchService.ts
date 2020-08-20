@@ -33,6 +33,13 @@ export class RemoteBranchService extends RemoteServiceBase implements IBranchSer
 	}
 
 	/**
+	 * @see IBranchService.exists
+	 */
+	public exists(request: dto.CheckBranchExistingRequest): Promise<dto.CheckBranchExistingResponse> {
+		return this.$call(A.EXISTS, request, dto.CheckBranchExistingResponse)
+	}
+
+	/**
 	 * @see IBranchService.hardDeleteSingle
 	 */
 	public hardDeleteSingle(request: dto.DeleteBranchRequest): Promise<dto.DeleteBranchResponse> {

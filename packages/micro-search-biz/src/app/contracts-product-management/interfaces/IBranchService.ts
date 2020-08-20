@@ -16,6 +16,11 @@ export interface IBranchService {
 	edit: (params: dto.EditBranchRequest) => Promise<dto.EditBranchResponse>
 
 	/**
+	 * Checks whether a branch exists or not.
+	 */
+	exists: (params: dto.CheckBranchExistingRequest) => Promise<dto.CheckBranchExistingResponse>
+
+	/**
 	 * Gets a branch's details
 	 */
 	getById: (params: dto.GetBranchByIdRequest) => Promise<dto.GetSingleBranchResponse>

@@ -14,6 +14,7 @@ export const MODULE_NAME = 'nabCategoryManagement'
 export enum Action {
 	CREATE = 'create',
 	EDIT = 'edit',
+	EXISTS = 'exists',
 	HARD_DELETE = 'hardDelete',
 	GET_BY_ID = 'getById',
 	GET_LIST = 'getList',
@@ -85,6 +86,23 @@ export class EditCategoryResponse extends ResultResponse {
 }
 
 // #endregion Edit
+
+
+// #region Check existing
+
+export class CheckCategoryExistingRequest extends Translatable {
+	@d.bigint()
+	public readonly id?: string = undefined
+
+	@d.string({ minLength: 3, maxLength: 100 })
+	public readonly name?: string = undefined
+}
+
+export class CheckCategoryExistingResponse extends ResultResponse {
+	public isExisting: boolean = undefined
+}
+
+// #endregion Check existing
 
 
 // #region Get by ID

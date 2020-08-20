@@ -39,6 +39,12 @@ let RemoteCategoryService = class RemoteCategoryService extends RemoteServiceBas
         return this.$call(A.EDIT, request, dto.EditCategoryResponse);
     }
     /**
+     * @see ICategoryService.exists
+     */
+    exists(request) {
+        return this.$call(A.EXISTS, request, dto.CheckCategoryExistingResponse);
+    }
+    /**
      * @see ICategoryService.hardDeleteSingle
      */
     hardDeleteSingle(request) {

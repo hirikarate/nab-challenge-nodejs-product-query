@@ -55,6 +55,12 @@ let CategoryService = class CategoryService extends ManagementServiceBase_1.Mana
         return this.$edit(params, dto.EditCategoryResponse);
     }
     /**
+     * @see ICategoryService.exists
+     */
+    exists(params) {
+        return this.$exists(params, dto.CheckCategoryExistingResponse);
+    }
+    /**
      * @see ICategoryService.hardDeleteSingle
      */
     hardDeleteSingle(params) {

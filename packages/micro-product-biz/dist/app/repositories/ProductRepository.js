@@ -43,9 +43,24 @@ let ProductRepository = class ProductRepository extends p.PgCrudRepositoryBase {
     /**
      * @override
      */
+    async patch(domainModel, opts = {}) {
+        return super
+            .patch(domainModel, opts)
+            .catch(err => {
+            var _a;
+            if ((_a = err.message) === null || _a === void 0 ? void 0 : _a.includes('does not exist')) {
+                return common_1.Maybe.Nothing();
+            }
+            return Promise.reject(err);
+        });
+    }
+    /**
+     * @override
+     */
     $buildPatchQuery(query, model, ormModel) {
-        const q = query.upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false });
-        return q.returning('*');
+        return query
+            .upsertGraph([ormModel], { relate: true, unrelate: true, insertMissing: false })
+            .returning('*');
     }
     /**
      * @see IRepository.pageActive

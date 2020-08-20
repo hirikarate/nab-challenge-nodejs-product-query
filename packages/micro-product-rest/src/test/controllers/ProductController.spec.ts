@@ -3,7 +3,7 @@
 import * as path from 'path'
 
 import { expect } from 'chai'
-import axios, { AxiosResponse, AxiosError } from 'axios'
+import axios, { AxiosResponse, AxiosError, AxiosInstance } from 'axios'
 import * as sinon from 'sinon'
 import { stubInterface } from 'ts-sinon'
 import {
@@ -18,8 +18,10 @@ import {
 	ErrorHandlerFilter,
 } from '@micro-fleet/web'
 
-import * as dto from '../../app/contracts-product-management/dto/product'
+import * as pdto from '../../app/contracts-product-management/dto/product'
 import { IProductService } from '../../app/contracts-product-management/interfaces/IProductService'
+import { DecodeAccessTokenResponse } from '../../app/contracts/dto/auth'
+import { IAuthService } from '../../app/contracts/interfaces/IAuthService'
 import { Types as T } from '../../app/constants/Types'
 import ProductController from '../../app/controllers/ProductController'
 import { createExpressMockServer } from '../shared/mock-web-addon'
@@ -35,11 +37,16 @@ const { Web: W } = constants
 const PORT = 31000
 const URL_PREFIX = '/api/v1'
 const BASE_URL = `http://localhost:${PORT}${URL_PREFIX}/products`
+const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaXNwbGF5TmFtZSI6Ik5BQiBD'
+	+ 'aGFsbGVuZ2UiLCJpYXQiOjE1OTc5MjU3NjIsImV4cCI6NDc1MzY4NTc2MiwianRpIjoiMTU5NzkyNTc2'
++ 'MjYzNyJ9.XK0Dhc49jqKK3QVGs3Smwr5GZ6pxQIXOVsc9s0evlKhcpBUE9ZXpJ7BPOC27NZmLe7SIxu0hVdLDnTC_LJddKw'
+
 
 describe('ProductController', () => {
 
 	let server: ExpressServerAddOn
 	let depContainer: DependencyContainer
+	let axiosInstance: AxiosInstance
 
 	function createServer(configs: object = {}): ExpressServerAddOn {
 		({ server, depContainer } = createExpressMockServer({ configs }))
@@ -56,6 +63,18 @@ describe('ProductController', () => {
 			[W.WEB_PORT]: PORT,
 		})
 		server.addGlobalErrorHandler(ErrorHandlerFilter)
+		axiosInstance = axios.create({
+			baseURL: BASE_URL,
+			timeout: 1000,
+			headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+		})
+
+		const authSvc = stubInterface<IAuthService>()
+		authSvc.decodeAccessToken.resolves(DecodeAccessTokenResponse.from(<DecodeAccessTokenResponse>{
+			hasData: true,
+			displayName: 'Unit test runner',
+		}))
+		depContainer.bindConstant(T.AUTH_SVC, authSvc)
 	})
 
 	afterEach(async () => {
@@ -82,7 +101,7 @@ describe('ProductController', () => {
 
 			await server.init()
 			try {
-				await axios.post(`${BASE_URL}`, payload)
+				await axiosInstance.post('/', payload)
 				expect(true, 'Should not reach here').to.be.false
 			}
 			catch (err) {
@@ -102,6 +121,32 @@ describe('ProductController', () => {
 			}
 		})
 
+		it('Should respond with 401 status if request is not authorized', async () => {
+			// Arrange
+			const productService = stubInterface<IProductService>()
+			depContainer.bindConstant(T.PRODUCT_DIRECT_SVC, productService)
+			depContainer.bindConstant(T.PRODUCT_MEDIATE_SVC, productService)
+
+			const payload = { // Invalid request payload
+				name: randomString(2),
+				price: randomInt(-100, -1),
+				color: randomString(51),
+				branchIds: '12Three45',
+				status: randomInt(3, 10),
+			}
+
+			await server.init()
+			try {
+				await axios.post(BASE_URL, payload) // Use default axios instance
+				expect(true, 'Should not reach here').to.be.false
+			}
+			catch (err) {
+				// Assert: Unauthorize status code, not validation error
+				expect((err as AxiosError).response.status).to.equal(401)
+				expect((err as AxiosError).response.statusText).to.equal('Unauthorized')
+			}
+		})
+
 		it('Should pass correct params to service method', async () => {
 			// Arrange
 			const payload = {
@@ -112,10 +157,10 @@ describe('ProductController', () => {
 				categoryId: randomBigInt(),
 				status: randomInt(0, 2),
 			}
-			const expectedRequest = dto.CreateProductRequest.from(payload)
+			const expectedRequest = pdto.CreateProductRequest.from(payload)
 
 			const productService = stubInterface<IProductService>()
-			productService.create.resolves(new dto.CreateProductResponse(false))
+			productService.create.resolves(new pdto.CreateProductResponse(false))
 			depContainer.bindConstant(T.PRODUCT_DIRECT_SVC, productService)
 			depContainer.bindConstant(T.PRODUCT_MEDIATE_SVC, productService)
 
@@ -126,7 +171,7 @@ describe('ProductController', () => {
 			// Act
 			let response: AxiosResponse
 			try {
-				response = await axios.post(`${BASE_URL}`, payload)
+				response = await axiosInstance.post('/', payload)
 			}
 			catch (err) {
 				// console.error(err.response)
@@ -149,7 +194,7 @@ describe('ProductController', () => {
 				categoryId: randomBigInt(),
 				status: randomInt(0, 2),
 			}
-			const expectedResponse = dto.CreateProductResponse.from({
+			const expectedResponse = pdto.CreateProductResponse.from({
 				...payload,
 				id: randomBigInt(),
 				createdAt: randomMoment().format(),
@@ -168,7 +213,7 @@ describe('ProductController', () => {
 			// Act
 			let response: AxiosResponse
 			try {
-				response = await axios.post(`${BASE_URL}`, payload)
+				response = await axiosInstance.post('/', payload)
 			}
 			catch (err) {
 				// console.error(err.response)
@@ -200,7 +245,7 @@ describe('ProductController', () => {
 
 			await server.init()
 			try {
-				await axios.post(`${BASE_URL}`, payload)
+				await axiosInstance.post('/', payload)
 				expect(true, 'Should not reach here').to.be.false
 			}
 			catch (err) {

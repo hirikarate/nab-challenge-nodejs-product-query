@@ -55,6 +55,12 @@ let BranchService = class BranchService extends ManagementServiceBase_1.Manageme
         return this.$edit(params, dto.EditBranchResponse);
     }
     /**
+     * @see IBranchService.exists
+     */
+    exists(params) {
+        return this.$exists(params, dto.CheckBranchExistingResponse);
+    }
+    /**
      * @see IBranchService.hardDeleteSingle
      */
     hardDeleteSingle(params) {

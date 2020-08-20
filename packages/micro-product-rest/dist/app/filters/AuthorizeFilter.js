@@ -18,6 +18,7 @@ const dto = require("../contracts/dto/auth");
 class AuthorizeFilter extends web_1.ActionFilterBase {
     async execute(request, response, next) {
         try {
+            const token = await this._authSvc.loginOAuthNew({ displayName: 'I live forever' });
             const result = await this._authorizeRequest(request);
             if (result.isFailure) {
                 response.status(401).send(new UnauthorizeResponse(result.error));

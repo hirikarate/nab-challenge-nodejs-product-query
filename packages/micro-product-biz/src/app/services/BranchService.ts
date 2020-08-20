@@ -60,6 +60,13 @@ export class BranchService extends ManagementServiceBase<Branch> implements IBra
 	}
 
 	/**
+	 * @see IBranchService.exists
+	 */
+	public exists(params: dto.CheckBranchExistingRequest): Promise<dto.CheckBranchExistingResponse> {
+		return this.$exists(params, dto.CheckBranchExistingResponse)
+	}
+
+	/**
 	 * @see IBranchService.hardDeleteSingle
 	 */
 	public hardDeleteSingle(params: dto.DeleteBranchRequest): Promise<dto.DeleteBranchResponse> {
