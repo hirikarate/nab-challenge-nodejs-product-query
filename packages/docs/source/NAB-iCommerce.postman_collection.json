@@ -33,8 +33,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/branches",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/branches",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -72,8 +72,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/branches",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/branches",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -114,8 +114,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/branches/6701222859043241984",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/branches/6701222859043241984",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -157,8 +157,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/branches/?sortBy=name&sortType=desc",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/branches/?sortBy=name&sortType=desc",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -213,8 +213,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/categories",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/categories",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -252,8 +252,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/categories",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/categories",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -294,8 +294,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/categories/41438515560448",
-							"protocol": "http",
+							"raw": "{{protocol}}://localhost:3000/api/v1/categories/41438515560448",
+							"protocol": "{{protocol}}",
 							"host": [
 								"localhost"
 							],
@@ -338,8 +338,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/categories?sortBy=name&sortType=desc",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/categories?sortBy=name&sortType=desc",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -387,8 +387,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/categories/41438515560448",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/categories/41438515560448",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -433,8 +433,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -473,8 +473,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -516,8 +516,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -577,8 +577,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc&fields=id&fields=name&fields=color&relations=category",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/?pageIndex=1&pageSize=10&sortBy=price&sortType=desc&fields=id&fields=name&fields=color&relations=category",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -654,8 +654,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/6701624969262006279?fields=name&relations=category&relations=branches",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/6701624969262006279?fields=name&relations=category&relations=branches",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -714,8 +714,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/search/6701624969262006279?fields=name&relations=category&relations=branches",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/search/6701624969262006279?fields=name&relations=category&relations=branches",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -764,7 +764,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -772,14 +772,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/search/filter?name=scooter&color=dark&branchIds=6701222859043241984&branchIds=6701222859064213504&categoryIds=6701222859118739456&categoryIds=6701222859118739457&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/products/search/filter?name=scooter&color=dark&branchIds=6701222859043241984&branchIds=6701222859064213504&categoryIds=6701222859118739456&categoryIds=6701222859118739457&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"search",
 								"filter"
@@ -840,7 +838,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"123986493059366912\",\r\n    \"name\": \"Australian totoro\",\r\n    \"color\": \"More red violet\",\r\n    \"price\": 36000,\r\n    \"categoryId\": \"123414608517005312\",\r\n    \"branchIds\": \"123432523412799488\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -848,14 +846,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/search/advanced?keywords=honda&branchIds=6701222859064213504&categoryIds=6701222859118739456&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/products/search/advanced?keywords=red honda&branchIds=6701222859064213504&categoryIds=6701222859118739456&sortBy=price&sortType=desc&pageIndex=1&pageSize=10",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"search",
 								"advanced"
@@ -863,7 +859,7 @@
 							"query": [
 								{
 									"key": "keywords",
-									"value": "honda"
+									"value": "red honda"
 								},
 								{
 									"key": "branchIds",
@@ -939,8 +935,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products/6701222859160682497",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products/6701222859160682497",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
@@ -979,8 +975,8 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/v1/products?ids=6701222859156488195&ids=6701222859156488196&ids=6701222859160682496",
-							"protocol": "http",
+							"raw": "{{protocol}}://{{host}}/api/v1/products?ids=6701222859156488195&ids=6701222859156488196&ids=6701222859160682496",
+							"protocol": "{{protocol}}",
 							"host": [
 								"{{host}}"
 							],
